@@ -1,4 +1,9 @@
 package fungorium;
 
-public class Spore {
+public abstract class Spore implements ISpore {
+
+    @Override
+    public String toString() {
+        return "spore";
+    }
 }
