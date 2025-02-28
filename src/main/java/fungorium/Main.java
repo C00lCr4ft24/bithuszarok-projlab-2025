@@ -18,7 +18,17 @@ public class Main {
 
         System.out.println(insect.getEatenSpores());
 
-        tec1.setCurrentFungus(new Fungus());
-        tec1.doEffect();
+        System.out.println("\n");
+
+        Fungus newFungus = new Fungus();
+
+        System.out.println("uj fungus amit novesztenenk: " + newFungus);
+        System.out.println("tec1 fungusa: " + tec1.getCurrentFungus());
+        try {
+            System.out.println("trying...");
+            tec1.setCurrentFungus(newFungus);
+            tec1.doEffect();
+        } catch (Exception e) { System.out.println("ilyent nem lehet csinálni"); }
+        System.out.println(tec1.getCurrentFungus());
     }
 }

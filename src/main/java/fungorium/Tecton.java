@@ -20,7 +20,7 @@ public abstract class Tecton implements ITecton {
     public void setCurrentMycelium(Mycelium currentMycelium) { this.currentMycelium = currentMycelium; }
     public Mycelium getCurrentMycelium() { return currentMycelium; }
 
-    public void setCurrentFungus(Fungus currentFungus) { this.currentFungus = currentFungus; System.out.println(currentFungus + " grew on " + this); }
+    public void setCurrentFungus(Fungus currentFungus) { this.currentFungus = currentFungus; }
     public Fungus getCurrentFungus() { return currentFungus; }
 
     public void addSpore(Spore spore) { this.spores.add(spore); }

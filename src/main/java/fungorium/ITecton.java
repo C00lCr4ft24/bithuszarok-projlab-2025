@@ -2,5 +2,5 @@ package fungorium;
 
 public interface ITecton {
 
-    public void doEffect();
+    public void doEffect() throws Exception;
 }
