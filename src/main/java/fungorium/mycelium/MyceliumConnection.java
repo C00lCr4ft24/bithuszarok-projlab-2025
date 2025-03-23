@@ -4,27 +4,31 @@ import fungorium.FungoriumEntity;
 
 public class MyceliumConnection implements FungoriumEntity {
 
-    private int lifeTime;
-    private MyceliumJunction fromJunction;
-    private MyceliumJunction toJunction;
+    private int lifetime = -1;
+    private MyceliumJunction junctionA;
+    private MyceliumJunction junctionB;
 
     public MyceliumConnection() { System.out.println("New MyceliumConnection created: " + this); }
 
     public MyceliumConnection(MyceliumJunction from, MyceliumJunction to) {
         System.out.println("New MyceliumConnection created: " + this);
-        fromJunction = from;
-        toJunction = to;
+        junctionA = from;
+        junctionB = to;
     }
 
     public void cutMe() {
         printAction("cutMe");
-        fromJunction = null;
-        toJunction = null;
+        junctionA.removeConnection(this);
+        junctionB.removeConnection(this);
+        junctionA = null;
+        junctionB = null;
     }
 
-    public void setLifeTime(int lifeTime) {
-        printAction("setLifeTime");
-        this.lifeTime = lifeTime;
+    public void setLifetime(int lifetime) {
+        if(lifetime < 0) {
+            printAction("setLifeTime");
+            this.lifetime = lifetime;
+        }
     }
 
     @Override
