@@ -28,7 +28,9 @@ public class Skeleton{
      */
     public Skeleton() {
         commands = new HashMap<>();
-        commands.put(1, null);
+        commands.put(1, this::emptyTectonBreaking);
+        commands.put(2, this::brokenTectonBreakingAgain);
+        commands.put(3, this::fullTectonBreak);
     }
 
     public void start() {
@@ -310,6 +312,14 @@ public class Skeleton{
 
     public void emptyTectonBreaking() {
         emptyTectonBreakingInit();
+        
     }
 
+    public void brokenTectonBreakingAgain() {
+        brokenTectonBreakingAgainInit();
+    }
+
+    public void fullTectonBreak() {
+        fullTectonBreakInit();
+    }
 }
