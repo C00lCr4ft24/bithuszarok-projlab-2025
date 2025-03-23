@@ -10,11 +10,11 @@ import java.util.ArrayList;
 public class AntiFungusTecton extends Tecton {
 
     /**
-     * Létrehoz egy új AntiFungusTecton példányt a megadott MyceliumJunction-ok listájával.
+     * Létrehoz egy új AntiFungusTecton példányt a megadott szomszédos Tecton-ok alapján.
      *
-     * @param myceliumJunctions Azok a MyceliumJunction-ok, amelyek a Tecton-on elhelyezkednek.
+     * @param t A Tecton szomszédjai
      */
-    public AntiFungusTecton(ArrayList<MyceliumJunction> myceliumJunctions) { super(myceliumJunctions); }
+    public AntiFungusTecton(ArrayList<Tecton> t) { super(t); }
 
     /**
      * Létrehoz egy új, üres AntiFungusTecton példányt.

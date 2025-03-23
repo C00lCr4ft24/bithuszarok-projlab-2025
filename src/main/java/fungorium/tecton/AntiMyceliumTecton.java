@@ -11,19 +11,18 @@ import java.util.ArrayList;
 public class AntiMyceliumTecton extends Tecton {
 
     /**
-     * Létrehoz egy új AntiMyceliumTecton példányt a megadott MyceliumJunction-ok listájával.
+     * Létrehoz egy új AntiMyceliumTecton példányt a megadott szomszédos Tecton-ok alapján.
      *
-     * @param myceliumJunctions Azok a MyceliumJunction-ok, amelyek a Tecton-on elhelyezkednek.
+     * @param t A Tecton szomszédjai.
      */
-    public AntiMyceliumTecton(ArrayList<MyceliumJunction> myceliumJunctions) { super(myceliumJunctions); }
+    public AntiMyceliumTecton(ArrayList<Tecton> t) {super(t); }
 
     /**
      * Létrehoz egy új, üres AntiMyceliumTecton példányt.
      */
     public AntiMyceliumTecton() { super(); }
 
-    // Itt nem egyertelmu hogy a gameStep hogyan garantalja hogy Junction ne nohessen rajta
-    // Ha ez minden kor elejen/vegen lefut akkor max csak le lehetne szedni itt rola a ranovo Junctionoket
+
     /**
      * Játék lépés során beállítja a rajta lévő MyceliumJunction-ben található
      * MyceliumConnection-ek fennmaradó életét.

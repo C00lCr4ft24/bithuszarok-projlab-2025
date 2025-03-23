@@ -2,12 +2,10 @@ package fungorium.tecton;
 
 import fungorium.FungoriumEntity;
 import fungorium.mycelium.Fungus;
-import fungorium.mycelium.MyceliumConnection;
 import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 /**
  * A Tecton osztály a játéktér felszínét alkotó különálló kéregdarabok alapját képezi.
@@ -17,12 +15,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_SPORES_TO_GROW_FUNGUS = 2;
-
-    /**
-     * A Tecton-ra helyezhető MyceliumJunction-ok maximális száma.
-     */
-    protected static final int MAX_MYCELIUMJUNCTION_ON_TECTON = 5;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 10;
 
     /**
      * A Tecton-hoz tartozó spórák tárolója.
@@ -32,17 +25,13 @@ public class Tecton implements FungoriumEntity {
     /**
      * A Tecton-on található MyceliumJunction-ok tárolója.
      */
-    private ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
+    protected ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
 
     /**
      * A szomszédos Tecton-ok listája.
      */
     private ArrayList<Tecton> TectonN = new ArrayList<>();
 
-    /**
-     * A Tecton-on elhelyezkedő gombatest.
-     */
-    private Fungus fungus = null;
 
     /**
      * A Tecton állapota: törött vagy ép.
@@ -50,14 +39,13 @@ public class Tecton implements FungoriumEntity {
     private boolean isBroken = false;
 
     /**
-     * Létrehoz egy új Tecton példányt a megadott spórák, MyceliumJunction-ok, szomszédos Tecton-ok és gombatest alapján.
+     * Létrehoz egy új Tecton példányt a megadott szomszédos Tecton-ok alapján.
      *
-     * @param s A Tecton-hoz tartozó spórák.
-     * @param m A Tecton-on található MyceliumJunction-ok.
      * @param t A Tecton szomszédjai.
-     * @param f A Tecton-on található gombatest.
      */
-    public Tecton(ArrayList<Spore> s, ArrayList<MyceliumJunction> m, ArrayList<Tecton> t, Fungus f) {spores= s; myceliumJunctions=m;TectonN=t; fungus=f; }
+    public Tecton(ArrayList<Tecton> t) {
+        TectonN=t;
+    }
 
     /**
      * Létrehoz egy új, alapértelmezett Tecton példányt.
@@ -76,15 +64,6 @@ public class Tecton implements FungoriumEntity {
         this.isBroken = broken;
     }
 
-    // Ez nem volt az analizis modellben de szukseges a splithez
-    /**
-     * Létrehoz egy új Tecton példányt a megadott MyceliumJunction-okkal.
-     *
-     * @param myceliumJunctions A Tecton-on található MyceliumJunction-ok listája.
-     */
-    public Tecton(ArrayList<MyceliumJunction> myceliumJunctions) {
-        this.myceliumJunctions = myceliumJunctions;
-    }
 
     /**
      * Visszaad egy spórát a Tecton-on található spórák közül.
@@ -98,19 +77,13 @@ public class Tecton implements FungoriumEntity {
         return spores.get(0);
     }
 
-    // itt vagy fixalva kell hogy legyen hogy hany spora vagy nutrient szukseges
-    // egy fungus novesztesehez vagy be kellene adni ezt a szamot a metodusnak
     /**
-     * Eltávolítja a szükséges számú spórát egy gomba növesztéséhez.
+     * Eltávolítja a szükséges tápanyagtartalmú spórát egy gomba növesztéséhez.
      *
      * @throws Exception Ha nincs elegendő spóra a gomba növesztéséhez.
      */
     public void removeSporeForFungus() throws Exception {
         printAction("removeSporeForFungus");
-        if(spores.isEmpty())                          { throw new Exception("There is no spore on " + this); }
-        if(spores.size() < REQ_SPORES_TO_GROW_FUNGUS) { throw new Exception("There is not enough Spore on " + this); }
-        for(int i = 0; i < REQ_SPORES_TO_GROW_FUNGUS; ++i) { getASpore(); }
-        fungus = new Fungus();
     }
 
     /**
@@ -164,11 +137,14 @@ public class Tecton implements FungoriumEntity {
      */
     public boolean isFungusSpaceEmpty() {
         printAction("canFungusGrow");
-        return fungus == null;
+        for(MyceliumJunction j : myceliumJunctions) {
+            if(j.hasAFungus()){
+                return false;
+            }
+        }
+        return true;
     }
 
-    // Itt nem egyertelmu hogy egy Tectonnak hany Junctionja lehet.
-    // Vagy ez is legyen egy fix szam vagy egy privat valtozo
     /**
      * Ellenőrzi, hogy van-e még hely több gombafonal kereszteződése számára ezen a Tecton-on.
      *
@@ -176,7 +152,7 @@ public class Tecton implements FungoriumEntity {
      */
     public boolean hasSpaceForJunction() {
         printAction("hasSpaceForJunction");
-        return spores.size() < MAX_MYCELIUMJUNCTION_ON_TECTON;
+        return true;
     }
 
     /**
@@ -197,7 +173,9 @@ public class Tecton implements FungoriumEntity {
      */
     public void removeJunction(MyceliumJunction junction) throws Exception {
         printAction("removeJunction");
-        if(myceliumJunctions.contains(junction)) myceliumJunctions.remove(junction);
+        if(myceliumJunctions.contains(junction)) {
+            myceliumJunctions.remove(junction);
+        }
     }
 
     /**
