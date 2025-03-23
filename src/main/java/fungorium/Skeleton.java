@@ -124,7 +124,7 @@ public class Skeleton{
         m1.addConnection(c1); // 18
         m2.addConnection(c1); // 19
         m3.addConnection(c1); // 20
-        MyceliumConnection c2 = new MyceliumConnection(); // 21 !!! KÉT DARAB 19-ES VAN A DIAGRAMBAN !!!
+        MyceliumConnection c2 = new MyceliumConnection(); // 21 !!! JAVÍTVA!!! (KÉT DARAB 19-ES VAN A DIAGRAMBAN !!!)
         m2.addConnection(c2); // 22
         m3.addConnection(c2); // 23
         SpeedUpSpore s1= new SpeedUpSpore(0, 0);t2.putASpore(s1); // 24
@@ -209,7 +209,7 @@ public class Skeleton{
         MyceliumConnection c3 = new MyceliumConnection(); // 28
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
-        Fungus f2 = m4.createFungus(); // 31 !!! Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!!
+        Fungus f2 = m4.createFungus(); // 31 !!! JAVÍTVA (Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!!)
         
     }
     public void InsectFunctions(){
@@ -239,8 +239,8 @@ public class Skeleton{
         MyceliumConnection c3 = new MyceliumConnection(); // 28
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
-        Fungus f2 = m4.createFungus(); // 31 !!! Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!!
-        AntiCutSpore s1 = new AntiCutSpore(0, 0); t1.putASpore(s1); // 32 !!! putspore hiányzik a diagramon !!!
+        Fungus f2 = m4.createFungus(); // 31 !!!  JAVÍTVA! (Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!! )
+        AntiCutSpore s1 = new AntiCutSpore(0, 0); t1.putASpore(s1); // JAVÍTVA! (32 !!! putspore hiányzik a diagramon !!!)
         
         
     }
