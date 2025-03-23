@@ -20,6 +20,10 @@ public class MyceliumJunction implements FungoriumEntity {
      * A MyceliumJunction-hoz kapcsolódó gomba példánya.
      */
     private Fungus currentFungus;
+
+    /**
+     * Tecton, melyen a MyceliumJunction található.
+     */
     private Tecton position;
 
     /**
