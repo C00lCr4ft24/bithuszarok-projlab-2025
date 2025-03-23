@@ -11,6 +11,7 @@ public class Insect implements FungoriumEntity {
     private Speed   speed;
     private boolean canCutMycelium;
     private boolean isStunned;
+    private Tecton position;
 
     private void resetEffectValues() {  }
 
