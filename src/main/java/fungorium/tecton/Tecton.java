@@ -16,8 +16,10 @@ public class Tecton implements FungoriumEntity {
 
     private ArrayList<Spore> spores = new ArrayList<>();
     private ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
+    private ArrayList<Tecton> TectonN = new ArrayList<>();
     private Fungus fungus = null;
 
+    public Tecton(ArrayList<Spore> s, ArrayList<MyceliumJunction> m, ArrayList<Tecton> t, Fungus f) {spores= s; myceliumJunctions=m;TectonN=t; fungus=f; }
     public Tecton() { System.out.println("New Tecton created: " + this); }
 
     // Ez nem volt az analizis modellben de szukseges a splithez
@@ -78,7 +80,9 @@ public class Tecton implements FungoriumEntity {
         printAction("removeJunction");
         if(myceliumJunctions.contains(junction)) myceliumJunctions.remove(junction);
     }
-
+    public void setNeighbour(Tecton t){
+        TectonN.add(t);
+    }
     @Override
     public void gameStep() { printAction("gameStep"); }
 }
