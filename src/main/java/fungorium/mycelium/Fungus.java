@@ -8,6 +8,7 @@ import fungorium.tecton.Tecton;
  */
 public class Fungus implements FungoriumEntity {
 
+    private MyceliumJunction junctionPosition;
     /**
      * A gomba fejlődési szintjét reprezentálja.
      */
@@ -22,6 +23,11 @@ public class Fungus implements FungoriumEntity {
      * Egy új `Fungus` példányt hoz létre.
      */
     public Fungus() { System.out.println("New Fungus created: " + this); }
+
+    public Fungus(MyceliumJunction junctionPosition) {
+        this();
+        this.junctionPosition = junctionPosition;
+    }
 
     /**
      * Spórákat szór szét a megadott cél Tectonra.
