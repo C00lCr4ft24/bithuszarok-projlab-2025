@@ -19,6 +19,4 @@ abstract public class Spore implements FungoriumEntity {
         return this.nutrient;
     }
     public abstract void doEffect(Insect insect);
-
-    protected void printAction(String methodName) { System.out.println(methodName + " called on " + this); }
 }

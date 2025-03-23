@@ -79,8 +79,6 @@ public class Tecton implements FungoriumEntity {
         if(myceliumJunctions.contains(junction)) myceliumJunctions.remove(junction);
     }
 
-    protected void printAction(String methodName) { System.out.println(methodName + " called on " + this); }
-
     @Override
     public void gameStep() { printAction("gameStep"); }
 }
