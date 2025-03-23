@@ -21,9 +21,8 @@ public class MyceliumJunction implements FungoriumEntity {
         return currentFungus != null;
     }
 
-    public void setConectionLifeTime(int lifeTime) {
+    public void setConnectionLifeTime(int lifeTime) {
         printAction("setConectionLifeTime");
-
     }
 
     public void removeConnection(MyceliumConnection c) {
@@ -34,6 +33,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public Fungus createFungus() {
         printAction("createFungus");
         var newFungus = new Fungus();
+        this.currentFungus = newFungus;
         return newFungus;
     }
 
