@@ -3,11 +3,6 @@ package fungorium.spore;
 import fungorium.FungoriumEntity;
 import fungorium.Insect;
 
-package fungorium.spore;
-
-import fungorium.FungoriumEntity;
-import fungorium.Insect;
-
 /**
  * Egy absztrakt spórát reprezentáló osztály, amely létrejöhet és kilövődhet, majd egy
  * Tecton-on elhelyezkedve elfogyasztható vagy felhasználható.
