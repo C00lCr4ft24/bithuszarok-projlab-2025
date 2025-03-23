@@ -1,6 +1,7 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.tecton.Tecton;
 
 import java.util.ArrayList;
 
@@ -8,8 +9,14 @@ public class MyceliumJunction implements FungoriumEntity {
 
     private final ArrayList<MyceliumConnection> connections = new ArrayList<>();
     private Fungus currentFungus;
+    private Tecton position;
 
     public MyceliumJunction() { System.out.println("New MyceliumJunction created: " + this); }
+
+    public MyceliumJunction(Tecton position) {
+        this();
+        this.position = position;
+    }
 
     public void addConnection(MyceliumConnection c) {
         printAction("addConnection");
@@ -32,7 +39,7 @@ public class MyceliumJunction implements FungoriumEntity {
 
     public Fungus createFungus() {
         printAction("createFungus");
-        var newFungus = new Fungus();
+        var newFungus = new Fungus(this);
         this.currentFungus = newFungus;
         return newFungus;
     }
