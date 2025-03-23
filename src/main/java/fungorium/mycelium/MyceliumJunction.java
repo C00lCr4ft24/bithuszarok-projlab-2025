@@ -87,7 +87,7 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public Fungus createFungus() {
         printAction("createFungus");
-        var newFungus = new Fungus(this);
+        Fungus newFungus = new Fungus(this);
         this.currentFungus = newFungus;
         return newFungus;
     }
