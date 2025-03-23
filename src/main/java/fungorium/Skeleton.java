@@ -108,10 +108,10 @@ public class Skeleton{
         m1 = t1.createMyceliumJunction(); // 11 & 12
         m2 = tkozep.createMyceliumJunction(); // 13 & 14
         m3 = t2.createMyceliumJunction(); // 15 & 16
-        c1 = new MyceliumConnection();
+        c1 = new MyceliumConnection(m1, m2);
         m1.addConnection(c1);
         m2.addConnection(c1);
-        c2 = new MyceliumConnection();
+        c2 = new MyceliumConnection(m2, m3);
         m2.addConnection(c2);
         m3.addConnection(c2);
         f1 = m2.createFungus();
@@ -169,15 +169,13 @@ public class Skeleton{
         f1 = m1.createFungus(); // 12
         m2 = t2.createMyceliumJunction(); // 13 & 14
         m3 = t3.createMyceliumJunction(); // 15 & 16
-        c1 = new MyceliumConnection(); // 17
+        c1 = new MyceliumConnection(m1, m2); // 17
         m1.addConnection(c1); // 18
         m2.addConnection(c1); // 19
-        m3.addConnection(c1); // 20
-        c2 = new MyceliumConnection(); // 21 !!! JAVÍTVA!!! (KÉT DARAB 19-ES VAN A DIAGRAMBAN !!!)
-        m2.addConnection(c2); // 22
-        m3.addConnection(c2); // 23
-        s1 = new SpeedUpSpore(0, 0);t2.putASpore(s1); // 24
-        
+        c2 = new MyceliumConnection(m2, m3); // 20
+        m2.addConnection(c2); // 21
+        m3.addConnection(c2); // 22
+        s1 = new SpeedUpSpore(0, 0);t2.putASpore(s1); // 23
     }
 
     /**
@@ -201,7 +199,7 @@ public class Skeleton{
         m1 = t1.createMyceliumJunction(); // 15 & 16
         f1 = m1.createFungus(); // 17
         m2 = t2.createMyceliumJunction(); // 18 & 19
-        c1 = new MyceliumConnection(); // 20
+        c1 = new MyceliumConnection(m1, m2); // 20
         m1.addConnection(c1);
         m2.addConnection(c1);
     }
@@ -227,13 +225,13 @@ public class Skeleton{
         m2 = t2.createMyceliumJunction(); // 16 & 17
         m3 = t3.createMyceliumJunction(); // 18 & 19
         m4 = t4.createMyceliumJunction(); // 20 & 21
-        c1 = new MyceliumConnection(); // 22
+        c1 = new MyceliumConnection(m1, m2); // 22
         m1.addConnection(c1); // 23
         m2.addConnection(c1); // 24
-        c2 = new MyceliumConnection(); // 25
+        c2 = new MyceliumConnection(m2, m3); // 25
         m2.addConnection(c2); // 26
         m3.addConnection(c2); // 27
-        c3 = new MyceliumConnection(); // 28
+        c3 = new MyceliumConnection(m3, m4); // 28
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
     }
@@ -259,17 +257,16 @@ public class Skeleton{
         m2 = t2.createMyceliumJunction(); // 16 & 17
         m3 = t3.createMyceliumJunction(); // 18 & 19
         m4 = t4.createMyceliumJunction(); // 20 & 21
-        c1 = new MyceliumConnection(); // 22
+        c1 = new MyceliumConnection(m1, m2); // 22
         m1.addConnection(c1); // 23
         m2.addConnection(c1); // 24
-        c2 = new MyceliumConnection(); // 25
+        c2 = new MyceliumConnection(m2, m3); // 25
         m2.addConnection(c2); // 26
         m3.addConnection(c2); // 27
-        c3 = new MyceliumConnection(); // 28
+        c3 = new MyceliumConnection(m3, m4); // 28
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
-        f2 = m4.createFungus(); // 31 !!! JAVÍTVA (Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!!)
-        
+        f2 = m4.createFungus(); // 31
     }
 
     /**
@@ -293,19 +290,17 @@ public class Skeleton{
         m2 = t2.createMyceliumJunction(); // 16 & 17
         m3 = t3.createMyceliumJunction(); // 18 & 19
         m4 = t4.createMyceliumJunction(); // 20 & 21
-        c1 = new MyceliumConnection(); // 22
+        c1 = new MyceliumConnection(m1, m2); // 22
         m1.addConnection(c1); // 23
         m2.addConnection(c1); // 24
-        c2 = new MyceliumConnection(); // 25
+        c2 = new MyceliumConnection(m2, m3); // 25
         m2.addConnection(c2); // 26
         m3.addConnection(c2); // 27
-        c3 = new MyceliumConnection(); // 28
+        c3 = new MyceliumConnection(m3, m4); // 28
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
-        f2 = m4.createFungus(); // 31 !!!  JAVÍTVA! (Az m4 csinálja a Fungust nem a t4, ez rossz a diagramon !!! )
-        s1 = new AntiCutSpore(0, 0); t1.putASpore(s1); // JAVÍTVA! (32 !!! putspore hiányzik a diagramon !!!)
-        
-        
+        f2 = m4.createFungus(); // 31
+        s1 = new AntiCutSpore(0, 0); t1.putASpore(s1);
     }
 
     /* Tesztesetek */
