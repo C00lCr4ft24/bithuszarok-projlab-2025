@@ -31,6 +31,4 @@ public class Insect implements FungoriumEntity {
 
     @Override
     public void gameStep() { System.out.println("gameStep");  }
-
-    private void printAction(String methodName) { System.out.println(methodName + " called on " + this); }
 }
