@@ -1,6 +1,7 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.tecton.Tecton;
 
 import java.util.ArrayList;
 
@@ -21,9 +22,19 @@ public class MyceliumJunction implements FungoriumEntity {
     private Fungus currentFungus;
 
     /**
+     * Tecton, melyen a MyceliumJunction található.
+     */
+    private Tecton position;
+
+    /**
      * Létrehoz egy új MyceliumJunction példányt.
      */
     public MyceliumJunction() { System.out.println("New MyceliumJunction created: " + this); }
+
+    public MyceliumJunction(Tecton position) {
+        this();
+        this.position = position;
+    }
 
     /**
      * Hozzáad egy új kapcsolatot ehhez a csomóponthoz.
@@ -71,7 +82,7 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public Fungus createFungus() {
         printAction("createFungus");
-        var newFungus = new Fungus();
+        var newFungus = new Fungus(this);
         this.currentFungus = newFungus;
         return newFungus;
     }
