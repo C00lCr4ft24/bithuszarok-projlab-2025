@@ -4,12 +4,6 @@ import fungorium.FungoriumEntity;
 
 /**
  * Két MyceliumJunction közötti kapcsolatot reprezentál.
- *
- * <p>
- * <strong>Felelősség:</strong>
- * Ez az osztály kezeli a kapcsolat létrehozását, fenntartását és megszüntetését két
- * {@link MyceliumJunction} között.
- * </p>
  */
 public class MyceliumConnection implements FungoriumEntity {
 
