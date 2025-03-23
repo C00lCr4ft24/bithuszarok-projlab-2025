@@ -52,8 +52,20 @@ public class Tecton implements FungoriumEntity {
     public Tecton split() {
         printAction("split");
 
-        Random rand = new Random();
-        int splitAt = rand.nextInt(0, myceliumJunctions.size());
+        if(isBroken) {
+            printAction("itIsBroken");
+            return null;
+        }
+        this.isBroken = true;
+        Tecton tBroken = new Tecton(true);
+        return tBroken;
+        /// To Do implement
+        /*Random rand = new Random();
+        int splitAtIndex = (TectonN.size() - 1)/2;
+
+        for(int i = (splitAtIndex+1); i < TectonN.size(); i++) {
+
+        }
 
         ArrayList<MyceliumJunction> newMycJunctList = new ArrayList<>();
         for(int i = 0; i < splitAt; i++) {
@@ -61,6 +73,7 @@ public class Tecton implements FungoriumEntity {
             myceliumJunctions.remove(i);
         }
         return new Tecton(newMycJunctList);
+         */
     }
     public MyceliumJunction createMyceliumJunction() {
         printAction("createMyceliumJunction");
