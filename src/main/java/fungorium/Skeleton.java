@@ -35,7 +35,7 @@ public class Skeleton{
         t3.setNeighbour(t2); // 7
         t3.setNeighbour(t1); // 8
         t1.setNeighbour(t3); // 9
-        Tecton tkozep = new Tecton(); // 10
+        Tecton tkozep = new Tecton(true); // 10
         t1.setNeighbour(tkozep); // 11
         t2.setNeighbour(tkozep); // 12
         t3.setNeighbour(tkozep); // 13
@@ -43,7 +43,7 @@ public class Skeleton{
         tkozep.setNeighbour(t2); // 15
         tkozep.setNeighbour(t3); // 16
         tkozep.split(); // 17
-        Tecton tkozep2 = new Tecton(); // 18
+        Tecton tkozep2 = new Tecton(true); // 18
         tkozep.setNeighbour(tkozep2); // 19
         t1.setNeighbour(tkozep2); // 20
         t2.setNeighbour(tkozep2); // 21

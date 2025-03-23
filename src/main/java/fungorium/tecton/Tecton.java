@@ -18,9 +18,16 @@ public class Tecton implements FungoriumEntity {
     private ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
     private ArrayList<Tecton> TectonN = new ArrayList<>();
     private Fungus fungus = null;
+    private boolean isBroken = false;
 
     public Tecton(ArrayList<Spore> s, ArrayList<MyceliumJunction> m, ArrayList<Tecton> t, Fungus f) {spores= s; myceliumJunctions=m;TectonN=t; fungus=f; }
-    public Tecton() { System.out.println("New Tecton created: " + this); }
+    public Tecton() {
+        System.out.println("New Tecton created: " + this);
+    }
+    public Tecton(boolean broken) {
+        this();
+        this.isBroken = broken;
+    }
 
     // Ez nem volt az analizis modellben de szukseges a splithez
     public Tecton(ArrayList<MyceliumJunction> myceliumJunctions) {
