@@ -1,6 +1,7 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.tecton.Tecton;
 
 /**
  * Két MyceliumJunction közötti kapcsolatot reprezentál.
@@ -58,6 +59,10 @@ public class MyceliumConnection implements FungoriumEntity {
             printAction("setLifeTime");
             this.lifetime = lifetime;
         }
+    }
+
+    public boolean isThisYOurOtherEndTecton(MyceliumJunction end, Tecton otherEnd){
+        return false;
     }
 
     /**

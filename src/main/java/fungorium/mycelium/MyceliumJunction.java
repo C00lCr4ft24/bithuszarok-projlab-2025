@@ -92,6 +92,16 @@ public class MyceliumJunction implements FungoriumEntity {
         return newFungus;
     }
 
+    public MyceliumConnection getMyceliumConnection(Tecton otherEnd) {
+        printAction("getMyceliumConnection");
+        for (MyceliumConnection c : connections) {
+            if(c.isThisYOurOtherEndTecton(this, otherEnd)){
+                return c;
+            }
+        }
+        return null;
+    }
+
     /**
      * Eltávolítja a tárolt gombát a csomópontról.
      */
