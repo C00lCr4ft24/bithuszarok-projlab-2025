@@ -125,7 +125,7 @@ public class Tecton implements FungoriumEntity {
      */
     public MyceliumJunction createMyceliumJunction() {
         printAction("createMyceliumJunction");
-        MyceliumJunction junction = new MyceliumJunction();
+        MyceliumJunction junction = new MyceliumJunction(this);
         myceliumJunctions.add(junction);
         return junction;
     }
