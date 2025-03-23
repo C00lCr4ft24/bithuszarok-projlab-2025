@@ -13,9 +13,9 @@ public class AntiCrossingTecton extends Tecton {
     /**
      * Létrehoz egy új AntiCrossingTecton példányt a megadott MyceliumJunction-ok listájával.
      *
-     * @param myceliumJunctions Azok a MyceliumJunction-ok, amelyek a Tecton-on elhelyezkednek.
+     * @param t A Tecton szomszédjai
      */
-    public AntiCrossingTecton(ArrayList<MyceliumJunction> myceliumJunctions) { super(myceliumJunctions); }
+    public AntiCrossingTecton(ArrayList<Tecton> t) { super(t); }
 
     /**
      * Létrehoz egy új, üres AntiCrossingTecton példányt.
@@ -28,6 +28,6 @@ public class AntiCrossingTecton extends Tecton {
     @Override
     public boolean hasSpaceForJunction() {
         printAction("hasSpaceForJunction");
-        return false;
+        return myceliumJunctions.isEmpty();
     }
 }
