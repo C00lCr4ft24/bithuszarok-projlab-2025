@@ -73,7 +73,7 @@ public class Insect implements FungoriumEntity {
      *
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
-    public void move(Tecton target)                          { printAction("move");                  }
+    public void move(Tecton target)                          { if(!(isStunned))printAction("move"); else  printAction("cant move");             }
 
     /**
      * A rovar lebénításának beállítása.
