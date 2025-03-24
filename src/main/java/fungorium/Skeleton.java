@@ -5,11 +5,12 @@ import fungorium.tecton.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Scanner;
 
 import fungorium.mycelium.*;
 import fungorium.spore.*;
 
-public class Skeleton{
+public class Skeleton {
 
     /**
      * Tároló a teszteset-szám + teszteset kombinációkhoz
@@ -31,10 +32,39 @@ public class Skeleton{
         commands.put(1, this::emptyTectonBreaking);
         commands.put(2, this::brokenTectonBreakingAgain);
         commands.put(3, this::fullTectonBreak);
+        commands.put(4, this::growFungusOnEmptyTecton);
+        commands.put(5, this::growFungusOnOccupiedTecton);
+        commands.put(6, this::growFungusOnAntiFungusTecton);
+        commands.put(7, this::growMyceliumOnEmptyAntiCrossingTecton);
+        commands.put(8, this::growMyceliumOnOccupiedAntiCrossingTecton);
+        commands.put(9, this::growMyceliumAndJunctionOnAntiMyceliumTecton);
+        commands.put(10, this::cutMyceliumWithMultipleFungusConnection);
+        commands.put(11, this::cutMyceliumWithSingleFungusConnection);
+        commands.put(12, this::spreadSporeOnOneDistanceTecton);
+        commands.put(13, this::spreadSporeOnTwoDistanceTecton);
+        commands.put(14, this::insectMoveWithoutEffects);
+        commands.put(15, this::insectMoveWithSpeedUpEffect);
+        commands.put(16, this::insectMoveWithSlowDownEffect);
+        commands.put(17, this::insectMoveWithStunEffect);
+        commands.put(18, this::insectMoveWithAntiCutEffect);
+        commands.put(19, this::insectCutMyceliumWithoutEffects);
+        commands.put(20, this::insectCutMyceliumWithSpeedUpEffect);
+        commands.put(21, this::insectCutMyceliumWithSlowDownEffect);
+        commands.put(22, this::insectCutMyceliumWithStunEffect);
+        commands.put(23, this::insectCutMyceliumWithAntiCutEffect);
+        commands.put(24, this::insectEatSpore);
     }
 
     public void start() {
-
+        int command = 1;
+        Scanner scanner = new Scanner(System.in);
+        while (command != 0) {
+            command = scanner.nextInt();
+            if(commands.get(command) != null) {
+                commands.get(command).run();
+            }
+        }
+        scanner.close();
     }
 
     /* Inicializáló függvények */
@@ -64,7 +94,7 @@ public class Skeleton{
     /**
      * Eltört tekton törés tesztesetének inicializáló függvénye
      */
-    public void brokenTectonBreakingAgainInit(){
+    public void brokenTectonBreakingAgainInit() {
         t1 = new Tecton(); // 1
         t2 = new Tecton(); // 2
         t1.setNeighbour(t2); // 3
@@ -306,8 +336,12 @@ public class Skeleton{
     /* Tesztesetek */
 
     public void emptyTectonBreaking() {
+        System.err.println("-- Kiinduló állapot --");
         emptyTectonBreakingInit();
-        
+        System.out.println("-- Teszt indul --");
+        tkozep.split();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void brokenTectonBreakingAgain() {
@@ -316,5 +350,89 @@ public class Skeleton{
 
     public void fullTectonBreak() {
         fullTectonBreakInit();
+    }
+
+    public void growFungusOnEmptyTecton() {
+        fungusGrowingInit();
+    }
+
+    public void growFungusOnOccupiedTecton() {
+        fungusGrowingInit();
+    }
+
+    public void growFungusOnAntiFungusTecton() {
+        fungusGrowingInit();
+    }
+
+    public void growMyceliumOnEmptyAntiCrossingTecton() {
+        myceliumGrowingInit();
+    }
+
+    public void growMyceliumOnOccupiedAntiCrossingTecton() {
+        myceliumGrowingInit();
+    }
+
+    public void growMyceliumAndJunctionOnAntiMyceliumTecton() {
+        myceliumGrowingInit();
+    }
+
+    public void cutMyceliumWithMultipleFungusConnection() {
+        myceliumConnectionCutting1Init();
+    }
+
+    public void cutMyceliumWithSingleFungusConnection() {
+        myceliumConnectionCutting2Init();
+    }
+
+    public void spreadSporeOnOneDistanceTecton() {
+        sporeSpreadingInit();
+    }
+
+    public void spreadSporeOnTwoDistanceTecton() {
+        sporeSpreadingInit();
+    }
+
+    public void insectMoveWithoutEffects() {
+        insectFunctionsInit();
+    }
+
+    public void insectMoveWithSpeedUpEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectMoveWithSlowDownEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectMoveWithStunEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectMoveWithAntiCutEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectCutMyceliumWithoutEffects() {
+        insectFunctionsInit();
+    }
+
+    public void insectCutMyceliumWithSpeedUpEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectCutMyceliumWithSlowDownEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectCutMyceliumWithStunEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectCutMyceliumWithAntiCutEffect() {
+        insectFunctionsInit();
+    }
+
+    public void insectEatSpore() {
+        insectFunctionsInit();
     }
 }

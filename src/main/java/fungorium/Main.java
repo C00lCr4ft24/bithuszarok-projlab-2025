@@ -3,7 +3,7 @@ package fungorium;
 public class Main {
     public static void main(String[] args) {
 
-        System.out.println("Hello World");
-
+        Skeleton skeleton = new Skeleton();
+        skeleton.start();
     }
 }
