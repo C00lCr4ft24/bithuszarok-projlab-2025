@@ -59,12 +59,44 @@ public class Skeleton {
         int command = 1;
         Scanner scanner = new Scanner(System.in);
         while (command != 0) {
+            drawMenu();
             command = scanner.nextInt();
             if(commands.get(command) != null) {
                 commands.get(command).run();
             }
         }
         scanner.close();
+    }
+
+    private void drawMenu() {
+        System.out.println("------------------------------------------------------------");
+        System.err.println("--- Fungorium tesztkörnyezet ---");
+        System.out.println("1. Üres tekton törése");
+        System.out.println("2. Tört tekton újra törése");
+        System.out.println("3. Tekton törés gombafonalakkal, gombatesttel és rovarral");
+        System.out.println("4. Gombatest növesztés üres tektonra");
+        System.out.println("5. Gombatest növesztés foglalt tektonra");
+        System.out.println("6. Gombatest növesztés gombatest-mentes tektonra");
+        System.out.println("7. Gombafonál növesztés üres kereszteződésmentes tektonra");
+        System.out.println("8. Gombafonál növesztés foglalt kereszteződésmentes tektonra");
+        System.out.println("9. Gombafonál növesztés gombafonál gyilkos tektonra");
+        System.out.println("10. Gombafonál vágás több gombatest kapcsolattal");
+        System.out.println("11. Gombafonál vágás egy gombatest kapcsolattal");
+        System.out.println("12. Spóra szórás egy tekton távolságra");
+        System.out.println("13. Spóra szórás két tekton távolságra");
+        System.out.println("14. Rovar mozgás hatás nélkül");
+        System.out.println("15. Rovar mozgás gyorsító hatással");
+        System.out.println("16. Rovar mozgás lassító hatással");
+        System.out.println("17. Rovar mozgás kábítás hatással");
+        System.out.println("18. Rovar mozgás vágás tiltó hatással");
+        System.out.println("19. Rovar gombafonál vágás hatás nélkül");
+        System.out.println("20. Rovar gombafonál vágás gyorsító hatással");
+        System.out.println("21. Rovar gombafonál vágás lassító hatással");
+        System.out.println("22. Rovar gombafonál vágás kábítás hatással");
+        System.out.println("23. Rovar gombafonál vágás vágás tiltó hatással");
+        System.out.println("24. Rovar spóra evés");
+        System.out.println("0. Kilépés");
+        System.out.println("------------------------------------------------------------");
     }
 
     /* Inicializáló függvények */
@@ -134,7 +166,7 @@ public class Skeleton {
         t2.setNeighbour(tkozep); // 7
         tkozep.setNeighbour(t1); // 8
         tkozep.setNeighbour(t2); // 9
-        i1 = new Insect(); // 10
+        i1 = new Insect(tkozep); // 10
         m1 = t1.createMyceliumJunction(); // 11 & 12
         m2 = tkozep.createMyceliumJunction(); // 13 & 14
         m3 = t2.createMyceliumJunction(); // 15 & 16
@@ -190,7 +222,7 @@ public class Skeleton {
         t2 = new Tecton(); // 2
         t1.setNeighbour(t2); // 3
         t2.setNeighbour(t1); // 4
-        t3 = new AntiCrossingTecton(); // 5
+        t3 = new AntiFungusTecton(); // 5
         t1.setNeighbour(t3); // 6
         t2.setNeighbour(t3); // 7
         t3.setNeighbour(t1); // 8
@@ -302,7 +334,7 @@ public class Skeleton {
     /**
      * Rovar funkciók teszteseteinek inicializáló függvénye
      */
-    public void insectFunctionsInit(){
+    public void insectFunctionsInit() {
         t1 = new Tecton(); // 1
         t2 = new AntiCrossingTecton(); // 2
         t1.setNeighbour(t2); // 3
@@ -330,7 +362,9 @@ public class Skeleton {
         m3.addConnection(c3); // 29
         m4.addConnection(c3); // 30
         f2 = m4.createFungus(); // 31
-        s1 = new AntiCutSpore(0, 0); t1.putASpore(s1);
+        s1 = new AntiCutSpore(0, 0); //32
+        t1.putASpore(s1); //33
+        i1 = new Insect(t1); //34
     }
 
     /* Tesztesetek */
@@ -339,100 +373,234 @@ public class Skeleton {
         System.err.println("-- Kiinduló állapot --");
         emptyTectonBreakingInit();
         System.out.println("-- Teszt indul --");
-        tkozep.split();
+        Tecton temp = tkozep.split();
         System.out.println("-- Végső állapot --");
         System.out.println("-- Elvárt eredmény --");
     }
 
     public void brokenTectonBreakingAgain() {
+        System.err.println("-- Kiinduló állapot --");
         brokenTectonBreakingAgainInit();
+        System.out.println("-- Teszt indul --");
+        Tecton temp = tkozep2.split();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void fullTectonBreak() {
+        System.err.println("-- Kiinduló állapot --");
         fullTectonBreakInit();
+        System.out.println("-- Teszt indul --");
+        Tecton temp = tkozep.split();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growFungusOnEmptyTecton() {
+        System.err.println("-- Kiinduló állapot --");
         fungusGrowingInit();
+        System.out.println("-- Teszt indul --");
+        Fungus temp = m2.createFungus();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growFungusOnOccupiedTecton() {
+        System.err.println("-- Kiinduló állapot --");
         fungusGrowingInit();
+        System.out.println("-- Teszt indul --");
+        Fungus temp = m1.createFungus();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growFungusOnAntiFungusTecton() {
+        System.err.println("-- Kiinduló állapot --");
         fungusGrowingInit();
+        System.out.println("-- Teszt indul --");
+        Fungus temp = m3.createFungus();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growMyceliumOnEmptyAntiCrossingTecton() {
+        System.err.println("-- Kiinduló állapot --");
         myceliumGrowingInit();
+        System.out.println("-- Teszt indul --");
+        MyceliumJunction temp = t3.createMyceliumJunction();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growMyceliumOnOccupiedAntiCrossingTecton() {
+        System.err.println("-- Kiinduló állapot --");
         myceliumGrowingInit();
+        System.out.println("-- Teszt indul --");
+        MyceliumJunction temp = t2.createMyceliumJunction();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void growMyceliumAndJunctionOnAntiMyceliumTecton() {
+        System.err.println("-- Kiinduló állapot --");
         myceliumGrowingInit();
+        System.out.println("-- Teszt indul --");
+        MyceliumJunction temp = t2.createMyceliumJunction();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void cutMyceliumWithMultipleFungusConnection() {
-        myceliumConnectionCutting1Init();
+        System.err.println("-- Kiinduló állapot --");
+        myceliumConnectionCutting2Init();
+        System.out.println("-- Teszt indul --");
+        c2.cutMe();
+        c1.gameStep();
+        c3.gameStep();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void cutMyceliumWithSingleFungusConnection() {
-        myceliumConnectionCutting2Init();
+        System.err.println("-- Kiinduló állapot --");
+        myceliumConnectionCutting1Init();
+        System.out.println("-- Teszt indul --");
+        c2.cutMe();
+        c1.gameStep();
+        c3.gameStep();
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void spreadSporeOnOneDistanceTecton() {
+        System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
+        System.out.println("-- Teszt indul --");
+        f1.spreadSpores(t2);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void spreadSporeOnTwoDistanceTecton() {
+        System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
+        System.out.println("-- Teszt indul --");
+        f1.spreadSpores(t5);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectMoveWithoutEffects() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        System.out.println("-- Teszt indul --");
+        i1.move(t2);
+        i1.move(t3);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectMoveWithSpeedUpEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.increaseSpeed();
+        System.out.println("-- Teszt indul --");
+        i1.move(t2);
+        i1.move(t3);
+        i1.move(t4);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectMoveWithSlowDownEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.decreaseSpeed();
+        System.out.println("-- Teszt indul --");
+        i1.move(t2);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectMoveWithStunEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.setStunned();
+        System.out.println("-- Teszt indul --");
+        i1.move(t2);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectMoveWithAntiCutEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.blockMyceliumCut();
+        System.out.println("-- Teszt indul --");
+        i1.move(t2);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectCutMyceliumWithoutEffects() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        System.out.println("-- Teszt indul --");
+        i1.cutMyceliumConnection(c1);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectCutMyceliumWithSpeedUpEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.increaseSpeed();
+        System.out.println("-- Teszt indul --");
+        i1.cutMyceliumConnection(c1);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectCutMyceliumWithSlowDownEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.decreaseSpeed();
+        System.out.println("-- Teszt indul --");
+        i1.cutMyceliumConnection(c1);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectCutMyceliumWithStunEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.setStunned();
+        System.out.println("-- Teszt indul --");
+        i1.cutMyceliumConnection(c1);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectCutMyceliumWithAntiCutEffect() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        i1.blockMyceliumCut();
+        System.out.println("-- Teszt indul --");
+        i1.cutMyceliumConnection(c1);
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 
     public void insectEatSpore() {
+        System.err.println("-- Kiinduló állapot --");
         insectFunctionsInit();
+        System.out.println("-- Teszt indul --");
+        try {
+            i1.eatSpore(t1.getASpore());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        System.out.println("-- Végső állapot --");
+        System.out.println("-- Elvárt eredmény --");
     }
 }
