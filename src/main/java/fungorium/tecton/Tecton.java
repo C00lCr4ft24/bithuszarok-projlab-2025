@@ -95,7 +95,7 @@ public class Tecton implements FungoriumEntity {
         printAction("split");
 
         if(isBroken) {
-            printAction("itIsBroken");
+            printAction("Tecton is broken!");
             return null;
         }
         this.isBroken = true;
@@ -184,6 +184,7 @@ public class Tecton implements FungoriumEntity {
      * @param t A hozzáadni kívánt szomszédos Tecton.
      */
     public void setNeighbour(Tecton t){
+        printAction("setNeighbour");
         TectonN.add(t);
     }
 

@@ -114,6 +114,7 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return pozíció Tectonja.
      */
     public Tecton getPosition() {
+        printAction("getPosition");
         return position;
     }
 

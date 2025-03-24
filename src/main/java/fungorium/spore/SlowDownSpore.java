@@ -14,7 +14,10 @@ public class SlowDownSpore extends Spore {
      * @param nutrient A spóra tápanyagértéke.
      * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
      */
-    public SlowDownSpore(int nutrient, int effectTime) { super(nutrient, effectTime); }
+    public SlowDownSpore(int nutrient, int effectTime) {
+        super(nutrient, effectTime);
+        System.out.println("New SlowDownSpore created: " + this);
+    }
 
     /**
      * Kifejti a spóra hatását a megadott rovarra.

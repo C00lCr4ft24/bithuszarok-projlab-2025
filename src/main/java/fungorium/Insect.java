@@ -46,8 +46,12 @@ public class Insect implements FungoriumEntity {
 
     /**
      * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
+     *
+     * @param position Az Insect kezdő pozíciója.
      */
-    public Insect() {
+    public Insect(Tecton position) {
+        System.out.println("New Insect created: " + this);
+        this.position = position;
         eatenNutrient = 0;
         speed = Speed.MEDIUM;
         canCutMycelium = true;
