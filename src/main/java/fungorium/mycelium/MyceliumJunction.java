@@ -92,7 +92,13 @@ public class MyceliumJunction implements FungoriumEntity {
         return newFungus;
     }
 
-    public MyceliumConnection getMyceliumConnection(Tecton otherEnd) {
+    /**
+     * Megkeresi az a MyceliumConnection-át, melynek a másik vége a megadott Tectonon van.
+     *
+     * @param otherEnd másik Tecton melyen keresssük a MyceliumConnection végét.
+     * @return Visszaadja a keresett MyceliumConnection-t, ha nem találta meg, akkor null ad vissza.
+     */
+    public MyceliumConnection getMyceliumConnectionByOtherEndTecton(Tecton otherEnd) {
         printAction("getMyceliumConnection");
         for (MyceliumConnection c : connections) {
             if(c.isThisYOurOtherEndTecton(this, otherEnd)){
@@ -100,6 +106,15 @@ public class MyceliumJunction implements FungoriumEntity {
             }
         }
         return null;
+    }
+
+    /**
+     * Visszaadja a pozíció Tectonját.
+     *
+     * @return pozíció Tectonja.
+     */
+    public Tecton getPosition() {
+        return position;
     }
 
     /**

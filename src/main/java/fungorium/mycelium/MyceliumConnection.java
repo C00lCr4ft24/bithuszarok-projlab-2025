@@ -61,8 +61,22 @@ public class MyceliumConnection implements FungoriumEntity {
         }
     }
 
+    /**
+     * Megnézi, hogy a nem megadott vége a megadott Tecton van-e.
+     *
+     * @param end Az a vég, ahonnan ellenőrizzük a másik végének helyét.
+     * @param otherEnd A Tecton, melyen a keresett végnek lennie kell.
+     * @return Igaz, ha a nem megadott vége a megadott Tectonon van, egyébként hamis.
+     */
     public boolean isThisYOurOtherEndTecton(MyceliumJunction end, Tecton otherEnd){
-        return false;
+        printAction("isThisYOurOtherEndTecton");
+        if(junctionA == end){
+            return junctionB.getPosition() == otherEnd;
+        } else if(junctionB == end){
+            return junctionA.getPosition() == otherEnd;
+        } else {
+            return false;
+        }
     }
 
     /**
