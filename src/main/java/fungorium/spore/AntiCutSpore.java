@@ -14,7 +14,10 @@ public class AntiCutSpore extends Spore {
      * @param nutrient A spórához tartozó tápanyag értéke.
      * @param effectTime Az időtartam, amíg a spóra hatása érvényesül.
      */
-    public AntiCutSpore(int nutrient, int effectTime) { super(nutrient, effectTime); }
+    public AntiCutSpore(int nutrient, int effectTime) {
+        super(nutrient, effectTime);
+        System.out.println("New AntiCutSpore created: " + this);
+    }
 
     /**
      * Kifejti a spóra hatását a megadott rovarra.

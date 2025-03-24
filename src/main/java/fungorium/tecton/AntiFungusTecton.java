@@ -26,7 +26,7 @@ public class AntiFungusTecton extends Tecton {
      */
     @Override
     public boolean isFungusSpaceEmpty() {
-        printAction("canFungusGrow");
+        printAction("isFungusSpaceEmpty");
         return false;
     }
 }

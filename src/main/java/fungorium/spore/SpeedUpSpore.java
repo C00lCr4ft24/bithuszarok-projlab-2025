@@ -13,7 +13,10 @@ public class SpeedUpSpore extends Spore {
      * @param nutrient A spóra tápanyagértéke.
      * @param effectTime Az időtartam, amíg a spóra hatása érvényesül.
      */
-    public SpeedUpSpore(int nutrient, int effectTime) { super(nutrient, effectTime); }
+    public SpeedUpSpore(int nutrient, int effectTime) {
+        super(nutrient, effectTime);
+        System.out.println("New SpeedUpSpore created: " + this);
+    }
 
     /**
      * Kifejti a spóra hatását a megadott rovarra.
