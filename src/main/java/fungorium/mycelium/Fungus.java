@@ -1,6 +1,7 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.spore.SporeFactory;
 import fungorium.tecton.Tecton;
 
 /**
@@ -25,7 +26,11 @@ public class Fungus implements FungoriumEntity {
     /**
      * Egy új `Fungus` példányt hoz létre.
      */
-    public Fungus() { System.out.println("New Fungus created: " + this); }
+    public Fungus() { 
+        System.out.println("New Fungus created: " + this);
+        sporeLevel  = 0;
+        fungusLevel = 1;
+    }
 
     /**
      * Egy új `Fungus` példányt hoz létre egy megadott MyceliumJunction pozícióval.
@@ -42,7 +47,12 @@ public class Fungus implements FungoriumEntity {
      *
      * @param target A {@link Tecton}, amelyre a spórák kerülnek szétszórásra.
      */
-    public void spreadSpores(Tecton target) { printAction("spreadSpores"); }
+    public void spreadSpores(Tecton target) { 
+        printAction("spreadSpores"); 
+        for(int i = 1; i <= sporeLevel; ++i) {
+            target.putASpore(SporeFactory.createSpore());
+        }
+    }
 
     /**
      * Végrehajtja a következő játék lépést. Növeli a gomba spóraszintjét.

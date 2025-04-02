@@ -1,11 +1,10 @@
 package fungorium.tecton;
 
+import java.util.ArrayList;
+
 import fungorium.FungoriumEntity;
-import fungorium.mycelium.Fungus;
 import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
-
-import java.util.ArrayList;
 
 /**
  * A Tecton osztály a játéktér felszínét alkotó különálló kéregdarabok alapját képezi.
@@ -15,7 +14,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 10;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 3;
 
     /**
      * A Tecton-hoz tartozó spórák tárolója.
