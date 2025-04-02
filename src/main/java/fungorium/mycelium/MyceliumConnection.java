@@ -24,6 +24,13 @@ public class MyceliumConnection implements FungoriumEntity {
     private MyceliumJunction junctionB;
 
     /**
+     * Véglegesen megszünteti a csatlakozását a két MyceliumJunction-nek.
+    */
+    private void terminateConnection() {
+        printAction("terminateConnection");
+    }
+
+    /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
      *
      * @param a Az egyik {@link MyceliumJunction}, ahonnan a kapcsolat indul.
@@ -83,5 +90,8 @@ public class MyceliumConnection implements FungoriumEntity {
      * Végrehajtja a kapcsolat következő játék lépését.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() { 
+        printAction("gameStep"); 
+
+    }
 }

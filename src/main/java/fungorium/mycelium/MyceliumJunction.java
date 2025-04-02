@@ -1,9 +1,10 @@
 package fungorium.mycelium;
 
-import fungorium.FungoriumEntity;
-import fungorium.tecton.Tecton;
-
 import java.util.ArrayList;
+
+import fungorium.FungoriumEntity;
+import fungorium.Insect;
+import fungorium.tecton.Tecton;
 
 /**
  * A MyceliumJunction osztály egy gombafonal csomópontot reprezentál, amely felelős a kapcsolatok
@@ -106,6 +107,16 @@ public class MyceliumJunction implements FungoriumEntity {
             }
         }
         return null;
+    }
+
+    /**
+     * A Junction megpróbálja elfogyasztani a rajta lévő Insect-et. 
+     * Ha a rovar valóban rajta van és bénult, 
+     * akkor megemészti és gombatestet növeszt (ha más nem akadályozza ezt).
+     * @param insect A megevésre szánt rovar.
+     */
+    public void tryConsumeInsect(Insect insect) {
+        
     }
 
     /**
