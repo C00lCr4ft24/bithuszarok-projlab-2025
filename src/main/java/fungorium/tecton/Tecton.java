@@ -1,6 +1,7 @@
 package fungorium.tecton;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import fungorium.FungoriumEntity;
 import fungorium.mycelium.MyceliumJunction;
@@ -14,17 +15,17 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 3;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 500;
 
     /**
      * A Tecton-hoz tartozó spórák tárolója.
      */
-    private ArrayList<Spore> spores = new ArrayList<>();
+    private final ArrayList<Spore> spores = new ArrayList<>();
 
     /**
      * A Tecton-on található MyceliumJunction-ok tárolója.
      */
-    protected ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
+    protected final ArrayList<MyceliumJunction> myceliumJunctions = new ArrayList<>();
 
     /**
      * A szomszédos Tecton-ok listája.
@@ -58,7 +59,7 @@ public class Tecton implements FungoriumEntity {
      *
      * @param broken A Tecton állapota (törött).
      */
-    public Tecton(boolean broken) {
+    public Tecton(boolean broken) { //--------------------------------------------------------------------------------------------------------
         this();
         this.isBroken = broken;
     }
@@ -70,7 +71,7 @@ public class Tecton implements FungoriumEntity {
      * @return Egy spóra a Tecton-on lévő spórák közül.
      * @throws Exception Ha nincs spóra a Tecton-on.
      */
-    public Spore getASpore() throws Exception {
+    public Spore getASpore() throws Exception { //--------------------------------------------------------------------------------------------------------
         printAction("getASpore");
         if(spores.isEmpty()) { throw new Exception("There is no spore on " + this); }
         return spores.get(0);
@@ -81,8 +82,15 @@ public class Tecton implements FungoriumEntity {
      *
      * @throws Exception Ha nincs elegendő spóra a gomba növesztéséhez.
      */
-    public void removeSporeForFungus() throws Exception {
+    public void removeSporeForFungus() throws Exception { //--------------------------------------------------------------------------------------------------------
         printAction("removeSporeForFungus");
+
+        int availableNutrientAmount = 0;
+        while (!spores.isEmpty()) {
+            if  (availableNutrientAmount >= REQ_NUTRIENT_TO_GROW_FUNGUS) break;
+            else availableNutrientAmount += spores.remove(0).getNutrientValue();
+        }
+        if(availableNutrientAmount < REQ_NUTRIENT_TO_GROW_FUNGUS) { throw new Exception("There is not enough nutrient to grow Fungus on " + this); }
     }
 
     /**
@@ -94,27 +102,34 @@ public class Tecton implements FungoriumEntity {
         printAction("split");
 
         if(isBroken) {
-            printAction("Tecton is broken!");
+            printAction("Tecton is already broken!");
             return null;
         }
-        this.isBroken = true;
-        Tecton tBroken = new Tecton(true);
-        return tBroken;
-        /// To Do implement
-        /*Random rand = new Random();
-        int splitAtIndex = (TectonN.size() - 1)/2;
 
-        for(int i = (splitAtIndex+1); i < TectonN.size(); i++) {
+        //return new Tecton(true);
 
+        var rnd = new Random();
+
+        if(TectonN.size() <= 1) return null;
+
+        int splitAtIndex = rnd.nextInt(TectonN.size() - 1);
+
+        var newTectonN = new ArrayList<Tecton>();
+        var newmyceliumJunctions = new ArrayList<MyceliumJunction>();
+
+        for(int i = splitAtIndex; i < TectonN.size(); i++) {
+            var tecton = TectonN.remove(i);
+            newTectonN.add(tecton);
         }
 
-        ArrayList<MyceliumJunction> newMycJunctList = new ArrayList<>();
-        for(int i = 0; i < splitAt; i++) {
-            newMycJunctList.add(myceliumJunctions.get(i));
-            myceliumJunctions.remove(i);
+        for(MyceliumJunction mj : myceliumJunctions) {
+            for(Tecton t : newTectonN) {
+                //TODO
+            }
         }
-        return new Tecton(newMycJunctList);
-         */
+
+        isBroken = true;
+        return new Tecton(newTectonN); // !!!!!!!!!!+ még az uj myceliumjunction/connectionok hozzáadása kéne !!!!!!!!!!!!!!
     }
 
     /**
@@ -122,7 +137,7 @@ public class Tecton implements FungoriumEntity {
      *
      * @return A létrehozott MyceliumJunction.
      */
-    public MyceliumJunction createMyceliumJunction() {
+    public MyceliumJunction createMyceliumJunction() { //--------------------------------------------------------------------------------------------------------
         printAction("createMyceliumJunction");
         MyceliumJunction junction = new MyceliumJunction(this);
         myceliumJunctions.add(junction);
@@ -134,14 +149,15 @@ public class Tecton implements FungoriumEntity {
      *
      * @return `true`, ha lehet gombatestet helyezni a Tecton-ra, különben `false`.
      */
-    public boolean isFungusSpaceEmpty() {
+    public boolean isFungusSpaceEmpty() { //--------------------------------------------------------------------------------------------------------
         printAction("canFungusGrow");
+        boolean hasSpace = false;
         for(MyceliumJunction j : myceliumJunctions) {
-            if(j.hasAFungus()){
-                return false;
+            if(!j.hasAFungus()) {
+                hasSpace = true;
             }
         }
-        return true;
+        return false;
     }
 
     /**
@@ -149,7 +165,7 @@ public class Tecton implements FungoriumEntity {
      *
      * @return `true`, ha lehet további MyceliumJunction-t hozzáadni, különben `false`.
      */
-    public boolean hasSpaceForJunction() {
+    public boolean hasSpaceForJunction() { //--------------------------------------------------------------------------------------------------------
         printAction("hasSpaceForJunction");
         return true;
     }
@@ -159,7 +175,7 @@ public class Tecton implements FungoriumEntity {
      *
      * @param spore A hozzáadni kívánt spóra.
      */
-    public void putASpore(Spore spore) {
+    public void putASpore(Spore spore) { //--------------------------------------------------------------------------------------------------------
         printAction("putASpore");
         spores.add(spore);
     }
@@ -170,11 +186,9 @@ public class Tecton implements FungoriumEntity {
      * @param junction Az eltávolítandó MyceliumJunction.
      * @throws Exception Ha a megadott MyceliumJunction nem található a listában.
      */
-    public void removeJunction(MyceliumJunction junction) throws Exception {
+    public void removeJunction(MyceliumJunction junction) throws Exception { //--------------------------------------------------------------------------------------------------------
         printAction("removeJunction");
-        if(myceliumJunctions.contains(junction)) {
-            myceliumJunctions.remove(junction);
-        }
+        myceliumJunctions.remove(junction);
     }
 
     /**
@@ -182,7 +196,7 @@ public class Tecton implements FungoriumEntity {
      *
      * @param t A hozzáadni kívánt szomszédos Tecton.
      */
-    public void setNeighbour(Tecton t){
+    public void setNeighbour(Tecton t){ //--------------------------------------------------------------------------------------------------------
         printAction("setNeighbour");
         TectonN.add(t);
     }
