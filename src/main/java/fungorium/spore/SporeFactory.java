@@ -2,6 +2,9 @@ package fungorium.spore;
 
 import java.util.Random;
 
+/**
+ * Ez az osztály felelős random spórák generálásáért.
+ */
 public class SporeFactory {
     private static final int MAX_NUTRIENT_AMOUNT = 300;
     private static final int MAX_EFFECT_TIME_AMOUNT = 5;
