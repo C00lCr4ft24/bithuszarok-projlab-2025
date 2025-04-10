@@ -25,11 +25,14 @@ public class AntiCutSpore extends Spore {
      * @param insect A {@link Insect} objektum, amelyre a spóra hatása érvényesül.
      */
     @Override
-    public void doEffect(Insect insect) { printAction("doEffect"); }
+    public void doEffect(Insect insect) {
+        printAction("doEffect");
+        insect.blockMyceliumCut(effectTime);
+    }
 
     /**
      * Végrehajtja a következő játék lépést.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() {  }
 }
