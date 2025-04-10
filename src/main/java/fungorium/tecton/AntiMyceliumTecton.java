@@ -13,6 +13,9 @@ public class AntiMyceliumTecton extends Tecton {
 
     private int lifetime;
 
+    /**
+     * Inicializál egy random élettartam-értéket ameddig legfeljebb élhet egy {@link MyceliumJunction}
+     */
     private void initLifetime() {
         var rnd = new Random();
         lifetime = rnd.nextInt(1, 5);
