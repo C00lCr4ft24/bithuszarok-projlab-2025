@@ -24,11 +24,14 @@ public class StunSpore extends Spore {
      * @param insect Az a {@link Insect}, amelyre a spóra hatása vonatkozik.
      */
     @Override
-    public void doEffect(Insect insect) { printAction("doEffect"); }
+    public void doEffect(Insect insect) {
+        printAction("doEffect");
+        insect.setStunned(effectTime);
+    }
 
     /**
      * Végrehajtja a spóra következő játék lépését.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() {  }
 }
