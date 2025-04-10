@@ -87,6 +87,17 @@ public class MyceliumConnection implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja az ehhez tartozó MyceliumJunctionnek a másik végét.
+     * @return másik vég.
+     */
+    public MyceliumJunction getOtherEnd(MyceliumJunction from) {
+        printAction("getOtherEnd");
+        if(junctionA == from) { return junctionB; }
+        else if(junctionB == from) { return junctionA; }
+        return null;
+    }
+
+    /**
      * Végrehajtja a kapcsolat következő játék lépését.
      */
     @Override

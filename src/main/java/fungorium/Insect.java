@@ -70,6 +70,12 @@ public class Insect implements FungoriumEntity {
     public Tecton getPosition() { return position; }
 
     /**
+     * Visszaadja az Insect mozgásképességi állapotát
+     * @return true ha bénult, false egyébként.
+     */
+    public boolean isStunned() { return isStunned; }
+
+    /**
      * Elvágja a megadott Mycelium kapcsolatot.
      *
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.

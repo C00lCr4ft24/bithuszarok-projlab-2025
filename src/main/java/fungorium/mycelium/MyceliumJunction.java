@@ -116,8 +116,14 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param insect A megevésre szánt rovar.
      */
     public void tryConsumeInsect(Insect insect) {
-        
+        printAction("tryConsumeInsect");
+        if(!insect.isStunned() || insect.getPosition() != position) { return; } // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van
+
+        insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
+        if(currentFungus != null) createFungus();  // Uj Fungus novesztese csak ha van hely neki
     }
+
+    public ArrayList<MyceliumConnection> getMyceliumConnections() { return connections; }
 
     /**
      * Visszaadja a pozíció Tectonját.
