@@ -12,12 +12,12 @@ abstract public class Spore implements FungoriumEntity {
     /**
      * A spórához tartozó tápanyagtartalom.
      */
-    private int nutrient;
+    protected int nutrient;
 
     /**
      * A spóra hatásának időtartama.
      */
-    private int effectTime;
+    protected int effectTime;
 
     /**
      * Létrehoz egy új spóra példányt a megadott tápanyag- és hatásidő értékekkel.
