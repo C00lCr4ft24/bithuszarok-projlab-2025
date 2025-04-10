@@ -153,14 +153,13 @@ public class Tecton implements FungoriumEntity {
      * @return `true`, ha lehet gombatestet helyezni a Tecton-ra, különben `false`.
      */
     public boolean isFungusSpaceEmpty() { //--------------------------------------------------------------------------------------------------------
-        printAction("canFungusGrow");
-        boolean hasSpace = false;
+        printAction("isFungusSpaceEmpty");
         for(MyceliumJunction j : myceliumJunctions) {
-            if(!j.hasAFungus()) {
-                hasSpace = true;
+            if(j.hasAFungus()) {
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     /**
