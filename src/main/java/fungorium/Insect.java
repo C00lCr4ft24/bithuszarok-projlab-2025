@@ -10,19 +10,19 @@ import fungorium.tecton.Tecton;
 public class Insect implements FungoriumEntity {
 
     /**
-     * A rovar lehetséges mozgási sebességei.
+     * A rovar lehetséges mozgási sebességei. SLOW, MEDIUM, FAST.
      */
     private enum Speed { SLOW, MEDIUM, FAST }
 
     /**
      * Az eddig összesen begyűjtött tápanyag mennyisége.
      */
-    private int     eatenNutrient;
+    private int eatenNutrient;
 
     /**
      * A rovar jelenlegi mozgási sebessége.
      */
-    private Speed   speed;
+    private Speed speed;
 
     /**
      * Jelzi, hogy a rovar képes-e mycelium fonalat vágni két Tecton között.
@@ -42,7 +42,11 @@ public class Insect implements FungoriumEntity {
     /**
      * Alapértelmezett hatások értékeinek visszaállítása.
      */
-    private void resetEffectValues() {  }
+    private void resetEffectValues() {
+        speed = Speed.MEDIUM;
+        canCutMycelium = true;
+        isStunned = false;
+    }
 
     /**
      * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
@@ -53,9 +57,7 @@ public class Insect implements FungoriumEntity {
         System.out.println("New Insect created: " + this);
         this.position = position;
         eatenNutrient = 0;
-        speed = Speed.MEDIUM;
-        canCutMycelium = true;
-        isStunned = false;
+        resetEffectValues();
     }
 
     /**
@@ -63,41 +65,74 @@ public class Insect implements FungoriumEntity {
      *
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
      */
-    public void cutMyceliumConnection(MyceliumConnection mc) { printAction("cutMyceliumConnection"); }
+    public void cutMyceliumConnection(MyceliumConnection mc) {
+        printAction("cutMyceliumConnection");
+        mc.cutMe();
+    }
 
     /**
      * Elfogyaszt egy spórát, amely tápanyagot biztosít a rovar számára.
      *
      * @param spore A {@link Spore}, amelyet a rovar elfogyaszt.
      */
-    public void eatSpore(Spore spore)                        { printAction("eatSpore");              }
+    public void eatSpore(Spore spore) {
+        printAction("eatSpore");
+        eatenNutrient += spore.getNutrientValue();
+        spore.doEffect(this);
+    }
 
     /**
      * A rovar áthelyezése egy másik Tecton-ra.
      *
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
-    public void move(Tecton target)                          { if(!(isStunned))printAction("move"); else  printAction("cant move");             }
+    public void move(Tecton target) {
+        if(!(isStunned)) {
+            printAction("move");
+            position.removeInsect(this);
+            position = target;
+            target.putInsect(this);
+        }
+        else { printAction("cant move"); }
+    }
 
     /**
      * A rovar lebénításának beállítása.
      */
-    public void setStunned()                                 { printAction("setStunned");            }
+    public void setStunned() {
+        printAction("setStunned");
+        isStunned = true;
+    }
 
     /**
      * Megakadályozza, hogy a rovar mycelium fonalakat vágjon el.
      */
-    public void blockMyceliumCut()                           { printAction("blockMyceliumCut");      }
+    public void blockMyceliumCut() {
+        printAction("blockMyceliumCut");
+        canCutMycelium = false;
+    }
 
     /**
      * Növeli a rovar mozgási sebességét.
      */
-    public void increaseSpeed()                              { printAction("increaseSpeed");         }
+    public void increaseSpeed() {
+        printAction("increaseSpeed");
+        switch (speed) {
+            case SLOW   -> speed = Speed.MEDIUM;
+            case MEDIUM -> speed = Speed.FAST;
+        }
+    }
 
     /**
      * Csökkenti a rovar mozgási sebességét.
      */
-    public void decreaseSpeed()                              { printAction("decreaseSpeed");         }
+    public void decreaseSpeed() {
+        printAction("decreaseSpeed");
+        switch (speed) {
+            case MEDIUM -> speed = Speed.SLOW;
+            case FAST   -> speed = Speed.MEDIUM;
+        }
+    }
 
     /**
      * Végrehajtja a játék lépését a rovar esetében.
