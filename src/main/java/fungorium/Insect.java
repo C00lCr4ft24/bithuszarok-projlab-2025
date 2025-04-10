@@ -23,16 +23,19 @@ public class Insect implements FungoriumEntity {
      * A rovar jelenlegi mozgási sebessége.
      */
     private Speed speed;
+    private int speedEffectTimer;
 
     /**
      * Jelzi, hogy a rovar képes-e mycelium fonalat vágni két Tecton között.
      */
     private boolean canCutMycelium;
+    private int blockMyceliumCutTimer;
 
     /**
      * Jelzi, hogy a rovar le van-e bénítva.
      */
     private boolean isStunned;
+    private int isStunnedTimer;
 
     /**
      * A rovar aktuális pozícióját jelző Tecton.
@@ -99,24 +102,30 @@ public class Insect implements FungoriumEntity {
     /**
      * A rovar lebénításának beállítása.
      */
-    public void setStunned() {
+    public void setStunned(int effectTime) {
         printAction("setStunned");
+
+        isStunnedTimer = effectTime;
         isStunned = true;
     }
 
     /**
      * Megakadályozza, hogy a rovar mycelium fonalakat vágjon el.
      */
-    public void blockMyceliumCut() {
+    public void blockMyceliumCut(int effectTime) {
         printAction("blockMyceliumCut");
+
+        blockMyceliumCutTimer = effectTime;
         canCutMycelium = false;
     }
 
     /**
      * Növeli a rovar mozgási sebességét.
      */
-    public void increaseSpeed() {
+    public void increaseSpeed(int effectTime) {
         printAction("increaseSpeed");
+
+        speedEffectTimer = effectTime;
         switch (speed) {
             case SLOW   -> speed = Speed.MEDIUM;
             case MEDIUM -> speed = Speed.FAST;
@@ -126,8 +135,10 @@ public class Insect implements FungoriumEntity {
     /**
      * Csökkenti a rovar mozgási sebességét.
      */
-    public void decreaseSpeed() {
+    public void decreaseSpeed(int effectTime) {
         printAction("decreaseSpeed");
+
+        speedEffectTimer = effectTime;
         switch (speed) {
             case MEDIUM -> speed = Speed.SLOW;
             case FAST   -> speed = Speed.MEDIUM;
@@ -138,5 +149,16 @@ public class Insect implements FungoriumEntity {
      * Végrehajtja a játék lépését a rovar esetében.
      */
     @Override
-    public void gameStep() { System.out.println("gameStep");  }
+    public void gameStep() {
+
+        --blockMyceliumCutTimer;
+        if (blockMyceliumCutTimer == 0) { canCutMycelium = true; }
+
+        --isStunnedTimer;
+        if (isStunnedTimer        == 0) { isStunned = false; }
+
+        --speedEffectTimer;
+        if (speedEffectTimer      == 0) { speed = Speed.MEDIUM; }
+
+    }
 }
