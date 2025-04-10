@@ -87,9 +87,9 @@ public class Insect implements FungoriumEntity {
     public void eatSpore(Spore spore) {
         printAction("eatSpore");
 
-        position.removeSpore(spore);
-        eatenNutrient += spore.getNutrientValue();
-        spore.doEffect(this);
+        position.removeSpore(spore); // spora eltavolitasa a tectonrol
+        eatenNutrient += spore.getNutrientValue(); // spora tapanyag hozzaadasa
+        spore.doEffect(this); //doEffect rahivasa az Insectre
     }
 
     /**
@@ -98,11 +98,11 @@ public class Insect implements FungoriumEntity {
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
     public void move(Tecton target) {
-        if(!(isStunned)) {
+        if(!(isStunned)) {                   // ha nincs stunnolva
             printAction("move");
-            position.removeInsect(this);
-            position = target;
-            target.putInsect(this);
+            position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
+            target.putInsect(this);          // uj tctonra tegyuk ra
+            position = target;               // allitsuk be a lokalis valtozot az uj tectonra
         }
         else { printAction("cant move"); }
     }
@@ -160,13 +160,13 @@ public class Insect implements FungoriumEntity {
     public void gameStep() {
 
         --blockMyceliumCutTimer;
-        if (blockMyceliumCutTimer == 0) { canCutMycelium = true; }
+        if (blockMyceliumCutTimer == 0) { canCutMycelium = true; } // Default ertek visszaallitasa
 
         --isStunnedTimer;
-        if (isStunnedTimer        == 0) { isStunned = false; }
+        if (isStunnedTimer        == 0) { isStunned = false; }     // --||--
 
         --speedEffectTimer;
-        if (speedEffectTimer      == 0) { speed = Speed.MEDIUM; }
+        if (speedEffectTimer      == 0) { speed = Speed.MEDIUM; }  // --||--
 
     }
 }
