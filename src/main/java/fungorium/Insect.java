@@ -64,6 +64,12 @@ public class Insect implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja a {@link Tecton} objektumot, amelyen az Insect a metódus hívásakor állt.
+     * @return az a Tecton amelyen az Insect a metódus hívásakor állt.
+     */
+    public Tecton getPosition() { return position; }
+
+    /**
      * Elvágja a megadott Mycelium kapcsolatot.
      *
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
@@ -80,6 +86,8 @@ public class Insect implements FungoriumEntity {
      */
     public void eatSpore(Spore spore) {
         printAction("eatSpore");
+
+        position.removeSpore(spore);
         eatenNutrient += spore.getNutrientValue();
         spore.doEffect(this);
     }

@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Random;
 
 import fungorium.FungoriumEntity;
+import fungorium.Insect;
+import fungorium.mycelium.MyceliumConnection;
 import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 
@@ -32,6 +34,7 @@ public class Tecton implements FungoriumEntity {
      */
     private ArrayList<Tecton> TectonN = new ArrayList<>();
 
+    private final ArrayList<Insect> insects = new ArrayList<>();
 
     /**
      * A Tecton állapota: törött vagy ép.
@@ -181,6 +184,32 @@ public class Tecton implements FungoriumEntity {
     }
 
     /**
+     * Elhelyez egy {@link Insect} példányt a Tectonon.
+     * @param insect ami rákerül a Tectonra.
+     */
+    public void putInsect(Insect insect) {
+        printAction("putInsect");
+        insects.add(insect);
+    }
+    /**
+     * Eltávolítja az {@link Insect} példányt a Tectonról.
+     * @param insect ami eltávolításra kerül.
+     */
+    public void removeInsect(Insect insect) {
+        printAction("removeInsect");
+        insects.remove(insect);
+    }
+
+    /**
+     * Eltávolítja a megadott Sporet a Tectonról.
+     * @param spore a megadott {@link Spore} objektum.
+     */
+    public void removeSpore(Spore spore) {
+        printAction("removeSpore");
+        spores.remove(spore);
+    }
+
+    /**
      * Eltávolítja a megadott MyceliumJunction-t a Tecton-on található listából.
      *
      * @param junction Az eltávolítandó MyceliumJunction.
@@ -205,5 +234,5 @@ public class Tecton implements FungoriumEntity {
      * Végrehajtja a játék lépését a Tecton-on.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() {  }
 }
