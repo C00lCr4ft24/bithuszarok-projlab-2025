@@ -2,6 +2,9 @@ package fungorium.spore;
 
 import fungorium.Insect;
 
+/**
+ * Egy olyan {@link Spore} amely egy új {@link Insect} példányt hoz létre az őt megevő mellé.
+ */
 public class ReplicationSpore extends Spore {
 
     public ReplicationSpore(int nutrient, int effectTime) {
@@ -10,12 +13,11 @@ public class ReplicationSpore extends Spore {
 
     @Override
     public void doEffect(Insect insect) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        var newInsect = new Insect(insect.getPosition());
+        insect.getPosition().putInsect(newInsect);
     }
 
     @Override
-    public void gameStep() {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
+    public void gameStep() {  }
 
 }
