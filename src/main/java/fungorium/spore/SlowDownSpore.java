@@ -25,11 +25,14 @@ public class SlowDownSpore extends Spore {
      * @param insect A {@link Insect}, amelyre a spóra hatása vonatkozik.
      */
     @Override
-    public void doEffect(Insect insect) { printAction("doEffect"); }
+    public void doEffect(Insect insect) {
+        printAction("doEffect");
+        insect.decreaseSpeed(effectTime);
+    }
 
     /**
      * Végrehajtja a spóra következő játék lépését.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() {  }
 }
