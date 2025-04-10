@@ -3,6 +3,7 @@ package fungorium.tecton;
 import fungorium.mycelium.MyceliumJunction;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 /**
  * Egy olyan Tecton típust reprezentál, amelyen egy megadott kör után a rajta lévő Mycelium-ok
@@ -10,17 +11,30 @@ import java.util.ArrayList;
  */
 public class AntiMyceliumTecton extends Tecton {
 
+    private int lifetime;
+
+    private void initLifetime() {
+        var rnd = new Random();
+        lifetime = rnd.nextInt(1, 5);
+    }
+
     /**
      * Létrehoz egy új AntiMyceliumTecton példányt a megadott szomszédos Tecton-ok alapján.
      *
      * @param t A Tecton szomszédjai.
      */
-    public AntiMyceliumTecton(ArrayList<Tecton> t) {super(t); }
+    public AntiMyceliumTecton(ArrayList<Tecton> t) {
+        super(t);
+        initLifetime();
+    }
 
     /**
      * Létrehoz egy új, üres AntiMyceliumTecton példányt.
      */
-    public AntiMyceliumTecton() { super(); }
+    public AntiMyceliumTecton() {
+        super();
+        initLifetime();
+    }
 
 
     /**
@@ -30,6 +44,9 @@ public class AntiMyceliumTecton extends Tecton {
     @Override
     public void gameStep() {
         printAction("gameStep");
-
+        lifetime--;
+        if (lifetime == 0) {
+            myceliumJunctions.clear();
+        }
     }
 }
