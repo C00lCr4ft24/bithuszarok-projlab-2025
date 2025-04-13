@@ -39,7 +39,9 @@ public class MyceliumConnection implements FungoriumEntity {
     public MyceliumConnection(MyceliumJunction a, MyceliumJunction b) {
         System.out.println("New MyceliumConnection created: " + this);
         junctionA = a;
+        junctionA.addConnection(this);
         junctionB = b;
+        junctionB.addConnection(this);
     }
 
     /**
