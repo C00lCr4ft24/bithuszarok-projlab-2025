@@ -102,7 +102,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public MyceliumConnection getMyceliumConnectionByOtherEndTecton(Tecton otherEnd) {
         printAction("getMyceliumConnection");
         for (MyceliumConnection c : connections) {
-            if(c.isThisYOurOtherEndTecton(this, otherEnd)){
+            if(c.isThisYourOtherEndTecton(this, otherEnd)){
                 return c;
             }
         }
