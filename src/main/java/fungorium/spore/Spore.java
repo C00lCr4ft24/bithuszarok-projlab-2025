@@ -7,7 +7,7 @@ import fungorium.Insect;
  * Egy absztrakt spórát reprezentáló osztály, amely létrejöhet és kilövődhet, majd egy
  * Tecton-on elhelyezkedve elfogyasztható vagy felhasználható.
  */
-abstract public class Spore implements FungoriumEntity {
+public abstract class Spore implements FungoriumEntity {
 
     /**
      * A spórához tartozó tápanyagtartalom.
