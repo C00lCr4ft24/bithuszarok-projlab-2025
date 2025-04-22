@@ -22,7 +22,7 @@ public abstract class Spore implements FungoriumEntity {
     /**
      * Létrehoz egy új spóra példányt a megadott tápanyag- és hatásidő értékekkel.
      *
-     * @param nutrient A spóra tápanyagtartalma.
+     * @param nutrient   A spóra tápanyagtartalma.
      * @param effectTime A spóra hatásának időtartama.
      */
     public Spore(int nutrient, int effectTime) {
@@ -35,8 +35,7 @@ public abstract class Spore implements FungoriumEntity {
      *
      * @return A spóra tápanyagtartalma.
      */
-    public int getNutrientValue()
-    {
+    public int getNutrientValue() {
         printAction("getNutrientValue");
         return this.nutrient;
     }
@@ -53,5 +52,6 @@ public abstract class Spore implements FungoriumEntity {
      * A Spore-nak a lépés során nem történik semmi.
      */
     @Override
-    public void gameStep() {  }
+    public void gameStep() {
+    }
 }
