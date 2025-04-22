@@ -1,7 +1,11 @@
 package fungorium;
+
 import fungorium.mycelium.MyceliumConnection;
 import fungorium.spore.Spore;
 import fungorium.tecton.Tecton;
+
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * Az Insect osztály a rovarokat reprezentálja, amelyek a benőtt Tecton-okon tudnak közlekedni,
@@ -10,37 +14,43 @@ import fungorium.tecton.Tecton;
 public class Insect implements FungoriumEntity {
 
     /**
-     * A rovar lehetséges mozgási sebességei. SLOW, MEDIUM, FAST.
+     * A rovar által megevett spórák, melyek hatásukat kifejtik rá.
      */
-    private enum Speed { SLOW, MEDIUM, FAST }
-
+    private final List<Spore> eatenAffectingSpores;
     /**
      * Az eddig összesen begyűjtött tápanyag mennyisége.
      */
     private int eatenNutrient;
-
     /**
      * A rovar jelenlegi mozgási sebessége.
      */
     private Speed speed;
-    private int speedEffectTimer;
-
     /**
      * Jelzi, hogy a rovar képes-e mycelium fonalat vágni két Tecton között.
      */
     private boolean canCutMycelium;
-    private int blockMyceliumCutTimer;
-
     /**
      * Jelzi, hogy a rovar le van-e bénítva.
      */
     private boolean isStunned;
-    private int isStunnedTimer;
-
     /**
      * A rovar aktuális pozícióját jelző Tecton.
      */
     private Tecton position;
+
+
+    /**
+     * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
+     *
+     * @param position Az Insect kezdő pozíciója.
+     */
+    public Insect(Tecton position) {
+        System.out.println("New Insect created: " + this);
+        this.position = position;
+        eatenNutrient = 0;
+        eatenAffectingSpores = new LinkedList<>();
+        resetEffectValues();
+    }
 
     /**
      * Alapértelmezett hatások értékeinek visszaállítása.
@@ -52,37 +62,35 @@ public class Insect implements FungoriumEntity {
     }
 
     /**
-     * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
+     * Visszaadja a {@link Tecton} objektumot, amelyen az Insect a metódus hívásakor állt.
      *
-     * @param position Az Insect kezdő pozíciója.
+     * @return az a Tecton amelyen az Insect a metódus hívásakor állt.
      */
-    public Insect(Tecton position) {
-        System.out.println("New Insect created: " + this);
-        this.position = position;
-        eatenNutrient = 0;
-        resetEffectValues();
+    public Tecton getPosition() {
+        return position;
     }
 
     /**
-     * Visszaadja a {@link Tecton} objektumot, amelyen az Insect a metódus hívásakor állt.
-     * @return az a Tecton amelyen az Insect a metódus hívásakor állt.
-     */
-    public Tecton getPosition() { return position; }
-
-    /**
      * Visszaadja az Insect mozgásképességi állapotát
+     *
      * @return true ha bénult, false egyébként.
      */
-    public boolean isStunned() { return isStunned; }
+    public boolean isStunned() {
+        return isStunned;
+    }
 
     /**
-     * Elvágja a megadott Mycelium kapcsolatot.
+     * Elvágja a megadott Mycelium kapcsolatot, ha tud vágni.
      *
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
      */
     public void cutMyceliumConnection(MyceliumConnection mc) {
-        printAction("cutMyceliumConnection");
-        mc.cutMe();
+        if (canCutMycelium) {
+            printAction("cutMyceliumConnection");
+            mc.cutMe();
+        } else {
+            printAction("can't cutMyceliumConnection");
+        }
     }
 
     /**
@@ -92,10 +100,9 @@ public class Insect implements FungoriumEntity {
      */
     public void eatSpore(Spore spore) {
         printAction("eatSpore");
-
         position.removeSpore(spore); // spora eltavolitasa a tectonrol
         eatenNutrient += spore.getNutrientValue(); // spora tapanyag hozzaadasa
-        spore.doEffect(this); //doEffect rahivasa az Insectre
+        eatenAffectingSpores.addLast(spore);
     }
 
     /**
@@ -104,44 +111,39 @@ public class Insect implements FungoriumEntity {
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
     public void move(Tecton target) {
-        if(!(isStunned)) {                   // ha nincs stunnolva
+        if (!isStunned) {                   // ha nincs stunnolva
             printAction("move");
             position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
             target.putInsect(this);          // uj tctonra tegyuk ra
             position = target;               // allitsuk be a lokalis valtozot az uj tectonra
+        } else {
+            printAction("can't move");
         }
-        else { printAction("cant move"); }
     }
 
     /**
      * A rovar lebénításának beállítása.
      */
-    public void setStunned(int effectTime) {
+    public void setStunned() {
         printAction("setStunned");
-
-        isStunnedTimer = effectTime;
         isStunned = true;
     }
 
     /**
      * Megakadályozza, hogy a rovar mycelium fonalakat vágjon el.
      */
-    public void blockMyceliumCut(int effectTime) {
+    public void blockMyceliumCut() {
         printAction("blockMyceliumCut");
-
-        blockMyceliumCutTimer = effectTime;
         canCutMycelium = false;
     }
 
     /**
      * Növeli a rovar mozgási sebességét.
      */
-    public void increaseSpeed(int effectTime) {
+    public void increaseSpeed() {
         printAction("increaseSpeed");
-
-        speedEffectTimer = effectTime;
         switch (speed) {
-            case SLOW   -> speed = Speed.MEDIUM;
+            case SLOW -> speed = Speed.MEDIUM;
             case MEDIUM -> speed = Speed.FAST;
         }
     }
@@ -149,30 +151,34 @@ public class Insect implements FungoriumEntity {
     /**
      * Csökkenti a rovar mozgási sebességét.
      */
-    public void decreaseSpeed(int effectTime) {
+    public void decreaseSpeed() {
         printAction("decreaseSpeed");
-
-        speedEffectTimer = effectTime;
         switch (speed) {
             case MEDIUM -> speed = Speed.SLOW;
-            case FAST   -> speed = Speed.MEDIUM;
+            case FAST -> speed = Speed.MEDIUM;
         }
     }
 
     /**
      * Végrehajtja a játék lépését a rovar esetében.
+     * A resetEffectValues() függvénnyel visszaállítja a hatások attribútumait alapértékeire,
+     * majd egy ciklussal végig megy az összes megevett hatást kifejtő spóra tárolóján (eatenAffectingSpores) és kifejteti magán a hatását.
+     * Ha a spóra a hatáskifejtés beállítása után, ha a Spóra true-val jelzi, hogy lejárt a hatása. Ilyenkor a rovar kiveszi a rá hatást kifejtő spórák listájából.
      */
     @Override
     public void gameStep() {
-
-        --blockMyceliumCutTimer;
-        if (blockMyceliumCutTimer == 0) { canCutMycelium = true; } // Default ertek visszaallitasa
-
-        --isStunnedTimer;
-        if (isStunnedTimer        == 0) { isStunned = false; }     // --||--
-
-        --speedEffectTimer;
-        if (speedEffectTimer      == 0) { speed = Speed.MEDIUM; }  // --||--
-
+        printAction("gameStep");
+        resetEffectValues();
+        for (Spore spore : eatenAffectingSpores) {
+            if (spore.doEffect(this)) {
+                eatenAffectingSpores.remove(spore);
+            }
+        }
     }
+
+    /**
+     * A rovar lehetséges mozgási sebességei. SLOW, MEDIUM, FAST.
+     */
+    private enum Speed {SLOW, MEDIUM, FAST}
+
 }
