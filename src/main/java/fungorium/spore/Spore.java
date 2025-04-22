@@ -47,4 +47,11 @@ abstract public class Spore implements FungoriumEntity {
      * @param insect A {@link Insect}, amelyre a spóra hatással van.
      */
     public abstract void doEffect(Insect insect);
+
+    /**
+     * Végrehajtja a spóra következő játék lépését.
+     * A Spore-nak a lépés során nem történik semmi.
+     */
+    @Override
+    public void gameStep() {  }
 }
