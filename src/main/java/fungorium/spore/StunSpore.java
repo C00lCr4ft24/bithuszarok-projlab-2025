@@ -20,18 +20,16 @@ public class StunSpore extends Spore {
 
     /**
      * Kifejti a spóra hatását a megadott rovarra, megbénítva azt.
+     * Csökkenti eggyel az effectTime-át.
      *
      * @param insect Az a {@link Insect}, amelyre a spóra hatása vonatkozik.
+     * @return True-t ad vissza, ha az effectTime-ja nulla vagy annál kisebb, egyébként false-t.
      */
     @Override
-    public void doEffect(Insect insect) {
+    public boolean doEffect(Insect insect) {
         printAction("doEffect");
-        insect.setStunned(effectTime);
+        insect.setStunned();
+        effectTime--;
+        return effectTime <= 0;
     }
-
-    /**
-     * Végrehajtja a spóra következő játék lépését.
-     */
-    @Override
-    public void gameStep() {  }
 }

@@ -21,18 +21,16 @@ public class AntiCutSpore extends Spore {
 
     /**
      * Kifejti a spóra hatását a megadott rovarra.
+     * Csökkenti eggyel az effectTime-át.
      *
      * @param insect A {@link Insect} objektum, amelyre a spóra hatása érvényesül.
+     * @return True-t ad vissza, ha az effectTime-ja nulla vagy annál kisebb, egyébként false-t.
      */
     @Override
-    public void doEffect(Insect insect) {
+    public boolean doEffect(Insect insect) {
         printAction("doEffect");
-        insect.blockMyceliumCut(effectTime);
+        insect.blockMyceliumCut();
+        effectTime--;
+        return effectTime <= 0;
     }
-
-    /**
-     * Végrehajtja a következő játék lépést.
-     */
-    @Override
-    public void gameStep() {  }
 }
