@@ -247,9 +247,8 @@ public class Tecton implements FungoriumEntity {
      * Eltávolítja a megadott MyceliumJunction-t a Tecton-on található listából.
      *
      * @param junction Az eltávolítandó MyceliumJunction.
-     * @throws Exception Ha a megadott MyceliumJunction nem található a listában.
      */
-    public void removeJunction(MyceliumJunction junction) throws Exception { //--------------------------------------------------------------------------------------------------------
+    public void removeJunction(MyceliumJunction junction) { //--------------------------------------------------------------------------------------------------------
         printAction("removeJunction");
         myceliumJunctions.remove(junction);
     }
