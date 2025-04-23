@@ -113,36 +113,47 @@ public class Tecton implements FungoriumEntity {
      */
     public Tecton split() {
         printAction("split");
-
-        if(isBroken) {
+        if (isBroken) {
             printAction("Tecton is already broken!");
             return null;
         }
+        if (TectonN.size() <= 1) {
+            return null;
+        }
+        Tecton newTecton = this.createNewInstance();
+        newTecton.TectonN.add(this);
 
-        //return new Tecton(true);
+        int splitAtIndex = (TectonN.size() - 1) / 2;
+        ArrayList<Tecton> tempNeighbours = new ArrayList<>(TectonN.subList(splitAtIndex, TectonN.size())); // Create a copy of the sublist
 
-        var rnd = new Random();
-
-        if(TectonN.size() <= 1) return null;
-
-        int splitAtIndex = rnd.nextInt(TectonN.size() - 1);
-
-        var newTectonN = new ArrayList<Tecton>();
-        var newmyceliumJunctions = new ArrayList<MyceliumJunction>();
-
-        for(int i = splitAtIndex; i < TectonN.size(); i++) {
-            var tecton = TectonN.remove(i);
-            newTectonN.add(tecton);
+        // Resetting Tecton neighbours
+        for (Tecton tempTecton : tempNeighbours) {
+            TectonN.remove(tempTecton); // Modify the original list here
+            tempTecton.TectonN.remove(this);
+            tempTecton.TectonN.add(newTecton);
+            newTecton.TectonN.add(tempTecton);
         }
 
-        for(MyceliumJunction mj : myceliumJunctions) {
-            for(Tecton t : newTectonN) {
-                //TODO
+        // Resetting MyceliumConnections
+        for (MyceliumJunction mj : myceliumJunctions) {
+            MyceliumJunction newMyceliumJunction = null;
+            for (Tecton tempTecton : tempNeighbours) {
+                MyceliumConnection toBeChangedConnection = mj.getMyceliumConnectionByOtherEndTecton(tempTecton);
+                if (toBeChangedConnection != null) {
+                    if (newMyceliumJunction == null) {
+                        newMyceliumJunction = newTecton.createMyceliumJunction();
+                    }
+                    mj.removeConnection(toBeChangedConnection);
+                    newMyceliumJunction.addConnection(toBeChangedConnection);
+                    toBeChangedConnection.changeThisJunctionTo(mj, newMyceliumJunction);
+                }
             }
         }
 
+        TectonN.add(newTecton);
         isBroken = true;
-        return new Tecton(newTectonN); // !!!!!!!!!!+ még az uj myceliumjunction/connectionok hozzáadása kéne !!!!!!!!!!!!!!
+        newTecton.isBroken = true;
+        return newTecton;
     }
 
     /**
