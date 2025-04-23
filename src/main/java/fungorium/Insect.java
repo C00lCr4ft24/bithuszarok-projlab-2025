@@ -16,7 +16,7 @@ public class Insect implements FungoriumEntity {
     /**
      * A rovar által megevett spórák, melyek hatásukat kifejtik rá.
      */
-    private final List<Spore> eatenAffectingSpores;
+    private final LinkedList<Spore> eatenAffectingSpores;
     /**
      * Az eddig összesen begyűjtött tápanyag mennyisége.
      */
