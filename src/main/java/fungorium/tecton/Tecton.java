@@ -67,6 +67,16 @@ public class Tecton implements FungoriumEntity {
         this.isBroken = broken;
     }
 
+    /**
+     * A saját osztály típusából csinál egy új alappéldányt és visszaadja azt.
+     * split() függvény használja.
+     *
+     * @return Az példány, melynek megyezik az osztály típusa azzal, akin hívódik.
+     */
+    protected Tecton createNewInstance() {
+        return new Tecton();
+    }
+
 
     /**
      * Visszaad egy spórát a Tecton-on található spórák közül.
