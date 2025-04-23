@@ -121,6 +121,21 @@ public class MyceliumConnection implements FungoriumEntity {
     }
 
     /**
+     * Kicseréli a from paraméterként kapott MyceliumJunction-et a to paraméterként kapott MyceliumJunction-re, ha a from paraméter megegyezik valamelyik végével.
+     *
+     * @param from Cserélendő MyceliumJunction vég
+     * @param to Amire cserélni kell a from paramétert
+     */
+    public void changeThisJunctionTo(MyceliumJunction from, MyceliumJunction to) {
+        printAction("changeThisJunction");
+        if (junctionA == from) {
+            junctionA = to;
+        } else if (junctionB == from) {
+            junctionB = to;
+        }
+    }
+
+    /**
      * Ha a lifetime értéke kisebb, mint nulla, akkor rögtön visszatér.
      * Egyébként csökkenti eggyel a lifetime értékét, majd ezután ha az nulla vagy kisebb lesz, akkor terminálja a fonalat.
      */
