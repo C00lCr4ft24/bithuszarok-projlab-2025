@@ -97,14 +97,21 @@ public class Tecton implements FungoriumEntity {
      */
     public void removeSporeForFungus() throws Exception { //--------------------------------------------------------------------------------------------------------
         printAction("removeSporeForFungus");
-
+        int toBeDeletedNumberOfSpores = 0;
         int availableNutrientAmount = 0;
         while (!spores.isEmpty()) {
-            if (availableNutrientAmount >= REQ_NUTRIENT_TO_GROW_FUNGUS) break;
-            else availableNutrientAmount += spores.remove(0).getNutrientValue();
+            if (availableNutrientAmount >= REQ_NUTRIENT_TO_GROW_FUNGUS) {
+                break;
+            } else {
+                availableNutrientAmount += spores.get(toBeDeletedNumberOfSpores).getNutrientValue();
+                toBeDeletedNumberOfSpores++;
+            }
         }
         if (availableNutrientAmount < REQ_NUTRIENT_TO_GROW_FUNGUS) {
             throw new Exception("There is not enough nutrient to grow Fungus on " + this);
+        }
+        for (int i = 0; i < toBeDeletedNumberOfSpores; i++) {
+            spores.removeFirst();
         }
     }
 
