@@ -22,6 +22,16 @@ public class AntiFungusTecton extends Tecton {
     public AntiFungusTecton() { super(); }
 
     /**
+     * A saját osztály típusából csinál egy új alappéldányt és visszaadja azt.
+     *
+     * @return Az példány, melynek megyezik az osztály típusa azzal, akin hívódik.
+     */
+    @Override
+    protected Tecton createNewInstance() {
+        return new AntiFungusTecton();
+    }
+
+    /**
      * Ellenőrzi, hogy van-e üres hely gombatest számára ezen a Tecton-on.
      */
     @Override

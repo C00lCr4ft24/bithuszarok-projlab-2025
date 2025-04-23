@@ -39,6 +39,15 @@ public class AntiMyceliumTecton extends Tecton {
         initLifetime();
     }
 
+    /**
+     * A saját osztály típusából csinál egy új alappéldányt és visszaadja azt.
+     *
+     * @return Az példány, melynek megyezik az osztály típusa azzal, akin hívódik.
+     */
+    @Override
+    protected Tecton createNewInstance() {
+        return new AntiMyceliumTecton();
+    }
 
     /**
      * Játék lépés során beállítja a rajta lévő MyceliumJunction-ben található

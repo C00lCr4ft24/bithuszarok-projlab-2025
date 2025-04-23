@@ -67,7 +67,6 @@ public class Tecton implements FungoriumEntity {
 
     /**
      * A saját osztály típusából csinál egy új alappéldányt és visszaadja azt.
-     * split() függvény használja.
      *
      * @return Az példány, melynek megyezik az osztály típusa azzal, akin hívódik.
      */
