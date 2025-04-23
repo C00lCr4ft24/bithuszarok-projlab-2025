@@ -7,6 +7,7 @@ import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 /**
  * A Tecton osztály a játéktér felszínét alkotó különálló kéregdarabok alapját képezi.
@@ -24,7 +25,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A Tecton-hoz tartozó spórák tárolója.
      */
-    private final ArrayList<Spore> spores = new ArrayList<>();
+    private final LinkedList<Spore> spores = new LinkedList<>();
     /**
      * A Tecton-on lévő rovarok tárolója.
      */
@@ -86,7 +87,7 @@ public class Tecton implements FungoriumEntity {
         if (spores.isEmpty()) {
             throw new Exception("There is no spore on " + this);
         }
-        return spores.get(0);
+        return spores.getFirst();
     }
 
     /**
@@ -201,7 +202,7 @@ public class Tecton implements FungoriumEntity {
      */
     public void putASpore(Spore spore) { //--------------------------------------------------------------------------------------------------------
         printAction("putASpore");
-        spores.add(spore);
+        spores.addLast(spore);
     }
 
     /**
