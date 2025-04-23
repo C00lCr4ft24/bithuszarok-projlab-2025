@@ -264,6 +264,33 @@ public class Tecton implements FungoriumEntity {
     }
 
     /**
+     * Megnézi, hogy a kapott Tecton a megadott lépés távolságon belül van-e. (Egy lépés két szomszádos Tecton között történik.
+     *
+     * @param neighbour A keresett Tecton, akit a megadott lépés számon belül el lehet-e érni
+     * @param range     Lépésszám, ami belül keresni kell.
+     * @return True-t ad vissza, ha megtalálja a keresett Tecton a lépésszámon belül, minden más esetben False-t
+     */
+    public boolean isThisYourNeighbourInRange(Tecton neighbour, int range) {
+        if (range <= 0) {
+            return false;
+        }
+        if (this == neighbour) {
+            return true;
+        }
+        for (Tecton tempTecton : TectonN) {
+            if (tempTecton == neighbour) {
+                return true;
+            }
+        }
+        for (Tecton tempTecton : TectonN) {
+            if (tempTecton.isThisYourNeighbourInRange(neighbour, (range - 1))) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Végrehajtja a játék lépését a Tecton-on.
      */
     @Override
