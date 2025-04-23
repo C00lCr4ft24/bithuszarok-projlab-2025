@@ -8,6 +8,7 @@ import fungorium.tecton.Tecton;
  */
 public class MyceliumConnection implements FungoriumEntity {
 
+    public static final int CUT_DEFAULT_LIFETIME = 3;
     /**
      * A kapcsolat fennmaradó élettartama. Alapértelmezett érték: -1, amely végtelen élettartamot jelent.
      */
@@ -24,11 +25,9 @@ public class MyceliumConnection implements FungoriumEntity {
     private MyceliumJunction junctionB;
 
     /**
-     * Véglegesen megszünteti a csatlakozását a két MyceliumJunction-nek.
-    */
-    private void terminateConnection() {
-        printAction("terminateConnection");
-    }
+     * Azt tárolja, hogy el vágta-e már egy rovar őt.
+     */
+    private boolean hasBeenCut = false;
 
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
@@ -45,13 +44,11 @@ public class MyceliumConnection implements FungoriumEntity {
     }
 
     /**
-     * Megszakítja a kapcsolatot a két MyceliumJunction között.
-     *
-     * <p>Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel
-     * az attribútumaihoz, ezzel megszüntetve a kapcsolatot.</p>
+     * Véglegesen megszünteti a csatlakozását a két MyceliumJunction-nek.
+     * Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel az attribútumaihoz, ezzel megszüntetve a kapcsolatot.
      */
-    public void cutMe() {
-        printAction("cutMe");
+    private void terminateConnection() {
+        printAction("terminateConnection");
         junctionA.removeConnection(this);
         junctionB.removeConnection(this);
         junctionA = null;
@@ -59,29 +56,49 @@ public class MyceliumConnection implements FungoriumEntity {
     }
 
     /**
-     * Beállítja a kapcsolat élettartamát, ha az új érték nem negatív.
-     *
-     * @param lifetime Az élettartam új értéke.
+     * Ezzel tudja elvágni a fonalat egy rovar.
+     * Az elvágás bejegyzése után rögtön beállítja a fonal életidejét a statikus CUT_DEFAULT_LIFETIME értékére.
      */
-    public void setLifetime(int lifetime) {
-        if(lifetime < 0) {
-            printAction("setLifeTime");
-            this.lifetime = lifetime;
+    public void cutMe() {
+        printAction("cutMe");
+        hasBeenCut = true;
+        setLifetime(CUT_DEFAULT_LIFETIME);
+    }
+
+    /**
+     * Beállítja a kapcsolat élettartamát.
+     * Ha a kapott érték nulla, akkor rögtön terminálja a fonalat.
+     * Ha a kapott érték negatív és még nem lett elvágva a fonál, akkor beállítja a lifetime-ot a kapott értékre.
+     * Ha a kapott érték pozitív és még nem lett beállítva, hogy majd haljon el a fonál vagy a kapott érték kisebb, mint a beállított, akkor beállítja a lifetime-ot a kapott értékre.
+     *
+     * @param newLifetime Az élettartam új értéke.
+     */
+    public void setLifetime(int newLifetime) {
+        printAction("setLifeTime");
+        if (newLifetime == 0) {
+            // Ha az új kapott newLifetime nulla, akkor azonnal megszakítjuk az összekötést.
+            terminateConnection();
+        } else if (newLifetime < 0 && !hasBeenCut) {
+            // Ha a newLifetime nullánál kisebb és még nem lett elvágva, akkor beállítja a lifetime értékét a kapott newLifetime értékére. (Ilyenkor a fonal örökké él)
+            lifetime = newLifetime;
+        } else if (newLifetime > 0 && (lifetime < 0 || lifetime > newLifetime)) {
+            // Ha newLifetime nullánál nagyobb és már a lifetime-ja még nullánál kisebb (tehát még nem lett beállítva, hogy haljon majd el) vagy a kapott newLifetime érték kisebb, mint a pillanatnyi beállított lifetime értéke.
+            lifetime = newLifetime;
         }
     }
 
     /**
      * Megnézi, hogy a nem megadott vége a megadott Tecton van-e.
      *
-     * @param end Az a vég, ahonnan ellenőrizzük a másik végének helyét.
+     * @param end      Az a vég, ahonnan ellenőrizzük a másik végének helyét.
      * @param otherEnd A Tecton, melyen a keresett végnek lennie kell.
      * @return Igaz, ha a nem megadott vége a megadott Tectonon van, egyébként hamis.
      */
-    public boolean isThisYourOtherEndTecton(MyceliumJunction end, Tecton otherEnd){
+    public boolean isThisYourOtherEndTecton(MyceliumJunction end, Tecton otherEnd) {
         printAction("isThisYourOtherEndTecton");
-        if(junctionA == end){
+        if (junctionA == end) {
             return junctionB.getPosition() == otherEnd;
-        } else if(junctionB == end){
+        } else if (junctionB == end) {
             return junctionA.getPosition() == otherEnd;
         } else {
             return false;
@@ -90,21 +107,32 @@ public class MyceliumConnection implements FungoriumEntity {
 
     /**
      * Visszaadja az ehhez tartozó MyceliumJunctionnek a másik végét.
+     *
      * @return másik vég.
      */
     public MyceliumJunction getOtherEnd(MyceliumJunction from) {
         printAction("getOtherEnd");
-        if(junctionA == from) { return junctionB; }
-        else if(junctionB == from) { return junctionA; }
+        if (junctionA == from) {
+            return junctionB;
+        } else if (junctionB == from) {
+            return junctionA;
+        }
         return null;
     }
 
     /**
-     * Végrehajtja a kapcsolat következő játék lépését.
+     * Ha a lifetime értéke kisebb, mint nulla, akkor rögtön visszatér.
+     * Egyébként csökkenti eggyel a lifetime értékét, majd ezután ha az nulla vagy kisebb lesz, akkor terminálja a fonalat.
      */
     @Override
-    public void gameStep() { 
-        printAction("gameStep"); 
-
+    public void gameStep() {
+        printAction("gameStep");
+        if (lifetime < 0) {
+            return;
+        }
+        lifetime--;
+        if (lifetime <= 0) {
+            terminateConnection();
+        }
     }
 }
