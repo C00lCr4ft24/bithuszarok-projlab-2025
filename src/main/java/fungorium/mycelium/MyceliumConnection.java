@@ -108,7 +108,7 @@ public class MyceliumConnection implements FungoriumEntity {
     /**
      * Visszaadja az ehhez tartozó MyceliumJunctionnek a másik végét.
      *
-     * @return másik vég.
+     * @return másik vég vagy null, ha a kapott MyceliumJunction egyik végével sem egyezik meg.
      */
     public MyceliumJunction getOtherEnd(MyceliumJunction from) {
         printAction("getOtherEnd");
@@ -124,7 +124,7 @@ public class MyceliumConnection implements FungoriumEntity {
      * Kicseréli a from paraméterként kapott MyceliumJunction-et a to paraméterként kapott MyceliumJunction-re, ha a from paraméter megegyezik valamelyik végével.
      *
      * @param from Cserélendő MyceliumJunction vég
-     * @param to Amire cserélni kell a from paramétert
+     * @param to   Amire cserélni kell a from paramétert
      */
     public void changeThisJunctionTo(MyceliumJunction from, MyceliumJunction to) {
         printAction("changeThisJunction");
