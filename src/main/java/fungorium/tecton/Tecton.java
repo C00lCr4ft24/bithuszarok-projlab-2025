@@ -7,6 +7,7 @@ import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.LinkedList;
 
 /**
@@ -264,26 +265,51 @@ public class Tecton implements FungoriumEntity {
     }
 
     /**
-     * Megnézi, hogy a kapott Tecton a megadott lépés távolságon belül van-e. (Egy lépés két szomszádos Tecton között történik.
+     * Megnézi, hogy a kapott Tecton a megadott lépés távolságon belül van-e. (Egy lépés két szomszádos Tecton között történik.)
      *
      * @param neighbour A keresett Tecton, akit a megadott lépés számon belül el lehet-e érni
      * @param range     Lépésszám, ami belül keresni kell.
-     * @return True-t ad vissza, ha megtalálja a keresett Tecton a lépésszámon belül, minden más esetben False-t
+     * @return True-t ad vissza, ha megtalálja a keresett Tecton a lépésszámon belül, minden más esetben False-t, rögtön True-t ad vissza, ha neighbour megegyezik vele
      */
     public boolean isThisYourNeighbourInRange(Tecton neighbour, int range) {
-        if (range <= 0) {
-            return false;
-        }
+        printAction("isThisYourNeighbourInRange");
+        HashSet<Tecton> checkedTectons = new HashSet<>();
         if (this == neighbour) {
             return true;
         }
+        return isThisYourNeighbourInRangeRecursiveHelper(neighbour, range, checkedTectons);
+    }
+
+    /**
+     * isThisYourNeighbourInRange függvény rekurzív segéd függvénye, mely a tényleges keresést végzi.
+     * Először körbenézi a saját szomszédjait, majd utána ha nem találta meg a keresett Tecton, akkor a szomszédjaira is meghívja ezt a függvényt eggyel csökkentett lépésszámmal.
+     *
+     * @param neighbour      A keresett Tecton, akit a megadott lépés számon belül el lehet-e érni
+     * @param range          Lépésszám, ami belül keresni kell.
+     * @param checkedTectons HashSet, mely tárolja azt, hogy mely Tectonokat ellenőrizte már a kereső algoritmus
+     * @return True-t ad vissza, ha megtalálja a keresett Tecton a lépésszámon belül, minden más esetben False-t
+     */
+    private boolean isThisYourNeighbourInRangeRecursiveHelper(Tecton neighbour, int range, HashSet<Tecton> checkedTectons) {
+        if (range <= 0) {
+            return false;
+        }
+        checkedTectons.add(this);
+
+        // Saját szomszédjainak ellenőrzése
         for (Tecton tempTecton : TectonN) {
+            if (checkedTectons.contains(tempTecton)) {
+                continue;
+            }
             if (tempTecton == neighbour) {
                 return true;
             }
         }
+        // Saját szomszédjainak szomszédjai ellenőriztetése
         for (Tecton tempTecton : TectonN) {
-            if (tempTecton.isThisYourNeighbourInRange(neighbour, (range - 1))) {
+            if (checkedTectons.contains(tempTecton)) {
+                continue;
+            }
+            if (tempTecton.isThisYourNeighbourInRangeRecursiveHelper(neighbour, (range - 1), checkedTectons)) {
                 return true;
             }
         }
