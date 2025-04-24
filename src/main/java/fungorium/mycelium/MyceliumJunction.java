@@ -1,10 +1,10 @@
 package fungorium.mycelium;
 
-import java.util.ArrayList;
-
 import fungorium.FungoriumEntity;
 import fungorium.Insect;
 import fungorium.tecton.Tecton;
+
+import java.util.ArrayList;
 
 /**
  * A MyceliumJunction osztály egy gombafonal csomópontot reprezentál, amely felelős a kapcsolatok
@@ -30,7 +30,9 @@ public class MyceliumJunction implements FungoriumEntity {
     /**
      * Létrehoz egy új MyceliumJunction példányt.
      */
-    public MyceliumJunction() { System.out.println("New MyceliumJunction created: " + this); }
+    public MyceliumJunction() {
+        System.out.println("New MyceliumJunction created: " + this);
+    }
 
     /**
      * Létrehoz egy új MyceliumJunction példányt és beállítja a kapott Tecton pozíciót.
@@ -83,7 +85,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public void removeConnection(MyceliumConnection c) {
         printAction("removeConnection");
         connections.remove(c);
-        if(connections.isEmpty()) {
+        if (connections.isEmpty()) {
             position.removeJunction(this);
         }
     }
@@ -95,7 +97,7 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public Fungus createFungus() {
         printAction("createFungus");
-        if(!position.isFungusSpaceEmpty()) {
+        if (!position.isFungusSpaceEmpty()) {
             return null;
         }
         try {
@@ -125,7 +127,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public MyceliumConnection getMyceliumConnectionByOtherEndTecton(Tecton otherEnd) {
         printAction("getMyceliumConnection");
         for (MyceliumConnection c : connections) {
-            if(c.isThisYourOtherEndTecton(this, otherEnd)){
+            if (c.isThisYourOtherEndTecton(this, otherEnd)) {
                 return c;
             }
         }
@@ -135,12 +137,13 @@ public class MyceliumJunction implements FungoriumEntity {
     /**
      * A Junction megpróbálja elfogyasztani a rajta lévő Insect-et és növeszteni egy új gombatestet.
      * Ha a rovar valóban rajta van és bénult, akkor megemészti és gombatestet növeszt (ha más nem akadályozza ezt).
+     *
      * @param insect A megevésre szánt rovar.
      * @return Az új gombatest vagy null, ha nem tud újat létrehozni.
      */
     public Fungus tryConsumeInsect(Insect insect) {
         printAction("tryConsumeInsect");
-        if(!insect.isStunned() || insect.getPosition() != position || !position.isFungusSpaceEmpty()) {
+        if (!insect.isStunned() || insect.getPosition() != position || !position.isFungusSpaceEmpty()) {
             return null;  // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van vagy van mar Fungus rajta
         }
 
@@ -164,5 +167,7 @@ public class MyceliumJunction implements FungoriumEntity {
      * Végrehajtja a csomópont következő játék lépését.
      */
     @Override
-    public void gameStep() { printAction("gameStep"); }
+    public void gameStep() {
+        printAction("gameStep");
+    }
 }
