@@ -1,5 +1,9 @@
 package fungorium.tecton;
 
+import fungorium.mycelium.MyceliumJunction;
+
+import java.util.ArrayList;
+
 public class PreserverTecton extends Tecton {
 
     /**
@@ -28,9 +32,15 @@ public class PreserverTecton extends Tecton {
         return new PreserverTecton();
     }
 
+    /**
+     * Játék lépés során beállítja a rajta lévő MyceliumJunction-ben található
+     * MyceliumConnection-ek fennmaradó életét végtelenre (negatív szám: -2).
+     */
     @Override
     public void gameStep() {
         printAction("gameStep");
-
+        for (MyceliumJunction mj : myceliumJunctions) {
+            mj.setConnectionLifeTime(-2);
+        }
     }
 }
