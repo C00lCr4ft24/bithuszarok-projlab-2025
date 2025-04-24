@@ -10,7 +10,7 @@ public class StunSpore extends Spore {
     /**
      * Létrehoz egy új `StunSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
      *
-     * @param nutrient A spóra tápanyagtartalma.
+     * @param nutrient   A spóra tápanyagtartalma.
      * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
      */
     public StunSpore(int nutrient, int effectTime) {

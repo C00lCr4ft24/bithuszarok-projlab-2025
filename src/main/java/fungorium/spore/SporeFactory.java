@@ -14,12 +14,21 @@ public class SporeFactory {
         int type = random.nextInt(1, 6);
         Spore newSpore = null;
         switch (type) {
-            case 1 -> { newSpore = new AntiCutSpore    (random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT)); }
-            case 2 -> { newSpore = new ReplicationSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT)); }
-            case 3 -> { newSpore = new SlowDownSpore   (random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT)); }
-            case 4 -> { newSpore = new SpeedUpSpore    (random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT)); }
-            case 5 -> { newSpore = new StunSpore       (random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT)); }
-
+            case 1 -> {
+                newSpore = new AntiCutSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+            }
+            case 2 -> {
+                newSpore = new ReplicationSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+            }
+            case 3 -> {
+                newSpore = new SlowDownSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+            }
+            case 4 -> {
+                newSpore = new SpeedUpSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+            }
+            case 5 -> {
+                newSpore = new StunSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+            }
             default -> throw new AssertionError();
         }
         return newSpore;
