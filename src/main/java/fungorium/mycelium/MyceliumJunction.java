@@ -133,17 +133,21 @@ public class MyceliumJunction implements FungoriumEntity {
     }
 
     /**
-     * A Junction megpróbálja elfogyasztani a rajta lévő Insect-et. 
-     * Ha a rovar valóban rajta van és bénult, 
-     * akkor megemészti és gombatestet növeszt (ha más nem akadályozza ezt).
+     * A Junction megpróbálja elfogyasztani a rajta lévő Insect-et és növeszteni egy új gombatestet.
+     * Ha a rovar valóban rajta van és bénult, akkor megemészti és gombatestet növeszt (ha más nem akadályozza ezt).
      * @param insect A megevésre szánt rovar.
+     * @return Az új gombatest vagy null, ha nem tud újat létrehozni.
      */
-    public void tryConsumeInsect(Insect insect) {
+    public Fungus tryConsumeInsect(Insect insect) {
         printAction("tryConsumeInsect");
-        if(!insect.isStunned() || insect.getPosition() != position) { return; } // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van
+        if(!insect.isStunned() || insect.getPosition() != position || !position.isFungusSpaceEmpty()) {
+            return null;  // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van vagy van mar Fungus rajta
+        }
 
         insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
-        if(currentFungus != null) createFungus();  // Uj Fungus novesztese csak ha van hely neki
+        Fungus newFungus = new Fungus(this);
+        this.currentFungus = newFungus;
+        return newFungus;
     }
 
     /**
