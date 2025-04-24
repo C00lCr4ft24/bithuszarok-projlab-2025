@@ -31,22 +31,15 @@ public class Fungus implements FungoriumEntity {
     private boolean canSpreadSpore;
 
     /**
-     * Egy új `Fungus` példányt hoz létre.
-     */
-    public Fungus() {
-        System.out.println("New Fungus created: " + this);
-        sporeLevel = 0;
-        fungusLevel = FungusLevel.SMALL;
-        canSpreadSpore = false;
-    }
-
-    /**
      * Egy új `Fungus` példányt hoz létre egy megadott MyceliumJunction pozícióval.
      *
      * @param junctionPosition A MyceliumJunction pozíció, amelyhez a gomba tartozik.
      */
     public Fungus(MyceliumJunction junctionPosition) {
-        this();
+        System.out.println("New Fungus created: " + this);
+        this.sporeLevel = 0;
+        this.fungusLevel = FungusLevel.SMALL;
+        this.canSpreadSpore = false;
         this.junctionPosition = junctionPosition;
     }
 

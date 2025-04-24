@@ -16,23 +16,14 @@ public class MyceliumJunction implements FungoriumEntity {
      * A MyceliumConnection példányok listája, amelyek ehhez a csomóponthoz tartoznak.
      */
     private final ArrayList<MyceliumConnection> connections = new ArrayList<>();
-
-    /**
-     * A MyceliumJunction-hoz kapcsolódó gomba példánya.
-     */
-    private Fungus currentFungus;
-
     /**
      * Tecton, melyen a MyceliumJunction található.
      */
     private Tecton position;
-
     /**
-     * Létrehoz egy új MyceliumJunction példányt.
+     * A MyceliumJunction-hoz kapcsolódó gomba példánya.
      */
-    public MyceliumJunction() {
-        System.out.println("New MyceliumJunction created: " + this);
-    }
+    private Fungus currentFungus;
 
     /**
      * Létrehoz egy új MyceliumJunction példányt és beállítja a kapott Tecton pozíciót.
@@ -40,7 +31,7 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param position A beállítandó Tecton példány.
      */
     public MyceliumJunction(Tecton position) {
-        this();
+        System.out.println("New MyceliumJunction created: " + this);
         this.position = position;
     }
 
