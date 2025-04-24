@@ -128,12 +128,13 @@ public class Tecton implements FungoriumEntity {
             return null;
         }
         if (TectonN.size() <= 1) {
+            isBroken = true;
             return null;
         }
         Tecton newTecton = this.createNewInstance();
         newTecton.TectonN.add(this);
 
-        int splitAtIndex = (TectonN.size() - 1) / 2;
+        int splitAtIndex = ((TectonN.size() - 1) / 2) + 1;
         ArrayList<Tecton> tempNeighbours = new ArrayList<>(TectonN.subList(splitAtIndex, TectonN.size())); // Create a copy of the sublist
 
         // Resetting Tecton neighbours
