@@ -68,17 +68,24 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param lifeTime Az új élettartam értéke.
      */
     public void setConnectionLifeTime(int lifeTime) {
-        printAction("setConectionLifeTime");
+        printAction("setConnectionLifeTime");
+        for (MyceliumConnection c : connections) {
+            c.setLifetime(lifeTime);
+        }
     }
 
     /**
      * Eltávolítja az adott kapcsolatot ebből a csomópontból.
+     * Ha a kapcsolatok tárolója üres, akkor törölteti magát a Tectonjáról, amin van.
      *
      * @param c Az eltávolítandó MyceliumConnection példány.
      */
     public void removeConnection(MyceliumConnection c) {
         printAction("removeConnection");
         connections.remove(c);
+        if(connections.isEmpty()) {
+            position.removeJunction(this);
+        }
     }
 
     /**
