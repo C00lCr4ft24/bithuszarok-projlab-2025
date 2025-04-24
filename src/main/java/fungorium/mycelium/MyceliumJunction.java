@@ -78,6 +78,7 @@ public class MyceliumJunction implements FungoriumEntity {
         connections.remove(c);
         if (connections.isEmpty()) {
             position.removeJunction(this);
+            position = null;
         }
     }
 
