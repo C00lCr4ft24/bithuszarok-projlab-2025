@@ -130,8 +130,6 @@ public class MyceliumJunction implements FungoriumEntity {
         if(currentFungus != null) createFungus();  // Uj Fungus novesztese csak ha van hely neki
     }
 
-    public ArrayList<MyceliumConnection> getMyceliumConnections() { return connections; }
-
     /**
      * Visszaadja a pozíció Tectonját.
      *
