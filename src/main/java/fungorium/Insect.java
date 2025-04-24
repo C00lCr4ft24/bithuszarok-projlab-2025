@@ -5,7 +5,6 @@ import fungorium.spore.Spore;
 import fungorium.tecton.Tecton;
 
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * Az Insect osztály a rovarokat reprezentálja, amelyek a benőtt Tecton-okon tudnak közlekedni,
@@ -107,17 +106,28 @@ public class Insect implements FungoriumEntity {
 
     /**
      * A rovar áthelyezése egy másik Tecton-ra.
+     * Mozgás előtt ellenőrzi, hogy át tud-e mozogni a célra.
      *
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
     public void move(Tecton target) {
-        if (!isStunned) {                   // ha nincs stunnolva
+        if (isStunned) {
+            printAction("can't move");
+            return;
+        }
+        boolean targetInMovingRange = false;
+        switch (speed) {
+            case SLOW -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 1);
+            case MEDIUM -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 2);
+            case FAST -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 3);
+        }
+        if (targetInMovingRange) {
             printAction("move");
             position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
             target.putInsect(this);          // uj tctonra tegyuk ra
             position = target;               // allitsuk be a lokalis valtozot az uj tectonra
         } else {
-            printAction("can't move");
+            printAction("can't move, target not in range");
         }
     }
 
