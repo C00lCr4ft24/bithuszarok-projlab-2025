@@ -11,14 +11,14 @@ import java.util.Random;
  */
 public class AntiMyceliumTecton extends Tecton {
 
-    private int lifetime;
+    private int myceliumLifetime;
 
     /**
      * Inicializál egy random élettartam-értéket ameddig legfeljebb élhet egy {@link MyceliumJunction}
      */
     private void initLifetime() {
         var rnd = new Random();
-        lifetime = rnd.nextInt(1, 5);
+        myceliumLifetime = rnd.nextInt(1, 5);
     }
 
     /**
@@ -56,9 +56,8 @@ public class AntiMyceliumTecton extends Tecton {
     @Override
     public void gameStep() {
         printAction("gameStep");
-        lifetime--;
-        if (lifetime == 0) {
-            myceliumJunctions.clear();
+        for (MyceliumJunction mj : myceliumJunctions) {
+            mj.setConnectionLifeTime(myceliumLifetime);
         }
     }
 }
