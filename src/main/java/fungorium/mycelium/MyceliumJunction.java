@@ -101,6 +101,14 @@ public class MyceliumJunction implements FungoriumEntity {
     }
 
     /**
+     * Eltávolítja a tárolt gombát a csomópontról.
+     */
+    public void removeFungus() {
+        printAction("removeFungus");
+        currentFungus = null;
+    }
+
+    /**
      * Megkeresi az a MyceliumConnection-át, melynek a másik vége a megadott Tectonon van.
      *
      * @param otherEnd másik Tecton melyen keresssük a MyceliumConnection végét.
@@ -138,14 +146,6 @@ public class MyceliumJunction implements FungoriumEntity {
     public Tecton getPosition() {
         printAction("getPosition");
         return position;
-    }
-
-    /**
-     * Eltávolítja a tárolt gombát a csomópontról.
-     */
-    public void removeFungus() {
-        printAction("removeFungus");
-        currentFungus = null;
     }
 
     /**
