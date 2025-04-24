@@ -89,12 +89,20 @@ public class MyceliumJunction implements FungoriumEntity {
     }
 
     /**
-     * Létrehoz egy új gombát, tárolja azt a csomóponton, és visszaadja a létrehozott példányt.
+     * Létrehoz egy új gombát, tárolja azt a csomóponton, és visszaadja a létrehozott példányt. Levonja a létrehozáshoz szükséges tápanyagot a Tectonjáról
      *
-     * @return Az újonnan létrehozott Fungus példány.
+     * @return Az újonnan létrehozott Fungus példány vagy null, ha nem tud újat létrehozni.
      */
     public Fungus createFungus() {
         printAction("createFungus");
+        if(!position.isFungusSpaceEmpty()) {
+            return null;
+        }
+        try {
+            position.removeSporeForFungus();
+        } catch (Exception e) {
+            return null;
+        }
         Fungus newFungus = new Fungus(this);
         this.currentFungus = newFungus;
         return newFungus;
