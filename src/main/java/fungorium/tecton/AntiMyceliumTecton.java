@@ -14,14 +14,6 @@ public class AntiMyceliumTecton extends Tecton {
     private int myceliumLifetime;
 
     /**
-     * Inicializál egy random élettartam-értéket ameddig legfeljebb élhet egy {@link MyceliumJunction}
-     */
-    private void initLifetime() {
-        var rnd = new Random();
-        myceliumLifetime = rnd.nextInt(1, 5);
-    }
-
-    /**
      * Létrehoz egy új AntiMyceliumTecton példányt a megadott szomszédos Tecton-ok alapján.
      *
      * @param t A Tecton szomszédjai.
@@ -37,6 +29,14 @@ public class AntiMyceliumTecton extends Tecton {
     public AntiMyceliumTecton() {
         super();
         initLifetime();
+    }
+
+    /**
+     * Inicializál egy random élettartam-értéket ameddig legfeljebb élhet egy {@link MyceliumJunction}
+     */
+    private void initLifetime() {
+        var rnd = new Random();
+        myceliumLifetime = rnd.nextInt(1, 5);
     }
 
     /**

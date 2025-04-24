@@ -1,7 +1,5 @@
 package fungorium.tecton;
 
-import fungorium.mycelium.MyceliumJunction;
-
 import java.util.ArrayList;
 
 /**
@@ -15,12 +13,16 @@ public class AntiCrossingTecton extends Tecton {
      *
      * @param t A Tecton szomszédjai
      */
-    public AntiCrossingTecton(ArrayList<Tecton> t) { super(t); }
+    public AntiCrossingTecton(ArrayList<Tecton> t) {
+        super(t);
+    }
 
     /**
      * Létrehoz egy új, üres AntiCrossingTecton példányt.
      */
-    public AntiCrossingTecton() { super(); }
+    public AntiCrossingTecton() {
+        super();
+    }
 
 
     /**
