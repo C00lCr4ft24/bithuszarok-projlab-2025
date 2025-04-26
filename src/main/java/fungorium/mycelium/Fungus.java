@@ -4,6 +4,8 @@ import fungorium.FungoriumEntity;
 import fungorium.spore.*;
 import fungorium.tecton.Tecton;
 
+import java.util.*;
+
 /**
  * Egy gomba entitást reprezentál, amely képes spórákat szórni és fejlődni az idő múlásával.
  */
@@ -87,6 +89,32 @@ public class Fungus implements FungoriumEntity {
             }
         }
         return fungusHasDied;
+    }
+
+    public boolean isThisConnectionConnectedTo(MyceliumConnection mc) {
+        if (mc == null)
+            return false;
+
+        Set<MyceliumJunction> visited = new HashSet<>();
+        Queue<MyceliumJunction> queue = new ArrayDeque<>();
+
+        queue  .add(junctionPosition);
+        visited.add(junctionPosition);
+
+        while (!queue.isEmpty()) {
+            MyceliumJunction current = queue.poll();
+
+            for (MyceliumConnection conn : current.getConnections()) {
+                if (conn == mc) return true;
+
+                MyceliumJunction neighbor = conn.getOtherEnd(current);
+                if (neighbor != null && !visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                }
+            }
+        }
+        return false;
     }
 
     /**
