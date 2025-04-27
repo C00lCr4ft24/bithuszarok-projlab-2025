@@ -9,5 +9,7 @@ public enum SporeTypes {
     SLOW_DOWN_SPORE,
     SPEED_UP_SPORE,
     STUN_SPORE,
+
+    // Mindig RANDOM legyen a legutolso SporeFactory miatt
     RANDOM
 }

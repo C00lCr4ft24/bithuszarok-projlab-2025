@@ -11,22 +11,24 @@ public class SporeFactory {
     private static final Random random = new Random();
 
     public static Spore createSpore() {
-        int type = random.nextInt(1, 6);
+        SporeTypes[] sporeTypeValues = SporeTypes.values();
+        int type = random.nextInt((sporeTypeValues.length-1)); //Azert vonok le egyet, hogy az utolso RANDOM opcio ne legyen benne
+        SporeTypes sporeType = sporeTypeValues[type];
         Spore newSpore = null;
-        switch (type) {
-            case 1 -> {
+        switch (sporeType) {
+            case ANTI_CUT_SPORE -> {
                 newSpore = new AntiCutSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
-            case 2 -> {
+            case REPLICATION_SPORE -> {
                 newSpore = new ReplicationSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
-            case 3 -> {
+            case SLOW_DOWN_SPORE -> {
                 newSpore = new SlowDownSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
-            case 4 -> {
+            case SPEED_UP_SPORE -> {
                 newSpore = new SpeedUpSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
-            case 5 -> {
+            case STUN_SPORE -> {
                 newSpore = new StunSpore(random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             default -> throw new AssertionError();
