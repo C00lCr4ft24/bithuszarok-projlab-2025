@@ -45,6 +45,10 @@ public class MyceliumJunction implements FungoriumEntity {
         connections.add(c);
     }
 
+    public ArrayList<MyceliumConnection> getConnections() {
+        return new ArrayList<>(connections);
+    }
+
     /**
      * Ellenőrzi, hogy van-e gomba ezen a csomóponton.
      *
