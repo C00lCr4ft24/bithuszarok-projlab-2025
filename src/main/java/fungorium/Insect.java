@@ -1,10 +1,11 @@
 package fungorium;
 
 import fungorium.mycelium.MyceliumConnection;
+import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 import fungorium.tecton.Tecton;
 
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * Az Insect osztály a rovarokat reprezentálja, amelyek a benőtt Tecton-okon tudnak közlekedni,
@@ -111,24 +112,57 @@ public class Insect implements FungoriumEntity {
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
     public void move(Tecton target) {
-        if (isStunned) {
-            printAction("can't move");
+        printAction("move");
+        if (target == null) return;
+        if(isStunned) {
+            System.out.println("Can not move " + this + " because it is stunned");
             return;
         }
-        boolean targetInMovingRange = false;
+
+        int currentSpeed = 0;
         switch (speed) {
-            case SLOW -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 1);
-            case MEDIUM -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 2);
-            case FAST -> targetInMovingRange = position.isThisYourNeighbourInRange(target, 3);
+            case SLOW   -> currentSpeed = 1;
+            case MEDIUM -> currentSpeed = 2;
+            case FAST   -> currentSpeed = 3;
         }
-        if (targetInMovingRange) {
-            printAction("move");
-            position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
-            target.putInsect(this);          // uj tctonra tegyuk ra
-            position = target;               // allitsuk be a lokalis valtozot az uj tectonra
-        } else {
-            printAction("can't move, target not in range");
+
+        Set<MyceliumJunction> targetJunctions = new HashSet<>(target.getMyceliumJunctions());
+        Set<MyceliumJunction> startJunctions  = new HashSet<>(position.getMyceliumJunctions());
+
+        Set<MyceliumJunction> visited = new HashSet<>();
+        Queue<MyceliumJunction> queue = new ArrayDeque<>();
+        Map<MyceliumJunction, Integer> distances = new HashMap<>();
+
+        for (var junction : startJunctions) {
+            queue.add(junction);
+            visited.add(junction);
+            distances.put(junction, 0);
         }
+
+        while (!queue.isEmpty()) {
+            MyceliumJunction current = queue.poll();
+            int currentDistance = distances.get(current);
+            if (targetJunctions.contains(current)) { //Ha megtalaltuk
+                if(currentDistance <= currentSpeed) {
+                    System.out.println(this + " moved successfully to " + target);
+                    position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
+                    target.putInsect(this);          // uj tectonra tegyuk ra
+                    position = target;               // allitsuk be a lokalis valtozot az uj tectonra
+                }
+                else { System.out.println("Can not move " + this + " because target Tecton is too far"); }
+                return;
+            }
+
+            for (MyceliumConnection conn : current.getConnections()) {
+                MyceliumJunction neighbor = conn.getOtherEnd(current);
+                if (neighbor != null && !visited.contains(neighbor)) {
+                    visited.add(neighbor);
+                    queue.add(neighbor);
+                    distances.put(neighbor, currentDistance + 1);
+                }
+            }
+        }
+        System.out.println("Can not move " + this + " because there is no connections");
     }
 
     /**

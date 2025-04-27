@@ -6,9 +6,7 @@ import fungorium.mycelium.MyceliumConnection;
 import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
+import java.util.*;
 
 /**
  * A Tecton osztály a játéktér felszínét alkotó különálló kéregdarabok alapját képezi.
@@ -90,6 +88,12 @@ public class Tecton implements FungoriumEntity {
         }
         return spores.getFirst();
     }
+
+    /**
+     * Getter a Tecton MyceliumJunction listájához.
+     * @return A Tecton MyceliumJunction listája.
+     */
+    public ArrayList<MyceliumJunction> getMyceliumJunctions() { return new ArrayList<>(myceliumJunctions); }
 
     /**
      * Eltávolítja a szükséges tápanyagtartalmú spórát egy gomba növesztéséhez.
@@ -177,6 +181,11 @@ public class Tecton implements FungoriumEntity {
         MyceliumJunction junction = new MyceliumJunction(this);
         myceliumJunctions.add(junction);
         return junction;
+    }
+
+    public void addJunction(MyceliumJunction junction) {
+        printAction("addJunction");
+        myceliumJunctions.add(junction);
     }
 
     /**
