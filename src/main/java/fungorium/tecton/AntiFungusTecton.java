@@ -27,7 +27,7 @@ public class AntiFungusTecton extends Tecton {
 
     public AntiFungusTecton(String id) {
         this.id = id;
-        String log = "  AntiFungusTecton " + id + " was created.";
+        String log = "AntiFungusTecton " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

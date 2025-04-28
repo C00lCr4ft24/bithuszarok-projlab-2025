@@ -25,7 +25,7 @@ public class PreserverTecton extends Tecton {
 
     public PreserverTecton(String id) {
         this.id = id;
-        String log = "   PreserverTecton " + id + " was created.";
+        String log = "PreserverTecton " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

@@ -59,7 +59,7 @@ public class Tecton implements FungoriumEntity {
 
     public Tecton(String id) {
         this.id = id;
-        String log = "            Tecton " + id + " was created.";
+        String log = "Tecton " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
