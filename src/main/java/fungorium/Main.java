@@ -8,7 +8,7 @@ public class Main {
 
         var game = new GameModel();
 
-        var test1 = TestFramework.readTestInput(1);
+        TestFramework.runTest("test_1", game);
         /*
         if(test1 != null) {
             for (String str : test1) {
@@ -16,10 +16,5 @@ public class Main {
             }
         }
         */
-        if(test1 != null) {
-            for (String str : test1) {
-                TestFramework.executeTestLine(str, game);
-            }
-        }
     }
 }
