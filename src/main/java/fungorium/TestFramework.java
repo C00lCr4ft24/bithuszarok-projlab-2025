@@ -191,7 +191,7 @@ public class TestFramework {
                 }
             }
             case "spreadspore" -> {
-                // TODO
+                game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
             }
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
             case "leave" -> interactiveMode = false;

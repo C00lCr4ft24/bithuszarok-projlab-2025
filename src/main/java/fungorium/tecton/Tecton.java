@@ -108,6 +108,13 @@ public class Tecton implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja az összes Spórát a Tectonon.
+     * @return az összes Spóra a Tectonon egy új listában.
+     */
+    public LinkedList<Spore> getAllSpores() {
+        return new LinkedList<>(spores);
+    }
+    /**
      * Getter a Tecton MyceliumJunction listájához.
      * @return A Tecton MyceliumJunction listája.
      */

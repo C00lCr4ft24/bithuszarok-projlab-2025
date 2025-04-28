@@ -70,4 +70,11 @@ public class GameModel {
         }
         throw new IllegalArgumentException("No Fungus with id " + id + " exists");
     }
+
+    public void updateSporeList() {
+        sporeArrayList.clear();
+        for(Tecton tecton : tectonArrayList ) {
+            sporeArrayList.addAll(tecton.getAllSpores());
+        }
+    }
 }

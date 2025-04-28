@@ -68,7 +68,7 @@ public class Fungus implements FungoriumEntity {
      * @param sporeType Megmondja, hogy milyen típusú spórát lőjön ki a Fungus. SporeTypes enum-al mondja meg.
      * @return True, ha elhalt a gombatest, egyébként False.
      */
-    public boolean spreadSpores(Tecton target, SporeTypes sporeType) {
+    public boolean spreadSpores(Tecton target, SporeTypes sporeType, String id) {
         //printAction("spreadSpores");
         boolean fungusHasDied = false;
         if(!canSpreadSpore) {
@@ -93,14 +93,14 @@ public class Fungus implements FungoriumEntity {
                 }
                 Spore newSpore = null;
                 switch (sporeType) {
-                    case ANTI_CUT_SPORE -> newSpore = new AntiCutSpore(200, 3);
-                    case REPLICATION_SPORE -> newSpore = new ReplicationSpore(200, 3);
-                    case SLOW_DOWN_SPORE -> newSpore = new SlowDownSpore(200, 3);
-                    case SPEED_UP_SPORE -> newSpore = new SpeedUpSpore(200, 3);
-                    case STUN_SPORE -> newSpore = new StunSpore(200, 3);
+                    case ANTI_CUT_SPORE -> newSpore = new AntiCutSpore(id, 200, 3);
+                    case REPLICATION_SPORE -> newSpore = new ReplicationSpore(id, 200, 3);
+                    case SLOW_DOWN_SPORE -> newSpore = new SlowDownSpore(id, 200, 3);
+                    case SPEED_UP_SPORE -> newSpore = new SpeedUpSpore(id, 200, 3);
+                    case STUN_SPORE -> newSpore = new StunSpore(id, 200, 3);
                     case RANDOM_SPORE -> newSpore = SporeFactory.createSpore();
                 }
-                String log = "Fungus " + id + " spread " + sporeType.toString() + " to " + target.getId() + ".";
+                String log = "Fungus " + id + " spread " + sporeType.toString() + id + " to " + target.getId() + ".";
                 System.out.println(log);
                 TestFramework.logOutput(log);
                 target.putASpore(newSpore);
