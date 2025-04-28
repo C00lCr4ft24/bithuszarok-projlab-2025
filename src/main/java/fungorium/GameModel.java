@@ -77,4 +77,5 @@ public class GameModel {
             sporeArrayList.addAll(tecton.getAllSpores());
         }
     }
+
 }
