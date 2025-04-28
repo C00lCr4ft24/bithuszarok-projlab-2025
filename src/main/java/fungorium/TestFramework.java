@@ -3,6 +3,8 @@ package fungorium;
 import fungorium.mycelium.Fungus;
 import fungorium.mycelium.MyceliumConnection;
 import fungorium.mycelium.MyceliumJunction;
+import fungorium.spore.Spore;
+import fungorium.spore.SporeFactory;
 import fungorium.spore.SporeTypes;
 import fungorium.tecton.*;
 
@@ -183,6 +185,9 @@ public class TestFramework {
                     case "fungus" ->
                         game.fungusArrayList.add(new Fungus(cmd.get(2), game.findMyceliumJunction(cmd.get(3))));
                     case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
+                    case "spore" -> {
+                        game.findTecton(cmd.get(4)).putASpore(SporeFactory.createSpore(cmd.get(2), SporeTypes.valueOf(cmd.get(3))));
+                    }
                     case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
                         var t2 = game.findTecton(cmd.get(3));
@@ -198,7 +203,7 @@ public class TestFramework {
                         break;
                     }
                 }
-            }                                                                                       //KESZ
+            }
             case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
             case "grow" -> {
                 switch (cmd.get(1)) {
