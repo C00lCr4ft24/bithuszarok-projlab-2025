@@ -49,11 +49,20 @@ public class TestFramework {
                 }
                 case 2 -> runTest(systemIn.next(), game);
                 case 3 -> {
-                    
+                    try (Scanner testListScanner = new Scanner(new File("tests/testslist.txt"))) {
+                        List<String> testNames = new ArrayList<>();
+                        while (testListScanner.hasNext()) {
+                            testNames.add(testListScanner.next());
+                        }
+                        for (String testName : testNames) {
+                            runTest(testName, game);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 case 4 -> exit = true;
             }
-
         }
     }
 
