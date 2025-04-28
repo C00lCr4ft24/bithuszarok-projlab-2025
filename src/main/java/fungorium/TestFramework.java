@@ -45,11 +45,17 @@ public class TestFramework {
             switch (systemIn.nextInt()) {
                 case 1 -> {
                     interactiveMode = true;
+                    System.out.println("--- INTERAKTÍV MÓD ---");
                     while (interactiveMode) {
                         executeTestLine(systemIn.nextLine(), game);
                     }
+                    System.out.println("--- INTERAKTÍV MÓD VÉGE ---");
                 }
-                case 2 -> runTest(systemIn.next(), game);
+                case 2 -> {
+                    System.out.println("Add meg a futtatandó teszt nevét:");
+                    runTest(systemIn.next(), game);
+                }
+
                 case 3 -> {
                     try (Scanner testListScanner = new Scanner(new File("tests/testslist.txt"))) {
                         List<String> testNames = new ArrayList<>();
@@ -87,12 +93,14 @@ public class TestFramework {
         currentTestName = testname;
         logMessages.clear();
         game.resetGameModel();
+        System.out.println("--- TESZT INDUL: " + currentTestName + " ---");
         List<String> commands = readTestInput();
         for (String command : commands) {
             executeTestLine(command, game);
         }
         writeTestOutput();
         checkTestResult();
+        System.out.println("--- TESZT VÉGE: " + currentTestName + " ---");
         System.out.println("--- Nyomj egy gombot a folytatáshoz ---");
         try {
             System.in.read();
@@ -118,6 +126,9 @@ public class TestFramework {
         return output;
     }
 
+    /**
+     * Kiírja a futtatott teszt logjait
+     */
     private static void writeTestOutput() {
         try (FileWriter outputWriter = new FileWriter(new File("tests/output/" + currentTestName + ".out"))) {
             for (String message : logMessages) {
@@ -128,6 +139,9 @@ public class TestFramework {
         }
     }
 
+    /**
+     * Ellenőrzi a futtatott teszt logjait az elvárt logokkal
+     */
     private static void checkTestResult() {
         try (Scanner expectedScanner = new Scanner(new File("tests/expected/" + currentTestName + ".expected"))) {
             List<String> expectedLines = new ArrayList<>();
