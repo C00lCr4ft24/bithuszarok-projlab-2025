@@ -15,7 +15,7 @@ public class Fungus implements FungoriumEntity {
     /**
      * A spóra lövéshez szükséges minimum spóraszint.
      */
-    private static final int MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE = 5;
+    private static final int MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE = 3;
     /**
      * A gombához tartozó MyceliumJunction pozíció.
      */
