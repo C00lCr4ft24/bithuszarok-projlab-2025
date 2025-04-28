@@ -1,0 +1,4 @@
+InsectMovesToAdjacentTecton
+InsectMovesButNoMycelium
+FungusSpreadsSporeToANeighbour
+FungusTriesToSpreadSporeButInsufficientSporeLevel
