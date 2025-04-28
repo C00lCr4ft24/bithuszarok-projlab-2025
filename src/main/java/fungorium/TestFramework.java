@@ -124,7 +124,7 @@ public class TestFramework {
                     case "fungus" ->
                         game.fungusArrayList.add(new Fungus(cmd.get(2), game.findMyceliumJunction(cmd.get(3))));
                     case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
-                    case "neighbor" -> {
+                    case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
                         var t2 = game.findTecton(cmd.get(3));
                         t1.setNeighbour(t2);
