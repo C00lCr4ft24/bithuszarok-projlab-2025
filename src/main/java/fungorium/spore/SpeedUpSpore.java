@@ -28,7 +28,7 @@ public class SpeedUpSpore extends Spore {
      */
     public SpeedUpSpore(String id, int nutrient, int effectTime) {
         super(id, nutrient, effectTime);
-        String log = "New SpeedUpSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        String log = "New SPEED_UP_SPORE " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

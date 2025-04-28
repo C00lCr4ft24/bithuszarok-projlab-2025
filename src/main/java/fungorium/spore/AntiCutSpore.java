@@ -28,7 +28,7 @@ public class AntiCutSpore extends Spore {
      */
     public AntiCutSpore(String id, int nutrient, int effectTime) {
         super(id, nutrient, effectTime);
-        String log = "New AntiCutSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        String log = "New ANTI_CUT_SPORE " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

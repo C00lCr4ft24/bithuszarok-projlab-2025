@@ -27,7 +27,7 @@ public class ReplicationSpore extends Spore {
      */
     public ReplicationSpore(String id, int nutrient, int effectTime) {
         super(id, nutrient, effectTime);
-        String log = "New ReplicationSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        String log = "New REPLICATION_SPORE " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

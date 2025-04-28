@@ -27,7 +27,7 @@ public class StunSpore extends Spore {
      */
     public StunSpore(String id, int nutrient, int effectTime) {
         super(id, nutrient, effectTime);
-        String log = "New StunSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        String log = "New STUN_SPORE " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

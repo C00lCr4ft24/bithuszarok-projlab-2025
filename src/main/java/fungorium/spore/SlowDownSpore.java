@@ -28,7 +28,7 @@ public class SlowDownSpore extends Spore {
      */
     public SlowDownSpore(String id, int nutrient, int effectTime) {
         super(id, nutrient, effectTime);
-        String log = "New SlowDownSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        String log = "New SLOW_DOWN_SPORE " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
