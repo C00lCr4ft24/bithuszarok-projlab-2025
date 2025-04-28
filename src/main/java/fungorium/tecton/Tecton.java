@@ -286,7 +286,7 @@ public class Tecton implements FungoriumEntity {
     public void setNeighbour(Tecton t) { //--------------------------------------------------------------------------------------------------------
         //printAction("setNeighbour");
         TectonN.add(t);
-        String log = id + " is now neighbor of " + t.id + ".";
+        String log = id + " is now neighbour of " + t.id + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
