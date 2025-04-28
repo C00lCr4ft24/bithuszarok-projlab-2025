@@ -71,7 +71,7 @@ public class Fungus implements FungoriumEntity {
         //printAction("spreadSpores");
         boolean fungusHasDied = false;
         if(!canSpreadSpore) {
-            String log = "Fungus " + id + " can not spread spores as it is too young.";
+            String log = "Fungus " + id + " can not spread spores.";
             System.out.println(log);
             TestFramework.logOutput(log);
         }
