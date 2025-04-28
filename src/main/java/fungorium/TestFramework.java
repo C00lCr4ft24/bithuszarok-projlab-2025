@@ -22,10 +22,39 @@ public class TestFramework {
      */
     private static List<String> logMessages = new ArrayList<>();
 
+    private static Scanner systemIn = new Scanner(System.in);
+
+    private static boolean interactiveMode = false;
+
+    private static boolean exit = false;
+
     /**
      * Privát konstruktor a példányosítás elkerülése érdekében
      */
     private TestFramework() {
+    }
+
+    public static void testMenu(GameModel game) {
+        while (!exit) {
+            System.out.println("1. Interaktív mód");
+            System.out.println("2. Megadott teszt futtatása");
+            System.out.println("3. Összes teszt futtatása");
+            System.out.println("4. Kilépés");
+            switch (systemIn.nextInt()) {
+                case 1 -> {
+                    interactiveMode = true;
+                    while (interactiveMode) {
+                        executeTestLine(systemIn.nextLine(), game);
+                    }
+                }
+                case 2 -> runTest(systemIn.next(), game);
+                case 3 -> {
+                    
+                }
+                case 4 -> exit = true;
+            }
+
+        }
     }
 
     /**
@@ -46,12 +75,19 @@ public class TestFramework {
     public static void runTest(String testname, GameModel game) {
         currentTestName = testname;
         logMessages.clear();
+        game.resetGameModel();
         List<String> commands = readTestInput();
         for (String command : commands) {
             executeTestLine(command, game);
         }
         writeTestOutput();
         checkTestResult();
+        System.out.println("--- Nyomj egy gombot a folytatáshoz ---");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -158,6 +194,7 @@ public class TestFramework {
                 // TODO
             }
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
+            case "leave" -> interactiveMode = false;
             default -> {
                 break;
             }
