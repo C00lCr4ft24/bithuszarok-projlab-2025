@@ -2,3 +2,4 @@
 2_InsectMovesButNoMycelium
 3_FungusSpreadsSporeToANeighbour
 4_FungusTriesToSpreadSporeButInsufficientSporeLevel
+15_StunnedInsectEatingMycelium
