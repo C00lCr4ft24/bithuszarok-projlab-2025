@@ -100,7 +100,7 @@ public class Fungus implements FungoriumEntity {
                     case STUN_SPORE -> newSpore = new StunSpore(id, 200, 3);
                     case RANDOM_SPORE -> newSpore = SporeFactory.createSpore(id, SporeTypes.RANDOM_SPORE);
                 }
-                String log = "Fungus " + id + " spread " + sporeType.toString() + id + " to " + target.getId() + ".";
+                String log = "Fungus " + id + " spread " + sporeType.toString() + " " + id + " to " + target.getId() + ".";
                 System.out.println(log);
                 TestFramework.logOutput(log);
                 target.putASpore(newSpore);
