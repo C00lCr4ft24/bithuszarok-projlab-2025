@@ -121,8 +121,12 @@ public class TestFramework {
                             }
                         }
                     }
-                    case "fungus" ->
-                        game.fungusArrayList.add(new Fungus(cmd.get(2), game.findMyceliumJunction(cmd.get(3))));
+                    case "fungus" -> {
+                        var mj = game.findMyceliumJunction(cmd.get(3));
+                        game.fungusArrayList.add(new Fungus(cmd.get(2), mj));
+                        mj.removeFungus();
+                        mj.setFungus(game.findFungus(cmd.get(2)));
+                    }
                     case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
                     case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
