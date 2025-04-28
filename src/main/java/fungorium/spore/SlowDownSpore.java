@@ -1,6 +1,7 @@
 package fungorium.spore;
 
 import fungorium.Insect;
+import fungorium.TestFramework;
 
 /**
  * Egy olyan spórát reprezentál, amelyet kilövés után, ha egy {@link Insect} megeszik,
@@ -18,7 +19,19 @@ public class SlowDownSpore extends Spore {
         super(nutrient, effectTime);
         //System.out.println("New SlowDownSpore created: " + this);
     }
-
+    /**
+     * Létrehoz egy új `SlowDownSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
+     *
+     * @param nutrient   A spóra tápanyagértéke.
+     * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
+     * @param id         A spóra ID-je.
+     */
+    public SlowDownSpore(String id, int nutrient, int effectTime) {
+        super(id, nutrient, effectTime);
+        String log = "New SLOW_DOWN_SPORE " + id + " was created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      * Csökkenti eggyel az effectTime-át.

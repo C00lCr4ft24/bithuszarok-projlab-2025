@@ -18,6 +18,19 @@ public abstract class Spore implements FungoriumEntity {
      */
     protected int effectTime;
     /**
+     * A spóra id-jét tartalmazó String.
+     */
+    protected String id;
+
+
+    public String getId() { return id; }
+
+    public Spore(String id, int nutrient, int effectTime) {
+        this.id = id;
+        this.nutrient = nutrient;
+        this.effectTime = effectTime;
+    }
+    /**
      * Létrehoz egy új spóra példányt a megadott tápanyag- és hatásidő értékekkel.
      *
      * @param nutrient   A spóra tápanyagtartalma.

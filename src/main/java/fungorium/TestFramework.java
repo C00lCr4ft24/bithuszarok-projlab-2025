@@ -3,6 +3,8 @@ package fungorium;
 import fungorium.mycelium.Fungus;
 import fungorium.mycelium.MyceliumConnection;
 import fungorium.mycelium.MyceliumJunction;
+import fungorium.spore.Spore;
+import fungorium.spore.SporeFactory;
 import fungorium.spore.SporeTypes;
 import fungorium.tecton.*;
 
@@ -22,10 +24,54 @@ public class TestFramework {
      */
     private static List<String> logMessages = new ArrayList<>();
 
+    private static Scanner systemIn = new Scanner(System.in);
+
+    private static boolean interactiveMode = false;
+
+    private static boolean exit = false;
+
     /**
      * Privát konstruktor a példányosítás elkerülése érdekében
      */
     private TestFramework() {
+    }
+
+    public static void testMenu(GameModel game) {
+        while (!exit) {
+            System.out.println("1. Interaktív mód");
+            System.out.println("2. Megadott teszt futtatása");
+            System.out.println("3. Összes teszt futtatása");
+            System.out.println("4. Kilépés");
+            switch (systemIn.nextInt()) {
+                case 1 -> {
+                    interactiveMode = true;
+                    System.out.println("--- INTERAKTÍV MÓD ---");
+                    while (interactiveMode) {
+                        executeTestLine(systemIn.nextLine(), game);
+                    }
+                    System.out.println("--- INTERAKTÍV MÓD VÉGE ---");
+                }
+                case 2 -> {
+                    System.out.println("Add meg a futtatandó teszt nevét:");
+                    runTest(systemIn.next(), game);
+                }
+
+                case 3 -> {
+                    try (Scanner testListScanner = new Scanner(new File("tests/testslist.txt"))) {
+                        List<String> testNames = new ArrayList<>();
+                        while (testListScanner.hasNext()) {
+                            testNames.add(testListScanner.next());
+                        }
+                        for (String testName : testNames) {
+                            runTest(testName, game);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                case 4 -> exit = true;
+            }
+        }
     }
 
     /**
@@ -46,12 +92,21 @@ public class TestFramework {
     public static void runTest(String testname, GameModel game) {
         currentTestName = testname;
         logMessages.clear();
+        game.resetGameModel();
+        System.out.println("--- TESZT INDUL: " + currentTestName + " ---");
         List<String> commands = readTestInput();
         for (String command : commands) {
             executeTestLine(command, game);
         }
         writeTestOutput();
         checkTestResult();
+        System.out.println("--- TESZT VÉGE: " + currentTestName + " ---");
+        System.out.println("--- Nyomj egy gombot a folytatáshoz ---");
+        try {
+            System.in.read();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -71,6 +126,9 @@ public class TestFramework {
         return output;
     }
 
+    /**
+     * Kiírja a futtatott teszt logjait
+     */
     private static void writeTestOutput() {
         try (FileWriter outputWriter = new FileWriter(new File("tests/output/" + currentTestName + ".out"))) {
             for (String message : logMessages) {
@@ -81,6 +139,9 @@ public class TestFramework {
         }
     }
 
+    /**
+     * Ellenőrzi a futtatott teszt logjait az elvárt logokkal
+     */
     private static void checkTestResult() {
         try (Scanner expectedScanner = new Scanner(new File("tests/expected/" + currentTestName + ".expected"))) {
             List<String> expectedLines = new ArrayList<>();
@@ -128,6 +189,9 @@ public class TestFramework {
                         mj.setFungus(game.findFungus(cmd.get(2)));
                     }
                     case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
+                    case "spore" -> {
+                        game.findTecton(cmd.get(4)).putASpore(SporeFactory.createSpore(cmd.get(2), SporeTypes.valueOf(cmd.get(3))));
+                    }
                     case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
                         var t2 = game.findTecton(cmd.get(3));
@@ -144,7 +208,7 @@ public class TestFramework {
                     }
                 }
             }
-            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));
+            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
             case "grow" -> {
                 switch (cmd.get(1)) {
                     case "mycelium" -> {
@@ -159,9 +223,10 @@ public class TestFramework {
                 }
             }
             case "spreadspore" -> {
-                // TODO
-            }
-            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
+                game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
+            }                                                                               //KESZ
+            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
+            case "leave" -> interactiveMode = false;
             default -> {
                 break;
             }

@@ -17,9 +17,18 @@ public class GameModel {
     public ArrayList<MyceliumJunction>     myceliumJunctionArrayList = new ArrayList<>();
     public ArrayList<Insect>                         insectArrayList = new ArrayList<>();
 
+    public void resetGameModel() {
+        tectonArrayList.clear();
+        sporeArrayList.clear();
+        fungusArrayList.clear();
+        myceliumConnectionArrayList.clear();
+        myceliumJunctionArrayList.clear();
+        insectArrayList.clear();
+    }
+
     public Tecton findTecton(String id) {
         for (Tecton tecton : tectonArrayList) {
-            if(Objects.equals(tecton.id, id)) {
+            if(Objects.equals(tecton.getId(), id)) {
                 return tecton;
             }
         }
@@ -28,7 +37,7 @@ public class GameModel {
 
     public MyceliumJunction findMyceliumJunction(String id) {
         for (MyceliumJunction mj : myceliumJunctionArrayList) {
-            if(Objects.equals(mj.id, id)) {
+            if(Objects.equals(mj.getId(), id)) {
                 return mj;
             }
         }
@@ -37,7 +46,7 @@ public class GameModel {
 
     public MyceliumConnection findMyceliumConnection(String id) {
         for (MyceliumConnection mc : myceliumConnectionArrayList) {
-            if(Objects.equals(mc.id, id)) {
+            if(Objects.equals(mc.getId(), id)) {
                 return mc;
             }
         }
@@ -46,7 +55,7 @@ public class GameModel {
 
     public Insect findInsect(String id) {
         for (Insect insect : insectArrayList) {
-            if(Objects.equals(insect.id, id)) {
+            if(Objects.equals(insect.getId(), id)) {
                 return insect;
             }
         }
@@ -55,10 +64,17 @@ public class GameModel {
 
     public Fungus findFungus(String id) {
         for(Fungus fungus : fungusArrayList) {
-            if(Objects.equals(fungus.id, id)) {
+            if(Objects.equals(fungus.getId(), id)) {
                 return fungus;
             }
         }
         throw new IllegalArgumentException("No Fungus with id " + id + " exists");
+    }
+
+    public void updateSporeList() {
+        sporeArrayList.clear();
+        for(Tecton tecton : tectonArrayList ) {
+            sporeArrayList.addAll(tecton.getAllSpores());
+        }
     }
 }

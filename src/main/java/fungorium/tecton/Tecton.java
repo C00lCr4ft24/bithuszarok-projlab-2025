@@ -14,7 +14,6 @@ import java.util.*;
  */
 public class Tecton implements FungoriumEntity {
 
-    public String id;
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
@@ -26,19 +25,36 @@ public class Tecton implements FungoriumEntity {
     /**
      * A Tecton-hoz tartozó spórák tárolója.
      */
-    private final LinkedList<Spore> spores = new LinkedList<>();
+    protected final LinkedList<Spore> spores = new LinkedList<>();
     /**
      * A Tecton-on lévő rovarok tárolója.
      */
-    private final ArrayList<Insect> insects = new ArrayList<>();
+    protected final ArrayList<Insect> insects = new ArrayList<>();
     /**
      * A szomszédos Tecton-ok listája.
      */
-    private ArrayList<Tecton> TectonN = new ArrayList<>();
+    protected ArrayList<Tecton> TectonN = new ArrayList<>();
     /**
      * A Tecton állapota: törött vagy ép.
      */
-    private boolean isBroken = false;
+    protected boolean isBroken = false;
+    /**
+     * A Tecton id-jét tartalmazó String.
+     */
+    protected String id;
+
+    /**
+     * Visszaadja az ID-t.
+     * @return ID String.
+     */
+    public String getId() { return id; }
+
+    public Tecton(String id) {
+        this.id = id;
+        String log = "Tecton " + id + " was created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 
     /**
      * Létrehoz egy új Tecton példányt a megadott szomszédos Tecton-ok alapján.
@@ -55,13 +71,6 @@ public class Tecton implements FungoriumEntity {
      */
     public Tecton() {
         //System.out.println("New Tecton created: " + this);
-    }
-
-    public Tecton(String id) {
-        this.id = id;
-        String log = "Tecton " + id + " was created.";
-        System.out.println(log);
-        TestFramework.logOutput(log);
     }
 
     /**
@@ -98,6 +107,13 @@ public class Tecton implements FungoriumEntity {
         return spores.getFirst();
     }
 
+    /**
+     * Visszaadja az összes Spórát a Tectonon.
+     * @return az összes Spóra a Tectonon egy új listában.
+     */
+    public LinkedList<Spore> getAllSpores() {
+        return new LinkedList<>(spores);
+    }
     /**
      * Getter a Tecton MyceliumJunction listájához.
      * @return A Tecton MyceliumJunction listája.

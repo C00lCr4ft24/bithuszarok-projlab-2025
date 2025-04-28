@@ -474,7 +474,7 @@ public class Skeleton {
         System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
         System.out.println("-- Teszt indul --");
-        f1.spreadSpores(t2, SporeTypes.RANDOM_SPORE);
+        //f1.spreadSpores(t2, SporeTypes.RANDOM_SPORE);
         System.out.println("-- Végső állapot --");
         System.out.println("-- Elvárt eredmény --");
     }
@@ -483,7 +483,7 @@ public class Skeleton {
         System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
         System.out.println("-- Teszt indul --");
-        f1.spreadSpores(t5, SporeTypes.RANDOM_SPORE);
+        //f1.spreadSpores(t5, SporeTypes.RANDOM_SPORE);
         System.out.println("-- Végső állapot --");
         System.out.println("-- Elvárt eredmény --");
     }

@@ -27,7 +27,8 @@ public class MyceliumJunction implements FungoriumEntity {
     private Fungus currentFungus;
 
 
-    public String id;
+    private String id;
+    public String getId() { return id; }
     public MyceliumJunction(String id, Tecton position) {
         this.id = id;
         this.position = position;
