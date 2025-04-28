@@ -1,0 +1,5 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add insect I1 T1
+move I1 T2

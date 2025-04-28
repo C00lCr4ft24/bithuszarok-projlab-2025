@@ -1,0 +1,6 @@
+Tecton T1 was created.
+Tecton T2 was created.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
+Insect I1 was added to T1.
+Insect I1 can not move to T2 because there is no connection.
