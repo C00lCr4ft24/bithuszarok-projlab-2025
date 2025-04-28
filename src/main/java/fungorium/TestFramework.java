@@ -184,8 +184,8 @@ public class TestFramework {
                         break;
                     }
                 }
-            }
-            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));
+            }                                                                                       //KESZ
+            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
             case "grow" -> {
                 switch (cmd.get(1)) {
                     case "mycelium" -> {
@@ -201,8 +201,8 @@ public class TestFramework {
             }
             case "spreadspore" -> {
                 game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
-            }
-            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
+            }                                                                               //KESZ
+            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
             case "leave" -> interactiveMode = false;
             default -> {
                 break;
