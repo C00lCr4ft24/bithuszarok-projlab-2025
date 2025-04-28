@@ -34,14 +34,15 @@ public class Fungus implements FungoriumEntity {
     private boolean canSpreadSpore;
 
 
-    public String id;
+    private String id;
+    public String getId() { return id; }
     public Fungus(String id, MyceliumJunction junctionPosition) {
         this.id = id;
         this.sporeLevel = 0;
         this.fungusLevel = FungusLevel.SMALL;
         this.canSpreadSpore = true;
         this.junctionPosition = junctionPosition;
-        String log = "Fungus " + id + " was added to " + junctionPosition.id + ".";
+        String log = "Fungus " + id + " was added to " + junctionPosition.getId() + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
@@ -99,7 +100,7 @@ public class Fungus implements FungoriumEntity {
                     case STUN_SPORE -> newSpore = new StunSpore(200, 3);
                     case RANDOM_SPORE -> newSpore = SporeFactory.createSpore();
                 }
-                String log = "Fungus " + id + " spread " + sporeType.toString() + " to " + target.id + ".";
+                String log = "Fungus " + id + " spread " + sporeType.toString() + " to " + target.getId() + ".";
                 System.out.println(log);
                 TestFramework.logOutput(log);
                 target.putASpore(newSpore);

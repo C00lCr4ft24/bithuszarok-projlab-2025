@@ -1,6 +1,7 @@
 package fungorium.spore;
 
 import fungorium.Insect;
+import fungorium.TestFramework;
 
 /**
  * Az AntiCutSpore osztály egy speciális spórát reprezentál, amely megakadályozza,
@@ -18,6 +19,19 @@ public class AntiCutSpore extends Spore {
         super(nutrient, effectTime);
         //System.out.println("New AntiCutSpore created: " + this);
     }
+    /**
+     * Létrehoz egy új `AntiCutSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
+     *
+     * @param nutrient   A spóra tápanyagértéke.
+     * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
+     * @param id         A spóra ID-je.
+     */
+    public AntiCutSpore(String id, int nutrient, int effectTime) {
+        super(id, nutrient, effectTime);
+        String log = "New AntiCutSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 
     /**
      * Kifejti a spóra hatását a megadott rovarra.
@@ -28,7 +42,7 @@ public class AntiCutSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        printAction("doEffect");
+        //printAction("doEffect");
         insect.blockMyceliumCut();
         effectTime--;
         return effectTime <= 0;

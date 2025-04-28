@@ -32,14 +32,15 @@ public class MyceliumConnection implements FungoriumEntity {
      */
     private boolean hasBeenCut = false;
 
-    public String id;
+    private String id;
+    public String getId() { return id; }
     public MyceliumConnection(String id, MyceliumJunction a, MyceliumJunction b) {
         this.id = id;
         junctionA = a;
         junctionA.addConnection(this);
         junctionB = b;
         junctionB.addConnection(this);
-        String log = "MyceliumConnection " + id + " was added to " + junctionA.id + " and " + junctionB.id + ".";
+        String log = "MyceliumConnection " + id + " was added to " + junctionA.getId() + " and " + junctionB.getId() + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
