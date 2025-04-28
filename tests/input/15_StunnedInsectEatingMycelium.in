@@ -1,0 +1,12 @@
+add tecton T1 standard
+add myceliumjunction MJT1 T1
+add fungus F1 MJT1
+pass
+pass
+pass
+spreadspore F1 T2 StunSpore SS1
+add insect I1 T1
+I1 eatspore SS1
+pass
+MJT1 consume I1
+
