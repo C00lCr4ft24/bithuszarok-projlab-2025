@@ -25,10 +25,12 @@ public class TestFramework {
     /**
      * Privát konstruktor a példányosítás elkerülése érdekében
      */
-    private TestFramework() {}
+    private TestFramework() {
+    }
 
     /**
      * Eltárolja az üzenetet amit a hívó átadott paraméterként
+     * 
      * @param str az üzenet
      */
     public static void logOutput(String str) {
@@ -37,8 +39,9 @@ public class TestFramework {
 
     /**
      * Lefuttatja a megadott nevű tesztet
+     * 
      * @param testname a teszt neve (fájlkiterjesztés nélkül)
-     * @param game a játék modellje
+     * @param game     a játék modellje
      */
     public static void runTest(String testname, GameModel game) {
         currentTestName = testname;
@@ -53,11 +56,12 @@ public class TestFramework {
 
     /**
      * Megnyitja az adott nevű teszthez tartozó fájlt és beolvassa a parancsokat
+     * 
      * @return a fájlban lévő parancsok listája
      */
     private static List<String> readTestInput() {
         List<String> output = new ArrayList<>();
-        try (Scanner inputScanner = new Scanner(new File(currentTestName + ".in"))) {
+        try (Scanner inputScanner = new Scanner(new File("tests/" + currentTestName + ".in"))) {
             while (inputScanner.hasNextLine()) {
                 output.add(inputScanner.nextLine());
             }
@@ -68,9 +72,9 @@ public class TestFramework {
     }
 
     private static void writeTestOutput() {
-        try (FileWriter outputWriter = new FileWriter(new File(currentTestName + ".out"))) {
+        try (FileWriter outputWriter = new FileWriter(new File("tests/" + currentTestName + ".out"))) {
             for (String message : logMessages) {
-               outputWriter.write(message + "\n"); 
+                outputWriter.write(message + "\n");
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -78,7 +82,7 @@ public class TestFramework {
     }
 
     private static void checkTestResult() {
-        try (Scanner expectedScanner = new Scanner(new File(currentTestName + ".expected"))) {
+        try (Scanner expectedScanner = new Scanner(new File("tests/" + currentTestName + ".expected"))) {
             List<String> expectedLines = new ArrayList<>();
             while (expectedScanner.hasNextLine()) {
                 expectedLines.add(expectedScanner.nextLine());
@@ -100,7 +104,6 @@ public class TestFramework {
         }
     }
 
-    
     public static void executeTestLine(String line, GameModel game) {
         ArrayList<String> cmd = new ArrayList<>(Arrays.asList(line.split(" ")));
         switch (cmd.get(0)) {
@@ -108,54 +111,36 @@ public class TestFramework {
                 switch (cmd.get(1)) {
                     case "tecton" -> {
                         switch (cmd.get(3)) {
-                            case "standard" -> {
-                                game.tectonArrayList.add(new Tecton(cmd.get(2)));
-                            }
-                            case "anticrossing" -> {
-                                game.tectonArrayList.add(new AntiCrossingTecton(cmd.get(2)));
-                            }
-                            case "antifungus" -> {
-                                game.tectonArrayList.add(new AntiFungusTecton(cmd.get(2)));
-                            }
-                            case "antimycelium" -> {
-                                game.tectonArrayList.add(new AntiMyceliumTecton(cmd.get(2)));
-                            }
-                            case "preserver" -> {
-                                game.tectonArrayList.add(new PreserverTecton(cmd.get(2)));
-                            }
+                            case "standard" -> game.tectonArrayList.add(new Tecton(cmd.get(2)));
+                            case "anticrossing" -> game.tectonArrayList.add(new AntiCrossingTecton(cmd.get(2)));
+                            case "antifungus" -> game.tectonArrayList.add(new AntiFungusTecton(cmd.get(2)));
+                            case "antimycelium" -> game.tectonArrayList.add(new AntiMyceliumTecton(cmd.get(2)));
+                            case "preserver" -> game.tectonArrayList.add(new PreserverTecton(cmd.get(2)));
                             default -> {
                                 break;
                             }
                         }
                     }
-                    case "fungus" -> {
+                    case "fungus" ->
                         game.fungusArrayList.add(new Fungus(cmd.get(2), game.findMyceliumJunction(cmd.get(3))));
-                    }
-                    case "insect" -> {
-                        game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
-                    }
+                    case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
                     case "neighbor" -> {
                         var t1 = game.findTecton(cmd.get(2));
                         var t2 = game.findTecton(cmd.get(3));
                         t1.setNeighbour(t2);
                         t2.setNeighbour(t1);
                     }
-                    case "myceliumjunction" -> {
-                        game.myceliumJunctionArrayList
-                                .add(new MyceliumJunction(cmd.get(2), game.findTecton(cmd.get(3))));
-                    }
-                    case "myceliumconnection" -> {
-                        game.myceliumConnectionArrayList.add(new MyceliumConnection(cmd.get(2),
-                                game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4))));
-                    }
+                    case "myceliumjunction" -> game.myceliumJunctionArrayList
+                            .add(new MyceliumJunction(cmd.get(2), game.findTecton(cmd.get(3))));
+
+                    case "myceliumconnection" -> game.myceliumConnectionArrayList.add(new MyceliumConnection(cmd.get(2),
+                            game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4))));
                     default -> {
                         break;
                     }
                 }
             }
-            case "move" -> {
-                game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));
-            }
+            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));
             case "grow" -> {
                 switch (cmd.get(1)) {
                     case "mycelium" -> {
@@ -172,9 +157,7 @@ public class TestFramework {
             case "spreadspore" -> {
                 // TODO
             }
-            case "cut" -> {
-                game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
-            }
+            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2)));
             default -> {
                 break;
             }
