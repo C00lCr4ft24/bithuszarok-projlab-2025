@@ -6,6 +6,8 @@ public interface FungoriumEntity {
      */
     public void gameStep();
 
-    public default void printAction(String methodName) { System.out.println(methodName + " called on " + this); }
+    public default void printAction(String methodName) {
+        //System.out.println(methodName + " called on " + this);
+    }
 
 }
