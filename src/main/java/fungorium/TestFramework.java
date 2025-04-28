@@ -61,7 +61,7 @@ public class TestFramework {
      */
     private static List<String> readTestInput() {
         List<String> output = new ArrayList<>();
-        try (Scanner inputScanner = new Scanner(new File("tests/" + currentTestName + ".in"))) {
+        try (Scanner inputScanner = new Scanner(new File("tests/input/" + currentTestName + ".in"))) {
             while (inputScanner.hasNextLine()) {
                 output.add(inputScanner.nextLine());
             }
@@ -72,7 +72,7 @@ public class TestFramework {
     }
 
     private static void writeTestOutput() {
-        try (FileWriter outputWriter = new FileWriter(new File("tests/" + currentTestName + ".out"))) {
+        try (FileWriter outputWriter = new FileWriter(new File("tests/output/" + currentTestName + ".out"))) {
             for (String message : logMessages) {
                 outputWriter.write(message + "\n");
             }
@@ -82,7 +82,7 @@ public class TestFramework {
     }
 
     private static void checkTestResult() {
-        try (Scanner expectedScanner = new Scanner(new File("tests/" + currentTestName + ".expected"))) {
+        try (Scanner expectedScanner = new Scanner(new File("tests/expected/" + currentTestName + ".expected"))) {
             List<String> expectedLines = new ArrayList<>();
             while (expectedScanner.hasNextLine()) {
                 expectedLines.add(expectedScanner.nextLine());
