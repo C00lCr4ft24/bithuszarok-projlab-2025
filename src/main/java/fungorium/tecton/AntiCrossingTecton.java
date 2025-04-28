@@ -1,5 +1,7 @@
 package fungorium.tecton;
 
+import fungorium.TestFramework;
+
 import java.util.ArrayList;
 
 /**
@@ -24,6 +26,12 @@ public class AntiCrossingTecton extends Tecton {
         super();
     }
 
+    public AntiCrossingTecton(String id) {
+        this.id = id;
+        String log = "AntiCrossingTecton " + id + " was created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 
     /**
      * A saját osztály típusából csinál egy új alappéldányt és visszaadja azt.

@@ -2,9 +2,7 @@ package fungorium;
 
 import fungorium.tecton.*;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Scanner;
 
 import fungorium.mycelium.*;
@@ -29,15 +27,15 @@ public class Skeleton {
      */
     public Skeleton() {
         commands = new HashMap<>();
-        commands.put(1, this::emptyTectonBreaking);
-        commands.put(2, this::brokenTectonBreakingAgain);
-        commands.put(3, this::fullTectonBreak);
-        commands.put(4, this::growFungusOnEmptyTecton);
-        commands.put(5, this::growFungusOnOccupiedTecton);
-        commands.put(6, this::growFungusOnAntiFungusTecton);
-        commands.put(7, this::growMyceliumOnEmptyAntiCrossingTecton);
-        commands.put(8, this::growMyceliumOnOccupiedAntiCrossingTecton);
-        commands.put(9, this::growMyceliumAndJunctionOnAntiMyceliumTecton);
+        commands.put( 1, this::emptyTectonBreaking);
+        commands.put( 2, this::brokenTectonBreakingAgain);
+        commands.put( 3, this::fullTectonBreak);
+        commands.put( 4, this::growFungusOnEmptyTecton);
+        commands.put( 5, this::growFungusOnOccupiedTecton);
+        commands.put( 6, this::growFungusOnAntiFungusTecton);
+        commands.put( 7, this::growMyceliumOnEmptyAntiCrossingTecton);
+        commands.put( 8, this::growMyceliumOnOccupiedAntiCrossingTecton);
+        commands.put( 9, this::growMyceliumAndJunctionOnAntiMyceliumTecton);
         commands.put(10, this::cutMyceliumWithMultipleFungusConnection);
         commands.put(11, this::cutMyceliumWithSingleFungusConnection);
         commands.put(12, this::spreadSporeOnOneDistanceTecton);
@@ -476,7 +474,7 @@ public class Skeleton {
         System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
         System.out.println("-- Teszt indul --");
-        f1.spreadSpores(t2, SporeTypes.RANDOM);
+        f1.spreadSpores(t2, SporeTypes.RANDOM_SPORE);
         System.out.println("-- Végső állapot --");
         System.out.println("-- Elvárt eredmény --");
     }
@@ -485,7 +483,7 @@ public class Skeleton {
         System.err.println("-- Kiinduló állapot --");
         sporeSpreadingInit();
         System.out.println("-- Teszt indul --");
-        f1.spreadSpores(t5, SporeTypes.RANDOM);
+        f1.spreadSpores(t5, SporeTypes.RANDOM_SPORE);
         System.out.println("-- Végső állapot --");
         System.out.println("-- Elvárt eredmény --");
     }

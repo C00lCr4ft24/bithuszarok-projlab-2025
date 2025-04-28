@@ -15,7 +15,7 @@ public class ReplicationSpore extends Spore {
      */
     public ReplicationSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        System.out.println("New ReplicationSpore created: " + this);
+        //System.out.println("New ReplicationSpore created: " + this);
     }
 
     /**

@@ -1,7 +1,10 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.TestFramework;
 import fungorium.tecton.Tecton;
+
+import java.util.ArrayList;
 
 /**
  * Két MyceliumJunction közötti kapcsolatot reprezentál.
@@ -28,6 +31,18 @@ public class MyceliumConnection implements FungoriumEntity {
      * Azt tárolja, hogy el vágta-e már egy rovar őt.
      */
     private boolean hasBeenCut = false;
+
+    public String id;
+    public MyceliumConnection(String id, MyceliumJunction a, MyceliumJunction b) {
+        this.id = id;
+        junctionA = a;
+        junctionA.addConnection(this);
+        junctionB = b;
+        junctionB.addConnection(this);
+        String log = "MyceliumConnection " + id + " was added to " + junctionA.id + " and " + junctionB.id + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
@@ -60,7 +75,7 @@ public class MyceliumConnection implements FungoriumEntity {
      * Az elvágás bejegyzése után rögtön beállítja a fonal életidejét a statikus CUT_DEFAULT_LIFETIME értékére.
      */
     public void cutMe() {
-        printAction("cutMe");
+        //printAction("cutMe");
         hasBeenCut = true;
         setLifetime(CUT_DEFAULT_LIFETIME);
     }
@@ -74,7 +89,7 @@ public class MyceliumConnection implements FungoriumEntity {
      * @param newLifetime Az élettartam új értéke.
      */
     public void setLifetime(int newLifetime) {
-        printAction("setLifeTime");
+        //printAction("setLifeTime");
         if (newLifetime == 0) {
             // Ha az új kapott newLifetime nulla, akkor azonnal megszakítjuk az összekötést.
             terminateConnection();
@@ -111,7 +126,7 @@ public class MyceliumConnection implements FungoriumEntity {
      * @return másik vég vagy null, ha a kapott MyceliumJunction egyik végével sem egyezik meg.
      */
     public MyceliumJunction getOtherEnd(MyceliumJunction from) {
-        printAction("getOtherEnd");
+        //printAction("getOtherEnd");
         if (junctionA == from) {
             return junctionB;
         } else if (junctionB == from) {
@@ -120,6 +135,12 @@ public class MyceliumConnection implements FungoriumEntity {
         return null;
     }
 
+    public ArrayList<MyceliumJunction> getBothEnds() {
+        var list = new ArrayList<MyceliumJunction>();
+        list.add(junctionA);
+        list.add(junctionB);
+        return list;
+    }
     /**
      * Kicseréli a from paraméterként kapott MyceliumJunction-et a to paraméterként kapott MyceliumJunction-re, ha a from paraméter megegyezik valamelyik végével.
      *

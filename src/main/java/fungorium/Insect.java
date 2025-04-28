@@ -5,6 +5,7 @@ import fungorium.mycelium.MyceliumJunction;
 import fungorium.spore.Spore;
 import fungorium.tecton.Tecton;
 
+import java.lang.runtime.ObjectMethods;
 import java.util.*;
 
 /**
@@ -16,7 +17,7 @@ public class Insect implements FungoriumEntity {
     /**
      * A rovar által megevett spórák, melyek hatásukat kifejtik rá.
      */
-    private final LinkedList<Spore> eatenAffectingSpores;
+    private final LinkedList<Spore> eatenAffectingSpores = new LinkedList<>();
     /**
      * Az eddig összesen begyűjtött tápanyag mennyisége.
      */
@@ -38,6 +39,18 @@ public class Insect implements FungoriumEntity {
      */
     private Tecton position;
 
+    public String id;
+    public Insect(String id, Tecton position) {
+        this.id = id;
+        this.position = position;
+        eatenNutrient = 0;
+        resetEffectValues();
+        String log = "Insect " + id + " was added to " + position.id + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
+
+
 
     /**
      * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
@@ -48,7 +61,6 @@ public class Insect implements FungoriumEntity {
         System.out.println("New Insect created: " + this);
         this.position = position;
         eatenNutrient = 0;
-        eatenAffectingSpores = new LinkedList<>();
         resetEffectValues();
     }
 
@@ -85,12 +97,29 @@ public class Insect implements FungoriumEntity {
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
      */
     public void cutMyceliumConnection(MyceliumConnection mc) {
+
         if (canCutMycelium) {
-            printAction("cutMyceliumConnection");
-            mc.cutMe();
-        } else {
-            printAction("can't cutMyceliumConnection");
+            //printAction("cutMyceliumConnection");
+            boolean isMCConnectedToCurrentPos = false;
+            for(var mj1 : position.getMyceliumJunctions()) {
+                for(var mj2 : mc.getBothEnds()) {
+                    if (Objects.equals(mj1, mj2)) {
+                        isMCConnectedToCurrentPos = true;
+                        break;
+                    }
+                }
+            }
+            if(isMCConnectedToCurrentPos) {
+                mc.cutMe();
+                String log = "Insect " + id + " cut " + mc.id + " successfully.";
+                System.out.println(log);
+                TestFramework.logOutput(log);
+                return;
+            }
         }
+        String log = "Insect " + id + " tried cutting " + mc.id + " but failed.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
@@ -112,10 +141,12 @@ public class Insect implements FungoriumEntity {
      * @param target A cél {@link Tecton}, amelyre a rovar mozog.
      */
     public void move(Tecton target) {
-        printAction("move");
+        //printAction("move");
         if (target == null) return;
         if(isStunned) {
-            System.out.println("Can not move " + this + " because it is stunned");
+            String log = "Insect " + id + " can not move to " + target.id + " as it is stunned.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
             return;
         }
 
@@ -144,12 +175,18 @@ public class Insect implements FungoriumEntity {
             int currentDistance = distances.get(current);
             if (targetJunctions.contains(current)) { //Ha megtalaltuk
                 if(currentDistance <= currentSpeed) {
-                    System.out.println(this + " moved successfully to " + target);
                     position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
                     target.putInsect(this);          // uj tectonra tegyuk ra
                     position = target;               // allitsuk be a lokalis valtozot az uj tectonra
+                    String log = "Insect " + id + " has moved to " + target.id + ".";
+                    System.out.println(log);
+                    TestFramework.logOutput(log);
                 }
-                else { System.out.println("Can not move " + this + " because target Tecton is too far"); }
+                else {
+                    String log = "Insect " + id + " can not move to " + target.id + " because it is too far.";
+                    System.out.println(log);
+                    TestFramework.logOutput(log);
+                }
                 return;
             }
 
@@ -162,8 +199,9 @@ public class Insect implements FungoriumEntity {
                 }
             }
         }
-        System.out.println("Can not move " + this + " because there is no connections");
-    }
+        String log = "Insect " + id + " can not move to " + target.id + " because there is no connection.";
+        System.out.println(log);
+        TestFramework.logOutput(log);    }
 
     /**
      * A rovar lebénításának beállítása.

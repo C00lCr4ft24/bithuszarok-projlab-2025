@@ -1,5 +1,6 @@
 package fungorium.tecton;
 
+import fungorium.TestFramework;
 import fungorium.mycelium.MyceliumJunction;
 
 import java.util.ArrayList;
@@ -29,6 +30,14 @@ public class AntiMyceliumTecton extends Tecton {
     public AntiMyceliumTecton() {
         super();
         initLifetime();
+    }
+
+    public AntiMyceliumTecton(String id) {
+        this.id = id;
+        initLifetime();
+        String log = "AntiMyceliumTecton " + id + " was created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**

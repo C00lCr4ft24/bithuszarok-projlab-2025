@@ -16,7 +16,7 @@ public class SlowDownSpore extends Spore {
      */
     public SlowDownSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        System.out.println("New SlowDownSpore created: " + this);
+        //System.out.println("New SlowDownSpore created: " + this);
     }
 
     /**

@@ -1,5 +1,6 @@
 package fungorium.tecton;
 
+import fungorium.TestFramework;
 import fungorium.mycelium.MyceliumJunction;
 
 import java.util.ArrayList;
@@ -20,6 +21,13 @@ public class PreserverTecton extends Tecton {
      */
     public PreserverTecton() {
         super();
+    }
+
+    public PreserverTecton(String id) {
+        this.id = id;
+        String log = "   PreserverTecton " + id + " was created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**

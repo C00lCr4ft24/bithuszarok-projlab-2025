@@ -15,7 +15,7 @@ public class SpeedUpSpore extends Spore {
      */
     public SpeedUpSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        System.out.println("New SpeedUpSpore created: " + this);
+        //System.out.println("New SpeedUpSpore created: " + this);
     }
 
     /**

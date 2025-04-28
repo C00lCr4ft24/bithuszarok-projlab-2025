@@ -11,5 +11,5 @@ public enum SporeTypes {
     STUN_SPORE,
 
     // Mindig RANDOM legyen a legutolso SporeFactory miatt
-    RANDOM
+    RANDOM_SPORE
 }

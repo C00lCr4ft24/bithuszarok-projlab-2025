@@ -17,7 +17,6 @@ public abstract class Spore implements FungoriumEntity {
      * A spóra hatásának időtartama.
      */
     protected int effectTime;
-
     /**
      * Létrehoz egy új spóra példányt a megadott tápanyag- és hatásidő értékekkel.
      *
@@ -38,7 +37,6 @@ public abstract class Spore implements FungoriumEntity {
         printAction("getNutrientValue");
         return this.nutrient;
     }
-
     /**
      * Absztrakt metódus, amely kifejti a spóra egyedi hatását a megadott rovarra.
      *

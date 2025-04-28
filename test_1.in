@@ -1,0 +1,17 @@
+add tecton T1 standard
+add tecton T2 anticrossing
+add tecton T3 antifungus
+add tecton T4 antimycelium
+add tecton T5 preserver
+add myceliumjunction MJT1 T1
+add myceliumjunction MJT2 T2
+add myceliumjunction MJT3 T3
+add fungus F1 MJT1
+add insect I1 T1
+add neighbor T1 T2
+add myceliumconnection MC1 MJT1 MJT2
+add myceliumconnection MC2 MJT2 MJT3
+move I1 T2
+move I1 T3
+spreadspore F1 T2
+cut I1 MC1

@@ -1,6 +1,7 @@
 package fungorium.mycelium;
 
 import fungorium.FungoriumEntity;
+import fungorium.TestFramework;
 import fungorium.spore.*;
 import fungorium.tecton.Tecton;
 
@@ -32,6 +33,20 @@ public class Fungus implements FungoriumEntity {
      */
     private boolean canSpreadSpore;
 
+
+    public String id;
+    public Fungus(String id, MyceliumJunction junctionPosition) {
+        this.id = id;
+        this.sporeLevel = 0;
+        this.fungusLevel = FungusLevel.SMALL;
+        this.canSpreadSpore = true;
+        this.junctionPosition = junctionPosition;
+        String log = "Fungus " + id + " was added to " + junctionPosition.id + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
+
+
     /**
      * Egy új `Fungus` példányt hoz létre egy megadott MyceliumJunction pozícióval.
      *
@@ -53,8 +68,13 @@ public class Fungus implements FungoriumEntity {
      * @return True, ha elhalt a gombatest, egyébként False.
      */
     public boolean spreadSpores(Tecton target, SporeTypes sporeType) {
-        printAction("spreadSpores");
+        //printAction("spreadSpores");
         boolean fungusHasDied = false;
+        if(!canSpreadSpore) {
+            String log = "Fungus " + id + " can not spread spores as it is too young.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+        }
         if (canSpreadSpore) {
             boolean targetInDistance = false;
             switch (fungusLevel) {
@@ -77,9 +97,12 @@ public class Fungus implements FungoriumEntity {
                     case SLOW_DOWN_SPORE -> newSpore = new SlowDownSpore(200, 3);
                     case SPEED_UP_SPORE -> newSpore = new SpeedUpSpore(200, 3);
                     case STUN_SPORE -> newSpore = new StunSpore(200, 3);
-                    case RANDOM -> newSpore = SporeFactory.createSpore();
+                    case RANDOM_SPORE -> newSpore = SporeFactory.createSpore();
                 }
-                junctionPosition.getPosition().putASpore(newSpore);
+                String log = "Fungus " + id + " spread " + sporeType.toString() + " to " + target.id + ".";
+                System.out.println(log);
+                TestFramework.logOutput(log);
+                target.putASpore(newSpore);
                 sporeLevel = 0;
                 canSpreadSpore = false;
             }

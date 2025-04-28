@@ -16,7 +16,7 @@ public class AntiCutSpore extends Spore {
      */
     public AntiCutSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        System.out.println("New AntiCutSpore created: " + this);
+        //System.out.println("New AntiCutSpore created: " + this);
     }
 
     /**
