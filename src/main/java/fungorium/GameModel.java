@@ -17,6 +17,15 @@ public class GameModel {
     public ArrayList<MyceliumJunction>     myceliumJunctionArrayList = new ArrayList<>();
     public ArrayList<Insect>                         insectArrayList = new ArrayList<>();
 
+    public void resetGameModel() {
+        tectonArrayList.clear();
+        sporeArrayList.clear();
+        fungusArrayList.clear();
+        myceliumConnectionArrayList.clear();
+        myceliumJunctionArrayList.clear();
+        insectArrayList.clear();
+    }
+
     public Tecton findTecton(String id) {
         for (Tecton tecton : tectonArrayList) {
             if(Objects.equals(tecton.id, id)) {
