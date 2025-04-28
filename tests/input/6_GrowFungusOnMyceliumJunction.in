@@ -1,0 +1,7 @@
+add tecton T1 standard
+add tecton T2 standard
+add myceliumjunction MJT1 T1
+add myceliumjunction MJT2 T2
+add myceliumconnection MC1 MJT1 MJT2
+add fungus F1 MJT1
+growfungus F2 MJT2
