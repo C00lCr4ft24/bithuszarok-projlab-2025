@@ -124,6 +124,17 @@ public class MyceliumJunction implements FungoriumEntity {
     }
 
     /**
+     * Beállítja a kapott a Fungust magára, ha az null
+     *
+     * @param newFungus Új Fungus, amit beállítunk
+     */
+    public void setFungus(Fungus newFungus) {
+        if(currentFungus == null) {
+            currentFungus = newFungus;
+        }
+    }
+
+    /**
      * Megkeresi az a MyceliumConnection-át, melynek a másik vége a megadott Tectonon van.
      *
      * @param otherEnd másik Tecton melyen keresssük a MyceliumConnection végét.
