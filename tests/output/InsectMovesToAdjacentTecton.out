@@ -1,0 +1,9 @@
+Tecton T1 was created.
+Tecton T2 was created.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
+MyceliumJunction T1 was added to T1.
+MyceliumJunction T2 was added to T2.
+MyceliumConnection C1 was added to M1 and M2.
+Insect I1 was added to T1.
+Insect I1 has moved to T2.

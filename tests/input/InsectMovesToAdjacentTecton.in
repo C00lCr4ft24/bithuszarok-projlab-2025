@@ -1,0 +1,8 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add myceliumjunction M1 T1
+add myceliumjunction M2 T2
+add myceliumconnection C1 M1 M2
+add insect I1 T1
+move I1 T2
