@@ -8,8 +8,8 @@ MyceliumJunction T2 was added to T2.
 MyceliumJunction T3 was added to T3.
 Fungus F1 was added to MJT1.
 Insect I1 was added to T1.
-T1 is now neighbor of T2.
-T2 is now neighbor of T1.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
 MyceliumConnection MC1 was added to MJT1 and MJT2.
 MyceliumConnection MC2 was added to MJT2 and MJT3.
 Insect I1 has moved to T2.
