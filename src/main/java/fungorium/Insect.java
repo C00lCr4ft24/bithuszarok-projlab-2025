@@ -38,19 +38,25 @@ public class Insect implements FungoriumEntity {
      * A rovar aktuális pozícióját jelző Tecton.
      */
     private Tecton position;
+    /**
+     * Az Insect id-jét tartalmazó String.
+     */
+    private String id;
+    /**
+     * Visszaadja az ID-t.
+     * @return ID String.
+     */
+    public String getId() { return id; }
 
-    public String id;
     public Insect(String id, Tecton position) {
         this.id = id;
         this.position = position;
         eatenNutrient = 0;
         resetEffectValues();
-        String log = "Insect " + id + " was added to " + position.id + ".";
+        String log = "Insect " + id + " was added to " + position.getId() + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
-
-
 
     /**
      * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
@@ -111,13 +117,13 @@ public class Insect implements FungoriumEntity {
             }
             if(isMCConnectedToCurrentPos) {
                 mc.cutMe();
-                String log = "Insect " + id + " cut " + mc.id + " successfully.";
+                String log = "Insect " + id + " cut " + mc.getId() + " successfully.";
                 System.out.println(log);
                 TestFramework.logOutput(log);
                 return;
             }
         }
-        String log = "Insect " + id + " tried cutting " + mc.id + " but failed.";
+        String log = "Insect " + id + " tried cutting " + mc.getId() + " but failed.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
@@ -144,7 +150,7 @@ public class Insect implements FungoriumEntity {
         //printAction("move");
         if (target == null) return;
         if(isStunned) {
-            String log = "Insect " + id + " can not move to " + target.id + " as it is stunned.";
+            String log = "Insect " + id + " can not move to " + target.getId() + " as it is stunned.";
             System.out.println(log);
             TestFramework.logOutput(log);
             return;
@@ -178,12 +184,12 @@ public class Insect implements FungoriumEntity {
                     position.removeInsect(this);     // regi tectonrol szedjuk le az insectet
                     target.putInsect(this);          // uj tectonra tegyuk ra
                     position = target;               // allitsuk be a lokalis valtozot az uj tectonra
-                    String log = "Insect " + id + " has moved to " + target.id + ".";
+                    String log = "Insect " + id + " has moved to " + target.getId() + ".";
                     System.out.println(log);
                     TestFramework.logOutput(log);
                 }
                 else {
-                    String log = "Insect " + id + " can not move to " + target.id + " because it is too far.";
+                    String log = "Insect " + id + " can not move to " + target.getId() + " because it is too far.";
                     System.out.println(log);
                     TestFramework.logOutput(log);
                 }
@@ -199,7 +205,7 @@ public class Insect implements FungoriumEntity {
                 }
             }
         }
-        String log = "Insect " + id + " can not move to " + target.id + " because there is no connection.";
+        String log = "Insect " + id + " can not move to " + target.getId() + " because there is no connection.";
         System.out.println(log);
         TestFramework.logOutput(log);    }
 

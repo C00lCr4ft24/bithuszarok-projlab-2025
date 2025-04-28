@@ -1,6 +1,7 @@
 package fungorium.spore;
 
 import fungorium.Insect;
+import fungorium.TestFramework;
 
 /**
  * Egy olyan spórát reprezentál, amely felgyorsítja azt a rovart, amely felszedi.
@@ -18,6 +19,19 @@ public class SpeedUpSpore extends Spore {
         //System.out.println("New SpeedUpSpore created: " + this);
     }
 
+    /**
+     * Létrehoz egy új `SpeedUpSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
+     *
+     * @param nutrient   A spóra tápanyagértéke.
+     * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
+     * @param id         A spóra ID-je.
+     */
+    public SpeedUpSpore(String id, int nutrient, int effectTime) {
+        super(id, nutrient, effectTime);
+        String log = "New SpeedUpSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      * Csökkenti eggyel az effectTime-át.

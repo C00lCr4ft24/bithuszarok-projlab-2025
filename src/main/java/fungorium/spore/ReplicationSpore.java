@@ -1,6 +1,7 @@
 package fungorium.spore;
 
 import fungorium.Insect;
+import fungorium.TestFramework;
 
 /**
  * Egy olyan {@link Spore} amely egy új {@link Insect} példányt hoz létre az őt megevő mellé.
@@ -17,7 +18,19 @@ public class ReplicationSpore extends Spore {
         super(nutrient, effectTime);
         //System.out.println("New ReplicationSpore created: " + this);
     }
-
+    /**
+     * Létrehoz egy új `ReplicationSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
+     *
+     * @param nutrient   A spóra tápanyagértéke.
+     * @param effectTime Az időtartam, ameddig a spóra hatása érvényesül.
+     * @param id         A spóra ID-je.
+     */
+    public ReplicationSpore(String id, int nutrient, int effectTime) {
+        super(id, nutrient, effectTime);
+        String log = "New ReplicationSpore " + id + " was created with " + nutrient + " nutrient and " + effectTime + " effectTime.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      *
