@@ -40,7 +40,7 @@ public class Fungus implements FungoriumEntity {
         this.id = id;
         this.sporeLevel = 0;
         this.fungusLevel = FungusLevel.SMALL;
-        this.canSpreadSpore = true;
+        this.canSpreadSpore = false;
         this.junctionPosition = junctionPosition;
         String log = "Fungus " + id + " was added to " + junctionPosition.getId() + ".";
         System.out.println(log);
