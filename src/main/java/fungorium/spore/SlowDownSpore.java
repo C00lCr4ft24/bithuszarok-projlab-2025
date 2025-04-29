@@ -17,7 +17,6 @@ public class SlowDownSpore extends Spore {
      */
     public SlowDownSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        //System.out.println("New SlowDownSpore created: " + this);
     }
     /**
      * Létrehoz egy új `SlowDownSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
@@ -41,7 +40,6 @@ public class SlowDownSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        printAction("doEffect");
         insect.decreaseSpeed();
         effectTime--;
         return effectTime <= 0;

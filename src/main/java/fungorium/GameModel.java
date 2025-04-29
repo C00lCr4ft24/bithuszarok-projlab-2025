@@ -79,9 +79,6 @@ public class GameModel {
     }
 
     public void executeAllgameStep() {
-        for(Tecton tecton : tectonArrayList ) {
-            tecton.gameStep();
-        }
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
         }
@@ -93,6 +90,9 @@ public class GameModel {
         }
         for(Insect insect : insectArrayList) {
             insect.gameStep();
+        }
+        for(Tecton tecton : tectonArrayList ) {
+            tecton.gameStep();
         }
         String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
         System.out.println(log);

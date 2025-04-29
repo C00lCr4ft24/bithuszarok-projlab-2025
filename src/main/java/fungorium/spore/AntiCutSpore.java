@@ -17,7 +17,6 @@ public class AntiCutSpore extends Spore {
      */
     public AntiCutSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        //System.out.println("New AntiCutSpore created: " + this);
     }
     /**
      * Létrehoz egy új `AntiCutSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
@@ -42,7 +41,6 @@ public class AntiCutSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        //printAction("doEffect");
         insect.blockMyceliumCut();
         effectTime--;
         return effectTime <= 0;

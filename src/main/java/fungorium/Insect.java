@@ -214,7 +214,7 @@ public class Insect implements FungoriumEntity {
      */
     public void setStunned() {
         isStunned = true;
-        String log = "Insect " + id + " got stunned and now can not move.";
+        String log = "Insect " + id + " is stunned and now can not move.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
@@ -224,7 +224,7 @@ public class Insect implements FungoriumEntity {
      */
     public void blockMyceliumCut() {
         canCutMycelium = false;
-        String log = "Insect " + id + " from now can not cut Mycelium.";
+        String log = "Insect " + id + " now can not cut Mycelium.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }

@@ -46,7 +46,6 @@ public class PreserverTecton extends Tecton {
      */
     @Override
     public void gameStep() {
-        //printAction("gameStep");
         for (MyceliumJunction mj : myceliumJunctions) {
             mj.setConnectionLifeTime(-2);
         }

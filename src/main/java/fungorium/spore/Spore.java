@@ -47,7 +47,6 @@ public abstract class Spore implements FungoriumEntity {
      * @return A spóra tápanyagtartalma.
      */
     public int getNutrientValue() {
-        printAction("getNutrientValue");
         return this.nutrient;
     }
     /**

@@ -54,7 +54,6 @@ public class Fungus implements FungoriumEntity {
      * @param junctionPosition A MyceliumJunction pozíció, amelyhez a gomba tartozik.
      */
     public Fungus(MyceliumJunction junctionPosition) {
-        System.out.println("New Fungus created: " + this);
         this.sporeLevel = 0;
         this.fungusLevel = FungusLevel.SMALL;
         this.canSpreadSpore = false;
@@ -69,7 +68,6 @@ public class Fungus implements FungoriumEntity {
      * @return True, ha elhalt a gombatest, egyébként False.
      */
     public boolean spreadSpores(Tecton target, SporeTypes sporeType, String id) {
-        //printAction("spreadSpores");
         boolean fungusHasDied = false;
         if(!canSpreadSpore) {
             String log = "Fungus " + id + " can not spread spores.";
@@ -146,7 +144,6 @@ public class Fungus implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        //printAction("gameStep");
         if (!canSpreadSpore) {
             sporeLevel++;
             if (sporeLevel >= MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE) {
