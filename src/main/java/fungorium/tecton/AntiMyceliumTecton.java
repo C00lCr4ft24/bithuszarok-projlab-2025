@@ -64,7 +64,7 @@ public class AntiMyceliumTecton extends Tecton {
      */
     @Override
     public void gameStep() {
-        printAction("gameStep");
+        //printAction("gameStep");
         for (MyceliumJunction mj : myceliumJunctions) {
             mj.setConnectionLifeTime(myceliumLifetime);
         }

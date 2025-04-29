@@ -185,6 +185,6 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        printAction("gameStep");
+
     }
 }

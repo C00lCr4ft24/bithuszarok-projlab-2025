@@ -78,4 +78,24 @@ public class GameModel {
         }
     }
 
+    public void executeAllgameStep() {
+        for(Tecton tecton : tectonArrayList ) {
+            tecton.gameStep();
+        }
+        for(Fungus fungus : fungusArrayList) {
+            fungus.gameStep();
+        }
+        for(MyceliumConnection myceliumConnection : myceliumConnectionArrayList) {
+            myceliumConnection.gameStep();
+        }
+        for(MyceliumJunction mycjunction : myceliumJunctionArrayList) {
+            mycjunction.gameStep();
+        }
+        for(Insect insect : insectArrayList) {
+            insect.gameStep();
+        }
+        String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 }

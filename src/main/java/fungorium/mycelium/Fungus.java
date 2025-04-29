@@ -146,7 +146,7 @@ public class Fungus implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        printAction("gameStep");
+        //printAction("gameStep");
         if (!canSpreadSpore) {
             sporeLevel++;
             if (sporeLevel >= MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE) {

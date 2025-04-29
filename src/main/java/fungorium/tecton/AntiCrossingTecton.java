@@ -51,4 +51,9 @@ public class AntiCrossingTecton extends Tecton {
         printAction("hasSpaceForJunction");
         return myceliumJunctions.isEmpty();
     }
+
+    @Override
+    public void gameStep() {
+
+    }
 }

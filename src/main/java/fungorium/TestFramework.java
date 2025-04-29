@@ -229,7 +229,7 @@ public class TestFramework {
             }                                                                               //KESZ
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
             case "pass" -> {
-
+                game.executeAllgameStep();
             }
             case "leave" -> interactiveMode = false;
             default -> {

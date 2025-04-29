@@ -163,7 +163,7 @@ public class MyceliumConnection implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        printAction("gameStep");
+        //printAction("gameStep");
         if (lifetime < 0) {
             return;
         }
