@@ -3,6 +3,6 @@ add tecton T2 standard
 add neighbour T1 T2
 add spore S1 STUN_SPORE T1
 add insect I1 T1
-eatspore I1 S1
+eatspore given I1 S1
 pass
 move I1 T1
