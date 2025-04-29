@@ -1,0 +1,17 @@
+add tecton T1 standard
+add tecton T2 anticrossing
+add tecton T3 antifungus
+add tecton T4 antimycelium
+add myceliumjunction M1 T1
+add myceliumjunction M2 T2
+add myceliumjunction M3 T3
+add myceliumjunction M4 T4
+add myceliumconnection C1 M1 M2
+add myceliumconnection C2 M2 M3
+add myceliumconnection C3 M3 M4
+add insect I1 T1
+add spore S1 SPEED_UP_SPORE T1
+move I1 T4
+eatspore given I1 S1
+pass
+move I1 T4

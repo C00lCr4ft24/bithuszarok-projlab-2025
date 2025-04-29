@@ -248,7 +248,12 @@ public class TestFramework {
                     case "tecton" -> {
                         Insect i = game.findInsect(cmd.get(2));
                         Spore s = i.getPosition().getASpore();
-                        if(s == null) break;
+                        if(s == null) {
+                            String log = "No spores at " + i.getId() + " position (" + i.getPosition().getId() + ")! " + i.getId() + " can't eat.";
+                            System.out.println(log);
+                            TestFramework.logOutput(log);
+                            break;
+                        }
                         else {
                             i.eatSpore(s);
                             game.updateSporeList();
