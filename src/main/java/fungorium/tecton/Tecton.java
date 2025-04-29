@@ -99,9 +99,9 @@ public class Tecton implements FungoriumEntity {
      * @return Egy spóra a Tecton-on lévő spórák közül.
      * @throws Exception Ha nincs spóra a Tecton-on.
      */
-    public Spore getASpore() throws Exception { //--------------------------------------------------------------------------------------------------------
+    public Spore getASpore() { //--------------------------------------------------------------------------------------------------------
         if (spores.isEmpty()) {
-            throw new Exception("There is no spore on " + this);
+            return null;
         }
         return spores.getFirst();
     }

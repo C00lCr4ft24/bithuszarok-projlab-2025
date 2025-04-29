@@ -249,6 +249,22 @@ public class TestFramework {
                 game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
                 game.updateSporeList();
             }                                                                               //KESZ
+            case "eatspore" -> {
+                switch (cmd.get(1)) {
+                    case "tecton" -> {
+                        Insect i = game.findInsect(cmd.get(2));
+                        Spore s = i.getPosition().getASpore();
+                        i.eatSpore(s);
+                        game.updateSporeList();
+                    }
+                    case "given" -> {
+                        Insect i = game.findInsect(cmd.get(2));
+                        Spore s = i.getPosition().getASpore();
+                        i.eatSpore(s);
+                        game.updateSporeList();
+                    }
+                }
+            }
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
             case "pass" -> game.executeAllgameStep();
             case "leave" -> interactiveMode = false;
