@@ -211,7 +211,7 @@ public class Tecton implements FungoriumEntity {
     public void addJunction(MyceliumJunction junction) {
         //printAction("addJunction");
         myceliumJunctions.add(junction);
-        String log = "MyceliumJunction " + id + " was added to " + id + ".";
+        String log = "MyceliumJunction " + junction.getId() + " was added to " + id + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
