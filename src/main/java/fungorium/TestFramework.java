@@ -257,6 +257,7 @@ public class TestFramework {
                         else {
                             i.eatSpore(s);
                             game.updateSporeList();
+                            game.updateInsectList();
                         }
                     }
                     case "given" -> {
@@ -266,6 +267,7 @@ public class TestFramework {
                         else {
                             i.eatSpore(s);
                             game.updateSporeList();
+                            game.updateInsectList();
                         }
                     }
                 }

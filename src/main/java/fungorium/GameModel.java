@@ -94,6 +94,13 @@ public class GameModel {
         }
     }
 
+    public void updateInsectList() {
+        insectArrayList.clear();
+        for(Tecton tecton : tectonArrayList ) {
+            insectArrayList.addAll(tecton.getInsects());
+        }
+    }
+
     public void executeAllgameStep() {
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
