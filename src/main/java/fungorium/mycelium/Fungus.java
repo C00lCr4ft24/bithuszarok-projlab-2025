@@ -73,6 +73,7 @@ public class Fungus implements FungoriumEntity {
             String log = "Fungus " + id + " can not spread spores.";
             System.out.println(log);
             TestFramework.logOutput(log);
+            return false;
         }
         if (canSpreadSpore) {
             boolean targetInDistance = false;
