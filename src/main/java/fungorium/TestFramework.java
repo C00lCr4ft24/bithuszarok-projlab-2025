@@ -212,9 +212,8 @@ public class TestFramework {
             case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
             case "grow" -> {
                 switch (cmd.get(1)) {
-                    case "mycelium" -> {
-                        // TODO
-                    }
+                    case "mycelium" -> game.myceliumConnectionArrayList.add(new MyceliumConnection(cmd.get(2),
+                            game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4))));
                     case "fungus" -> {
                         switch (cmd.get(3)) {
                             case "spore" -> {
