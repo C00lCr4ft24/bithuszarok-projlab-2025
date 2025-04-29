@@ -71,6 +71,15 @@ public class GameModel {
         throw new IllegalArgumentException("No Fungus with id " + id + " exists");
     }
 
+    public Spore findSpore(String id) {
+        for(Spore spore : sporeArrayList) {
+            if(Objects.equals(spore.getId(), id)) {
+                return spore;
+            }
+        }
+        throw new IllegalArgumentException("No Spore with id " + id + " exists");
+    }
+
     public void updateSporeList() {
         sporeArrayList.clear();
         for(Tecton tecton : tectonArrayList ) {

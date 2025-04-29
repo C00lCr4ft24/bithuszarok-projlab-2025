@@ -248,14 +248,20 @@ public class TestFramework {
                     case "tecton" -> {
                         Insect i = game.findInsect(cmd.get(2));
                         Spore s = i.getPosition().getASpore();
-                        i.eatSpore(s);
-                        game.updateSporeList();
+                        if(s == null) break;
+                        else {
+                            i.eatSpore(s);
+                            game.updateSporeList();
+                        }
                     }
                     case "given" -> {
                         Insect i = game.findInsect(cmd.get(2));
-                        Spore s = i.getPosition().getASpore();
-                        i.eatSpore(s);
-                        game.updateSporeList();
+                        Spore s = game.findSpore(cmd.get(3));
+                        if(s == null) break;
+                        else {
+                            i.eatSpore(s);
+                            game.updateSporeList();
+                        }
                     }
                 }
             }
