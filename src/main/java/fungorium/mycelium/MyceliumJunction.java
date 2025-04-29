@@ -41,7 +41,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param position A beállítandó Tecton példány.
      */
     public MyceliumJunction(Tecton position) {
-        System.out.println("New MyceliumJunction created: " + this);
         this.position = position;
     }
 
@@ -51,7 +50,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param c A hozzáadandó MyceliumConnection példány.
      */
     public void addConnection(MyceliumConnection c) {
-        //printAction("addConnection");
         connections.add(c);
     }
 
@@ -65,7 +63,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return `true`, ha van gomba, különben `false`.
      */
     public boolean hasAFungus() {
-        printAction("hasAFungus");
         return currentFungus != null;
     }
 
@@ -75,7 +72,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param lifeTime Az új élettartam értéke.
      */
     public void setConnectionLifeTime(int lifeTime) {
-        printAction("setConnectionLifeTime");
         for (MyceliumConnection c : connections) {
             c.setLifetime(lifeTime);
         }
@@ -88,7 +84,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param c Az eltávolítandó MyceliumConnection példány.
      */
     public void removeConnection(MyceliumConnection c) {
-        printAction("removeConnection");
         connections.remove(c);
         if (connections.isEmpty()) {
             position.removeJunction(this);
@@ -102,7 +97,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return Az újonnan létrehozott Fungus példány vagy null, ha nem tud újat létrehozni.
      */
     public Fungus createFungus() {
-        printAction("createFungus");
         if (!position.isFungusSpaceEmpty()) {
             return null;
         }
@@ -120,7 +114,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * Eltávolítja a tárolt gombát a csomópontról.
      */
     public void removeFungus() {
-        printAction("removeFungus");
         currentFungus = null;
     }
 
@@ -142,7 +135,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return Visszaadja a keresett MyceliumConnection-t, ha nem találta meg, akkor null ad vissza.
      */
     public MyceliumConnection getMyceliumConnectionByOtherEndTecton(Tecton otherEnd) {
-        printAction("getMyceliumConnection");
         for (MyceliumConnection c : connections) {
             if (c.isThisYourOtherEndTecton(this, otherEnd)) {
                 return c;
@@ -159,7 +151,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return Az új gombatest vagy null, ha nem tud újat létrehozni.
      */
     public Fungus tryConsumeInsect(Insect insect) {
-        printAction("tryConsumeInsect");
         if (!insect.isStunned() || insect.getPosition() != position || !position.isFungusSpaceEmpty()) {
             return null;  // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van vagy van mar Fungus rajta
         }
@@ -176,7 +167,6 @@ public class MyceliumJunction implements FungoriumEntity {
      * @return pozíció Tectonja.
      */
     public Tecton getPosition() {
-        //printAction("getPosition");
         return position;
     }
 
@@ -185,6 +175,6 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        printAction("gameStep");
+
     }
 }

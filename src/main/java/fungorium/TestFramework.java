@@ -191,6 +191,7 @@ public class TestFramework {
                     case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
                     case "spore" -> {
                         game.findTecton(cmd.get(4)).putASpore(SporeFactory.createSpore(cmd.get(2), SporeTypes.valueOf(cmd.get(3))));
+                        game.updateSporeList();
                     }
                     case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
@@ -224,8 +225,12 @@ public class TestFramework {
             }
             case "spreadspore" -> {
                 game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
+                game.updateSporeList();
             }                                                                               //KESZ
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
+            case "pass" -> {
+                game.executeAllgameStep();
+            }
             case "leave" -> interactiveMode = false;
             default -> {
                 break;

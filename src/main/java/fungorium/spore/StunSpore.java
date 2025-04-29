@@ -16,7 +16,6 @@ public class StunSpore extends Spore {
      */
     public StunSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        System.out.println("New StunSpore created: " + this);
     }
     /**
      * Létrehoz egy új `StunSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
@@ -40,7 +39,6 @@ public class StunSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        printAction("doEffect");
         insect.setStunned();
         effectTime--;
         return effectTime <= 0;

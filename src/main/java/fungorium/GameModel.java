@@ -77,4 +77,25 @@ public class GameModel {
             sporeArrayList.addAll(tecton.getAllSpores());
         }
     }
+
+    public void executeAllgameStep() {
+        for(Fungus fungus : fungusArrayList) {
+            fungus.gameStep();
+        }
+        for(MyceliumConnection myceliumConnection : myceliumConnectionArrayList) {
+            myceliumConnection.gameStep();
+        }
+        for(MyceliumJunction mycjunction : myceliumJunctionArrayList) {
+            mycjunction.gameStep();
+        }
+        for(Insect insect : insectArrayList) {
+            insect.gameStep();
+        }
+        for(Tecton tecton : tectonArrayList ) {
+            tecton.gameStep();
+        }
+        String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
 }

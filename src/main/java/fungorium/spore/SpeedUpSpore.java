@@ -16,7 +16,6 @@ public class SpeedUpSpore extends Spore {
      */
     public SpeedUpSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
-        //System.out.println("New SpeedUpSpore created: " + this);
     }
 
     /**
@@ -41,7 +40,6 @@ public class SpeedUpSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        printAction("doEffect");
         insect.increaseSpeed();
         effectTime--;
         return effectTime <= 0;
