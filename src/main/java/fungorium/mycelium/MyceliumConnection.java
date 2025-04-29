@@ -33,6 +33,11 @@ public class MyceliumConnection implements FungoriumEntity {
      */
     private boolean hasBeenCut = false;
 
+    /**
+     * Tárolja, hogy megszűnt-e már a kapcsolat
+     */
+    private boolean hasBeenTerminated = false;
+
     private String id;
     public String getId() { return id; }
     public MyceliumConnection(String id, MyceliumJunction a, MyceliumJunction b) {
@@ -64,10 +69,16 @@ public class MyceliumConnection implements FungoriumEntity {
      * Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel az attribútumaihoz, ezzel megszüntetve a kapcsolatot.
      */
     private void terminateConnection() {
-        junctionA.removeConnection(this);
-        junctionB.removeConnection(this);
-        junctionA = null;
-        junctionB = null;
+        if(!hasBeenTerminated) {
+            String log = "MyceliumConnection " + id + " was destroyed.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            hasBeenTerminated = true;
+            junctionA.removeConnection(this);
+            junctionB.removeConnection(this);
+            junctionA = null;
+            junctionB = null;
+        }
     }
 
     /**
@@ -168,6 +179,7 @@ public class MyceliumConnection implements FungoriumEntity {
         }
         lifetime--;
         if (lifetime <= 0) {
+            lifetime--;
             terminateConnection();
         }
     }
