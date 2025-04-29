@@ -64,7 +64,6 @@ public class Insect implements FungoriumEntity {
      * @param position Az Insect kezdő pozíciója.
      */
     public Insect(Tecton position) {
-        System.out.println("New Insect created: " + this);
         this.position = position;
         eatenNutrient = 0;
         resetEffectValues();
@@ -103,7 +102,6 @@ public class Insect implements FungoriumEntity {
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
      */
     public void cutMyceliumConnection(MyceliumConnection mc) {
-
         if (canCutMycelium) {
             //printAction("cutMyceliumConnection");
             boolean isMCConnectedToCurrentPos = false;
@@ -134,10 +132,12 @@ public class Insect implements FungoriumEntity {
      * @param spore A {@link Spore}, amelyet a rovar elfogyaszt.
      */
     public void eatSpore(Spore spore) {
-        printAction("eatSpore");
         position.removeSpore(spore); // spora eltavolitasa a tectonrol
         eatenNutrient += spore.getNutrientValue(); // spora tapanyag hozzaadasa
         eatenAffectingSpores.addLast(spore);
+        String log = "Insect " + id + " ate spore " + spore.getId() + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
@@ -213,38 +213,46 @@ public class Insect implements FungoriumEntity {
      * A rovar lebénításának beállítása.
      */
     public void setStunned() {
-        printAction("setStunned");
         isStunned = true;
+        String log = "Insect " + id + " got stunned and now can not move.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
      * Megakadályozza, hogy a rovar mycelium fonalakat vágjon el.
      */
     public void blockMyceliumCut() {
-        printAction("blockMyceliumCut");
         canCutMycelium = false;
+        String log = "Insect " + id + " from now can not cut Mycelium.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
      * Növeli a rovar mozgási sebességét.
      */
     public void increaseSpeed() {
-        printAction("increaseSpeed");
         switch (speed) {
             case SLOW -> speed = Speed.MEDIUM;
             case MEDIUM -> speed = Speed.FAST;
         }
+        String log = "Insect " + id + " speed was increased to " + speed + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
      * Csökkenti a rovar mozgási sebességét.
      */
     public void decreaseSpeed() {
-        printAction("decreaseSpeed");
         switch (speed) {
             case MEDIUM -> speed = Speed.SLOW;
             case FAST -> speed = Speed.MEDIUM;
         }
+        String log = "Insect " + id + " speed was decreased to " + speed + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
@@ -257,11 +265,7 @@ public class Insect implements FungoriumEntity {
     public void gameStep() {
         //printAction("gameStep");
         resetEffectValues();
-        for (Spore spore : eatenAffectingSpores) {
-            if (spore.doEffect(this)) {
-                eatenAffectingSpores.remove(spore);
-            }
-        }
+        eatenAffectingSpores.removeIf(spore -> spore.doEffect(this));
     }
 
     /**
