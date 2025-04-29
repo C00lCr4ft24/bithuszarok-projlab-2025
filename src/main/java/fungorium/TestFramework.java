@@ -93,20 +93,14 @@ public class TestFramework {
         currentTestName = testname;
         logMessages.clear();
         game.resetGameModel();
-        System.out.println("--- TESZT INDUL: " + currentTestName + " ---");
+        System.out.println("\n--- TESZT INDUL: " + currentTestName + " ---");
         List<String> commands = readTestInput();
         for (String command : commands) {
             executeTestLine(command, game);
         }
         writeTestOutput();
         checkTestResult();
-        System.out.println("--- TESZT VÉGE: " + currentTestName + " ---");
-        System.out.println("--- Nyomj egy gombot a folytatáshoz ---");
-        try {
-            System.in.read();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        System.out.println("--- TESZT VÉGE: " + currentTestName + " ---\n");
     }
 
     /**
