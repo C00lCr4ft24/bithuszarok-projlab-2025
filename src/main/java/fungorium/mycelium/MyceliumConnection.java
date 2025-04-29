@@ -5,6 +5,7 @@ import fungorium.TestFramework;
 import fungorium.tecton.Tecton;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Két MyceliumJunction közötti kapcsolatot reprezentál.
@@ -52,7 +53,6 @@ public class MyceliumConnection implements FungoriumEntity {
      * @param b A másik {@link MyceliumJunction}, ahová a kapcsolat érkezik.
      */
     public MyceliumConnection(MyceliumJunction a, MyceliumJunction b) {
-        System.out.println("New MyceliumConnection created: " + this);
         junctionA = a;
         junctionA.addConnection(this);
         junctionB = b;
@@ -64,7 +64,6 @@ public class MyceliumConnection implements FungoriumEntity {
      * Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel az attribútumaihoz, ezzel megszüntetve a kapcsolatot.
      */
     private void terminateConnection() {
-        printAction("terminateConnection");
         junctionA.removeConnection(this);
         junctionB.removeConnection(this);
         junctionA = null;
@@ -76,9 +75,11 @@ public class MyceliumConnection implements FungoriumEntity {
      * Az elvágás bejegyzése után rögtön beállítja a fonal életidejét a statikus CUT_DEFAULT_LIFETIME értékére.
      */
     public void cutMe() {
-        //printAction("cutMe");
         hasBeenCut = true;
         setLifetime(CUT_DEFAULT_LIFETIME);
+        String log = "Connection " + id + " was cut.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
@@ -90,10 +91,12 @@ public class MyceliumConnection implements FungoriumEntity {
      * @param newLifetime Az élettartam új értéke.
      */
     public void setLifetime(int newLifetime) {
-        //printAction("setLifeTime");
         if (newLifetime == 0) {
             // Ha az új kapott newLifetime nulla, akkor azonnal megszakítjuk az összekötést.
             terminateConnection();
+            String log = "Connection " + id + " has died.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
         } else if (newLifetime < 0 && !hasBeenCut) {
             // Ha a newLifetime nullánál kisebb és még nem lett elvágva, akkor beállítja a lifetime értékét a kapott newLifetime értékére. (Ilyenkor a fonal örökké él)
             lifetime = newLifetime;
@@ -111,7 +114,6 @@ public class MyceliumConnection implements FungoriumEntity {
      * @return Igaz, ha a nem megadott vége a megadott Tectonon van, egyébként hamis.
      */
     public boolean isThisYourOtherEndTecton(MyceliumJunction end, Tecton otherEnd) {
-        printAction("isThisYourOtherEndTecton");
         if (junctionA == end) {
             return junctionB.getPosition() == otherEnd;
         } else if (junctionB == end) {
@@ -127,7 +129,6 @@ public class MyceliumConnection implements FungoriumEntity {
      * @return másik vég vagy null, ha a kapott MyceliumJunction egyik végével sem egyezik meg.
      */
     public MyceliumJunction getOtherEnd(MyceliumJunction from) {
-        //printAction("getOtherEnd");
         if (junctionA == from) {
             return junctionB;
         } else if (junctionB == from) {
@@ -149,7 +150,6 @@ public class MyceliumConnection implements FungoriumEntity {
      * @param to   Amire cserélni kell a from paramétert
      */
     public void changeThisJunctionTo(MyceliumJunction from, MyceliumJunction to) {
-        printAction("changeThisJunction");
         if (junctionA == from) {
             junctionA = to;
         } else if (junctionB == from) {
@@ -163,7 +163,6 @@ public class MyceliumConnection implements FungoriumEntity {
      */
     @Override
     public void gameStep() {
-        //printAction("gameStep");
         if (lifetime < 0) {
             return;
         }
