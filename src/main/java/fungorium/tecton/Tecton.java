@@ -17,7 +17,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 500;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 350;
     /**
      * A Tecton-on található MyceliumJunction-ok tárolója.
      */
@@ -55,6 +55,8 @@ public class Tecton implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
+    public ArrayList<Insect> getInsects() { return new ArrayList<>(insects); }
 
     /**
      * Létrehoz egy új Tecton példányt a megadott szomszédos Tecton-ok alapján.

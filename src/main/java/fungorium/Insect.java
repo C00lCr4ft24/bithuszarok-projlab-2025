@@ -51,6 +51,7 @@ public class Insect implements FungoriumEntity {
     public Insect(String id, Tecton position) {
         this.id = id;
         this.position = position;
+        position.putInsect(this);
         eatenNutrient = 0;
         resetEffectValues();
         String log = "Insect " + id + " was added to " + position.getId() + ".";

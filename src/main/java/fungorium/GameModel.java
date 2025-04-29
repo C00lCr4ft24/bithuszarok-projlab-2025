@@ -78,6 +78,13 @@ public class GameModel {
         }
     }
 
+    public void updateFungusList() {
+        fungusArrayList.clear();
+        for(MyceliumJunction mj : myceliumJunctionArrayList ) {
+            fungusArrayList.add(mj.getFungus());
+        }
+    }
+
     public void executeAllgameStep() {
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
@@ -94,6 +101,7 @@ public class GameModel {
         for(Tecton tecton : tectonArrayList ) {
             tecton.gameStep();
         }
+        updateSporeList();
         String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
         System.out.println(log);
         TestFramework.logOutput(log);
