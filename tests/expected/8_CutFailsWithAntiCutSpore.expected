@@ -8,4 +8,7 @@ MyceliumJunction M2 was added to T2.
 MyceliumConnection C1 was added to M1 and M2.
 New ANTI_CUT_SPORE S1 was created.
 A new spore has landed on T1.
+Insect I1 ate spore S1.
+Insect I1 now can not cut Mycelium.
+<--------------EACH OBJECT MOVED A GAME STEP-------------->
 Insect I1 tried cutting C1 but failed.
