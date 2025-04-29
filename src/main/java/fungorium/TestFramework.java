@@ -249,7 +249,7 @@ public class TestFramework {
                         Insect i = game.findInsect(cmd.get(2));
                         Spore s = i.getPosition().getASpore();
                         if(s == null) {
-                            String log = "No spores at " + i.getId() + " position (" + i.getPosition().getId() + ")" ;
+                            String log = "No spores at " + i.getId() + " position (" + i.getPosition().getId() + ")! " + i.getId() + " can't eat.";
                             System.out.println(log);
                             TestFramework.logOutput(log);
                             break;
