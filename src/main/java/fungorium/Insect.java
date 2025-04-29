@@ -266,6 +266,9 @@ public class Insect implements FungoriumEntity {
         //printAction("gameStep");
         resetEffectValues();
         eatenAffectingSpores.removeIf(spore -> spore.doEffect(this));
+        for(Spore spore : eatenAffectingSpores) {
+            spore.doEffect(this);
+        }
     }
 
     /**
