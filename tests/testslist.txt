@@ -3,7 +3,7 @@
 3_FungusSpreadsSporeToANeighbour
 4_FungusTriesToSpreadSporeButInsufficientSporeLevel
 5_GrowNewMycelium
-6_GrowFungusOnMyceliumJunction
+6_GrowFungusFromMyceliumJunction
 7_CutMyceliumConnection
 8_CutFailsWithAntiCutSpore
 9_InsectEatsSpeedUpSpore

@@ -31,19 +31,19 @@ public class SporeFactory {
     private static void sporeSelecterAndCreator(String id, SporeTypes type) {
         switch (type) {
             case ANTI_CUT_SPORE -> {
-                newSpore = new AntiCutSpore(id, random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                newSpore = new AntiCutSpore(id, random.nextInt(100, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case REPLICATION_SPORE -> {
-                newSpore = new ReplicationSpore(id, random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                newSpore = new ReplicationSpore(id, random.nextInt(100, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case SLOW_DOWN_SPORE -> {
-                newSpore = new SlowDownSpore(id, random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                newSpore = new SlowDownSpore(id, random.nextInt(100, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case SPEED_UP_SPORE -> {
-                newSpore = new SpeedUpSpore(id, random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                newSpore = new SpeedUpSpore(id, random.nextInt(100, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case STUN_SPORE -> {
-                newSpore = new StunSpore(id, random.nextInt(1, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                newSpore = new StunSpore(id, random.nextInt(100, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             default -> throw new AssertionError();
         }

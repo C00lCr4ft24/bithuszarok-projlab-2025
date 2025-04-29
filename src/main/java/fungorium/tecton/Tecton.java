@@ -17,7 +17,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 350;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 250;
     /**
      * A Tecton-on található MyceliumJunction-ok tárolója.
      */
