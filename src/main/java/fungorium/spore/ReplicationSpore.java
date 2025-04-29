@@ -38,7 +38,7 @@ public class ReplicationSpore extends Spore {
      */
     @Override
     public boolean doEffect(Insect insect) {
-        var newInsect = new Insect(insect.getId().concat("_1"), insect.getPosition());
+        var newInsect = new Insect(insect.getId().concat("_CLONE"), insect.getPosition());
         insect.getPosition().putInsect(newInsect);
         return true;
     }
