@@ -1,0 +1,11 @@
+Tecton T1 was created.
+Tecton T2 was created.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
+Insect I1 was added to T1.
+MyceliumJunction M1 was added to T1.
+MyceliumJunction M2 was added to T2.
+MyceliumConnection C1 was added to M1 and M2.
+New ANTI_CUT_SPORE S1 was created.
+A new spore has landed on T1.
+Insect I1 tried cutting C1 but failed.
