@@ -1,8 +1,9 @@
 Tecton T1 was created.
 Tecton T2 was created.
 Insect I1 was added to T1.
-MyceliumJunction T1 was added to T1.
-MyceliumJunction T2 was added to T2.
+MyceliumJunction MJT1 was added to T1.
+MyceliumJunction MJT2 was added to T2.
 Fungus F1 was added to MJT1.
 MyceliumConnection MC1 was added to MJT1 and MJT2.
+Connection MC1 was cut.
 Insect I1 cut MC1 successfully.

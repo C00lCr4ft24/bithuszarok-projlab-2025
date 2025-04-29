@@ -2,5 +2,6 @@ Tecton T1 was created.
 Tecton T2 was created.
 T1 is now neighbour of T2.
 T2 is now neighbour of T1.
-MyceliumJunction T1 was added to T1.
-Fungus F1 was added to M1.
+MyceliumJunction M1 was added to T1.
+MyceliumJunction M2 was added to T2.
+MyceliumConnection MC was added to M1 and M2.
