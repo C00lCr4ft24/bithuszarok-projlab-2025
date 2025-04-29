@@ -96,16 +96,22 @@ public class MyceliumJunction implements FungoriumEntity {
      *
      * @return Az újonnan létrehozott Fungus példány vagy null, ha nem tud újat létrehozni.
      */
-    public Fungus createFungus() {
+    public Fungus createFungus(String id) {
         if (!position.isFungusSpaceEmpty()) {
+            String log = "Can not grow new Fungus as there is already one on " + position.getId() + ".";
+            System.out.println(log);
+            TestFramework.logOutput(log);
             return null;
         }
         try {
             position.removeSporeForFungus();
         } catch (Exception e) {
+            String log = "Can not grow new Fungus as there is not enough spore on " + position.getId() + ".";
+            System.out.println(log);
+            TestFramework.logOutput(log);
             return null;
         }
-        Fungus newFungus = new Fungus(this);
+        Fungus newFungus = new Fungus(id, this);
         this.currentFungus = newFungus;
         return newFungus;
     }
@@ -126,6 +132,10 @@ public class MyceliumJunction implements FungoriumEntity {
         if(currentFungus == null) {
             currentFungus = newFungus;
         }
+    }
+
+    public Fungus getFungus() {
+        return currentFungus;
     }
 
     /**
@@ -150,14 +160,34 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param insect A megevésre szánt rovar.
      * @return Az új gombatest vagy null, ha nem tud újat létrehozni.
      */
-    public Fungus tryConsumeInsect(Insect insect) {
-        if (!insect.isStunned() || insect.getPosition() != position || !position.isFungusSpaceEmpty()) {
-            return null;  // Ha a rovar nincs stunnolva vagy nem ugyanazon Tectonon van vagy van mar Fungus rajta
+    public Fungus tryConsumeInsect(String id, Insect insect) {
+        if (!insect.isStunned()) {
+            String log = "Can not consume insect " + insect.getId() + " as it is not stunned.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            return null;
+        }
+        if(insect.getPosition() != position) {
+            String log = "Can not consume insect " + insect.getId() + " as it is not on tecton " + position.getId() + ".";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            return null;
+        }
+        if(!position.isFungusSpaceEmpty()) {
+            String log = "Can not consume insect " + insect.getId() + " as a fungus " + currentFungus.getId() + " is already on " + id + ".";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            return null;
         }
 
         insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
-        Fungus newFungus = new Fungus(this);
+        Fungus newFungus = new Fungus(id, this);
         this.currentFungus = newFungus;
+
+        String log = "Insect " + insect.getId() + " was eaten and Fungus " + currentFungus.getId() + " grew on " + this.id + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+
         return newFungus;
     }
 

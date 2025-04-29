@@ -216,7 +216,26 @@ public class TestFramework {
                         // TODO
                     }
                     case "fungus" -> {
-                        // TODO
+                        switch (cmd.get(3)) {
+                            case "spore" -> {
+                                Fungus f = game.findMyceliumJunction(cmd.get(2)).createFungus(cmd.get(4));
+                                if(f == null) break;
+                                else {
+                                    game.fungusArrayList.add(f);
+                                    game.updateSporeList();
+                                }
+                            }
+                            case "insect" -> {
+                                var list = game.findMyceliumJunction(cmd.get(2)).getPosition().getInsects();
+                                if(list == null || list.isEmpty()) break;
+                                else {
+                                    list.get(0).setStunned();
+                                Fungus f = game.findMyceliumJunction(cmd.get(2)).tryConsumeInsect(cmd.get(4), list.get(0));
+                                    game.fungusArrayList.add(f);
+                                    game.updateFungusList();
+                                }
+                            }
+                        }
                     }
                     default -> {
                         break;
@@ -228,9 +247,7 @@ public class TestFramework {
                 game.updateSporeList();
             }                                                                               //KESZ
             case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
-            case "pass" -> {
-                game.executeAllgameStep();
-            }
+            case "pass" -> game.executeAllgameStep();
             case "leave" -> interactiveMode = false;
             default -> {
                 break;
