@@ -226,8 +226,8 @@ public class TestFramework {
                                 var list = game.findMyceliumJunction(cmd.get(2)).getPosition().getInsects();
                                 if(list == null || list.isEmpty()) break;
                                 else {
-                                    list.get(0).setStunned();
-                                Fungus f = game.findMyceliumJunction(cmd.get(2)).tryConsumeInsect(cmd.get(4), list.get(0));
+                                    //list.get(0).setStunned();
+                                    Fungus f = game.findMyceliumJunction(cmd.get(2)).tryConsumeInsect(cmd.get(4), list.get(0));
                                     game.fungusArrayList.add(f);
                                     game.updateFungusList();
                                 }
