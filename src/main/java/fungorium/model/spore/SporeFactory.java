@@ -1,4 +1,4 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
 import java.util.Random;
 

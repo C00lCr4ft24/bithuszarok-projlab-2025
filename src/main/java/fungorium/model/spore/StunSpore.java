@@ -1,7 +1,7 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
-import fungorium.Insect;
 import fungorium.TestFramework;
+import fungorium.model.Insect;
 
 /**
  * Egy olyan spórát reprezentál, amely megbénítja azt a rovart, amely felszedi.

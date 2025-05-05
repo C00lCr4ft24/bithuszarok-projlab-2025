@@ -1,6 +1,6 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
-import fungorium.Insect;
+import fungorium.model.Insect;
 import fungorium.TestFramework;
 
 /**

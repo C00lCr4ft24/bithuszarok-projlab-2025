@@ -1,7 +1,7 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
-import fungorium.FungoriumEntity;
-import fungorium.Insect;
+import fungorium.model.FungoriumEntity;
+import fungorium.model.Insect;
 
 /**
  * Egy absztrakt spórát reprezentáló osztály, amely létrejöhet és kilövődhet, majd egy

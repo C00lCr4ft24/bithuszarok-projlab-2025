@@ -1,4 +1,4 @@
-package fungorium;
+package fungorium.model;
 
 public interface FungoriumEntity {
     /**

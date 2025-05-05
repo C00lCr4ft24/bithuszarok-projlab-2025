@@ -1,9 +1,10 @@
-package fungorium;
+package fungorium.model;
 
-import fungorium.mycelium.MyceliumConnection;
-import fungorium.mycelium.MyceliumJunction;
-import fungorium.spore.Spore;
-import fungorium.tecton.Tecton;
+import fungorium.TestFramework;
+import fungorium.model.mycelium.MyceliumConnection;
+import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.spore.Spore;
+import fungorium.model.tecton.Tecton;
 
 import java.lang.runtime.ObjectMethods;
 import java.util.*;

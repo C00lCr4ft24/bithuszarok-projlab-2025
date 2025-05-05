@@ -1,4 +1,4 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
 /**
  * Különböző létrehozható spórák típusai

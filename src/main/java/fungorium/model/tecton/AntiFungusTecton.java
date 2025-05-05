@@ -1,4 +1,4 @@
-package fungorium.tecton;
+package fungorium.model.tecton;
 
 import fungorium.TestFramework;
 

@@ -1,12 +1,13 @@
 package fungorium;
 
-import fungorium.mycelium.Fungus;
-import fungorium.mycelium.MyceliumConnection;
-import fungorium.mycelium.MyceliumJunction;
-import fungorium.spore.Spore;
-import fungorium.spore.SporeFactory;
-import fungorium.spore.SporeTypes;
-import fungorium.tecton.*;
+import fungorium.model.Insect;
+import fungorium.model.mycelium.Fungus;
+import fungorium.model.mycelium.MyceliumConnection;
+import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.spore.Spore;
+import fungorium.model.spore.SporeFactory;
+import fungorium.model.spore.SporeTypes;
+import fungorium.model.tecton.*;
 
 import java.io.*;
 import java.util.ArrayList;

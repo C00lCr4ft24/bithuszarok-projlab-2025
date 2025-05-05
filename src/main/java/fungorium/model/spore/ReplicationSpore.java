@@ -1,7 +1,7 @@
-package fungorium.spore;
+package fungorium.model.spore;
 
-import fungorium.Insect;
 import fungorium.TestFramework;
+import fungorium.model.Insect;
 
 /**
  * Egy olyan {@link Spore} amely egy új {@link Insect} példányt hoz létre az őt megevő mellé.

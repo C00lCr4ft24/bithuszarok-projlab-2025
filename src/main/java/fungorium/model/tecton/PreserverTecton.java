@@ -1,7 +1,7 @@
-package fungorium.tecton;
+package fungorium.model.tecton;
 
 import fungorium.TestFramework;
-import fungorium.mycelium.MyceliumJunction;
+import fungorium.model.mycelium.MyceliumJunction;
 
 import java.util.ArrayList;
 

@@ -1,9 +1,9 @@
-package fungorium.mycelium;
+package fungorium.model.mycelium;
 
-import fungorium.FungoriumEntity;
 import fungorium.TestFramework;
-import fungorium.spore.*;
-import fungorium.tecton.Tecton;
+import fungorium.model.FungoriumEntity;
+import fungorium.model.spore.*;
+import fungorium.model.tecton.Tecton;
 
 import java.util.*;
 
