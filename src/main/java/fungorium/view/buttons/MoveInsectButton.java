@@ -1,7 +1,6 @@
 package fungorium.view.buttons;
 
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
 
@@ -10,11 +9,6 @@ public class MoveInsectButton extends JButton {
 
         this.setText("Move insect");
 
-        this.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.out.println("MoveInsect pressed");
-            }
-        });
+        this.addActionListener((ActionEvent e) -> System.out.println("MoveInsectButton pressed"));
     }
 }

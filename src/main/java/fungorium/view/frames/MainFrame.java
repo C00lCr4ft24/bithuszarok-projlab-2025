@@ -5,6 +5,7 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import fungorium.view.bars.FungoriumMenuBar;
+import fungorium.view.bars.FungusPlayerToolBar;
 import fungorium.view.bars.InsectPlayerToolBar;
 
 public class MainFrame extends JFrame {
@@ -13,8 +14,10 @@ public class MainFrame extends JFrame {
         this.setLayout(new BorderLayout());
         
         this.add(new InsectPlayerToolBar(), BorderLayout.WEST);
+        this.add(new FungusPlayerToolBar(), BorderLayout.EAST);
 
         this.setSize(1280, 720);
+        this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);

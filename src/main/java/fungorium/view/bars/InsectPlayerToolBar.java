@@ -10,7 +10,7 @@ public class InsectPlayerToolBar extends JToolBar {
     public InsectPlayerToolBar() {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);
-
+        
         this.add(new CutMyceliumButton());
         this.add(new MoveInsectButton());
         this.add(new EatSporeButton());
