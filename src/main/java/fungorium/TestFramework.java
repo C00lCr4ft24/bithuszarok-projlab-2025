@@ -93,7 +93,7 @@ public class TestFramework {
     public static void runTest(String testname, GameModel game) {
         currentTestName = testname;
         logMessages.clear();
-        game.resetGameModel();
+        game.resetGameModel(0, 0);
         System.out.println("\n--- TESZT INDUL: " + currentTestName + " ---");
         List<String> commands = readTestInput();
         for (String command : commands) {

@@ -4,6 +4,8 @@ import fungorium.model.Insect;
 import fungorium.model.mycelium.Fungus;
 import fungorium.model.mycelium.MyceliumConnection;
 import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.player.Player;
+import fungorium.model.player.PlayerTypes;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 
@@ -11,20 +13,25 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 public class GameModel {
-    public ArrayList<Tecton>                         tectonArrayList = new ArrayList<>();
-    public ArrayList<Spore>                           sporeArrayList = new ArrayList<>();
-    public ArrayList<Fungus>                         fungusArrayList = new ArrayList<>();
-    public ArrayList<MyceliumConnection> myceliumConnectionArrayList = new ArrayList<>();
-    public ArrayList<MyceliumJunction>     myceliumJunctionArrayList = new ArrayList<>();
-    public ArrayList<Insect>                         insectArrayList = new ArrayList<>();
+    public static ArrayList<Tecton>                         tectonArrayList = new ArrayList<>();
+    public static ArrayList<Spore>                           sporeArrayList = new ArrayList<>();
+    public static ArrayList<Fungus>                         fungusArrayList = new ArrayList<>();
+    public static ArrayList<MyceliumConnection> myceliumConnectionArrayList = new ArrayList<>();
+    public static ArrayList<MyceliumJunction>     myceliumJunctionArrayList = new ArrayList<>();
+    public static ArrayList<Insect>                         insectArrayList = new ArrayList<>();
+    public static ArrayList<Player>                         playerArrayList = new ArrayList<>();
 
-    public void resetGameModel() {
+    public static void resetGameModel(int fungusPlayers, int insectPlayers) {
         tectonArrayList.clear();
         sporeArrayList.clear();
         fungusArrayList.clear();
         myceliumConnectionArrayList.clear();
         myceliumJunctionArrayList.clear();
         insectArrayList.clear();
+        playerArrayList.clear();
+        for(int i = fungusPlayers; i >= 0; i--) { playerArrayList.add(new Player(PlayerTypes.GOMBASZ )); }
+        for(int i = insectPlayers; i >= 0; i--) { playerArrayList.add(new Player(PlayerTypes.ROVARASZ)); }
+        System.out.println("GameModel was reset.");
     }
 
     public Tecton findTecton(String id) {
