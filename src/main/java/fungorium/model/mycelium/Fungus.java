@@ -2,6 +2,7 @@ package fungorium.model.mycelium;
 
 import fungorium.TestFramework;
 import fungorium.model.FungoriumEntity;
+import fungorium.model.player.Player;
 import fungorium.model.spore.*;
 import fungorium.model.tecton.Tecton;
 
@@ -33,9 +34,12 @@ public class Fungus implements FungoriumEntity {
      */
     private boolean canSpreadSpore;
 
+    private Player player;
 
     private String id;
+
     public String getId() { return id; }
+
     public Fungus(String id, MyceliumJunction junctionPosition) {
         this.id = id;
         this.sporeLevel = 0;
@@ -43,6 +47,18 @@ public class Fungus implements FungoriumEntity {
         this.canSpreadSpore = false;
         this.junctionPosition = junctionPosition;
         String log = "Fungus " + id + " was added to " + junctionPosition.getId() + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
+
+    public Fungus(String id, Player player, MyceliumJunction junctionPosition) {
+        this.id = id;
+        this.player = player;
+        this.sporeLevel = 0;
+        this.fungusLevel = FungusLevel.SMALL;
+        this.canSpreadSpore = false;
+        this.junctionPosition = junctionPosition;
+        String log = "Fungus " + id + " was added to " + junctionPosition.getPosition().getId() + ".";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
