@@ -287,10 +287,11 @@ public class Tecton implements FungoriumEntity {
      * @param t A hozzáadni kívánt szomszédos Tecton.
      */
     public void setNeighbour(Tecton t) { //--------------------------------------------------------------------------------------------------------
+        if(t == null || TectonN.contains(t)) { return; } //Guard
         TectonN.add(t);
-        String log = id + " is now neighbour of " + t.id + ".";
-        System.out.println(log);
-        TestFramework.logOutput(log);
+        //String log = id + " is now neighbour of " + t.id + ".";
+        //System.out.println(log);
+        //TestFramework.logOutput(log);
     }
 
     /**
@@ -342,6 +343,11 @@ public class Tecton implements FungoriumEntity {
             }
         }
         return false;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 
     /**
