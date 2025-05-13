@@ -20,9 +20,11 @@ public class GameSettingsToolBar extends JToolBar {
         setFloatable(false);
         setLayout(new GridLayout(0, 2));
         JTextArea fungusText = new JTextArea("Gombászok Száma: ");
+        fungusText.setEditable(false);
         add(fungusText);
         add(fungusField);
         JTextArea insectText = new JTextArea("Rovarászok Száma: ");
+        insectText.setEditable(false);
         add(insectText);
         add(insectField);
         add(newGameButton);
