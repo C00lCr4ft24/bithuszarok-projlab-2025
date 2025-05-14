@@ -59,6 +59,7 @@ public class GameModel implements GameEventListener {
 
     private void incrementCurrentPlayerIndex() {
         currentPlayerIndex++;
+        if(currentPlayerIndex >= playerArrayList.size()) { GameEventController.dispatchEvent(new GameEvent(this, EventType.CURRENT_ROUND_ENDED, null)); }
         currentPlayerIndex %= playerArrayList.size();
     }
 
@@ -99,21 +100,6 @@ public class GameModel implements GameEventListener {
                     Tecton leftNeighbor = currLevel.get(j - 1);
                     curr.setNeighbour(leftNeighbor);
                     System.out.println(curr + "-" + leftNeighbor);
-                }
-            }
-        }
-    }
-
-    private void executeRound() {
-        for (Player player : playerArrayList) {
-            currentPlayerIndex = playerArrayList.indexOf(player);
-            switch (player.getType()) {
-                case GOMBASZ -> {
-                    GameEventController.dispatchEvent(new GameEvent(this, EventType.FUNGUS_PLAYERS_TURN, null));
-                }
-                case ROVARASZ -> {
-                    GameEventController.dispatchEvent(new GameEvent(this, EventType.INSECT_PLAYERS_TURN, null));
-                    System.out.println(player);
                 }
             }
         }
@@ -282,6 +268,9 @@ public class GameModel implements GameEventListener {
         if(event.getEventType().equals(EventType.NEXT_PLAYER_IN_ROUND)) {
             incrementCurrentPlayerIndex();
             executeAPlayerRound();
+        }
+        if(event.getEventType().equals(EventType.CURRENT_ROUND_ENDED)) {
+            executeAllgameStep();
         }
     }
 }
