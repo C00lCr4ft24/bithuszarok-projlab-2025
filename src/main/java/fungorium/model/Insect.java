@@ -3,6 +3,7 @@ package fungorium.model;
 import fungorium.TestFramework;
 import fungorium.model.mycelium.MyceliumConnection;
 import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.player.Player;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 
@@ -43,6 +44,9 @@ public class Insect implements FungoriumEntity {
      * Az Insect id-jét tartalmazó String.
      */
     private String id;
+
+    private Player player;
+
     /**
      * Visszaadja az ID-t.
      * @return ID String.
@@ -60,6 +64,17 @@ public class Insect implements FungoriumEntity {
         TestFramework.logOutput(log);
     }
 
+    public Insect(String id, Player player, Tecton position) {
+        this.id = id;
+        this.position = position;
+        this.player = player;
+        position.putInsect(this);
+        eatenNutrient = 0;
+        resetEffectValues();
+        String log = "Insect " + id + " was added to " + position.getId() + ".";
+        System.out.println(log);
+        TestFramework.logOutput(log);
+    }
     /**
      * Létrehoz egy új Insect példányt alapértelmezett értékekkel.
      *
@@ -88,6 +103,8 @@ public class Insect implements FungoriumEntity {
     public Tecton getPosition() {
         return position;
     }
+
+    public Player getPlayer() { return player; }
 
     /**
      * Visszaadja az Insect mozgásképességi állapotát
