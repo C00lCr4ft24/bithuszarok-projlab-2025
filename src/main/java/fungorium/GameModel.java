@@ -59,7 +59,7 @@ public class GameModel implements GameEventListener {
 
     private void incrementCurrentPlayerIndex() {
         currentPlayerIndex++;
-        if(currentPlayerIndex >= playerArrayList.size()) { GameEventController.dispatchEvent(new GameEvent(this, EventType.CURRENT_ROUND_ENDED, null)); }
+        if(currentPlayerIndex >= playerArrayList.size()) { executeAllgameStep(); }
         currentPlayerIndex %= playerArrayList.size();
     }
 
