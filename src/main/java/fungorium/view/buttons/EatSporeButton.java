@@ -1,14 +1,31 @@
 package fungorium.view.buttons;
 
+import fungorium.model.events.EventType;
+import fungorium.model.events.GameEvent;
+import fungorium.model.events.GameEventController;
+import fungorium.model.events.GameEventListener;
+
 import java.awt.event.ActionEvent;
 
 import javax.swing.JButton;
 
-public class EatSporeButton extends JButton {
+public class EatSporeButton extends JButton implements GameEventListener {
     public EatSporeButton() {
 
-        this.setText("Eat spore");
+        GameEventController.addEventListener(this);
 
-        this.addActionListener((ActionEvent e) -> System.out.println("EatSporeButton pressed"));
+        this.setEnabled(false);
+        this.setText("Eat spore");
+        this.addActionListener((ActionEvent e) -> GameEventController.dispatchEvent(new GameEvent(this, EventType.NEXT_PLAYER_IN_ROUND, null)));
+    }
+
+    @Override
+    public void onEvent(GameEvent event) {
+        if(event.getEventType().equals(EventType.INSECT_PLAYERS_TURN)) {
+            setEnabled(true);
+        }
+        if(event.getEventType().equals(EventType.FUNGUS_PLAYERS_TURN)) {
+            setEnabled(false);
+        }
     }
 }
