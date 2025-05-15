@@ -1,6 +1,6 @@
 package fungorium;
 
-import fungorium.view.frames.MainFrame;
+import fungorium.view.MainFrame;
 
 import javax.swing.*;
 

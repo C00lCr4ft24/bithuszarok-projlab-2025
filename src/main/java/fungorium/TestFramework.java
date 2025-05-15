@@ -194,10 +194,10 @@ public class TestFramework {
                         t1.setNeighbour(t2);
                         t2.setNeighbour(t1);
                     }
-                    case "myceliumjunction" -> game.myceliumJunctionArrayList
+                    case "myceliumjunction" -> game.junctionArrayList
                             .add(new MyceliumJunction(cmd.get(2), game.findTecton(cmd.get(3))));
 
-                    case "myceliumconnection" -> game.myceliumConnectionArrayList.add(new MyceliumConnection(cmd.get(2),
+                    case "myceliumconnection" -> game.connectionArrayList.add(new MyceliumConnection(cmd.get(2),
                             game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4))));
                     default -> {
                         break;
@@ -209,9 +209,9 @@ public class TestFramework {
                 switch (cmd.get(1)) {
                     case "mycelium" -> {
                         MyceliumJunction myceliumJunction = new MyceliumJunction(cmd.get(4), game.findTecton(cmd.get(5)));
-                        game.myceliumJunctionArrayList.add(myceliumJunction);
+                        game.junctionArrayList.add(myceliumJunction);
                         MyceliumConnection myceliumConnection = new MyceliumConnection(cmd.get(2), game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4)));
-                        game.myceliumConnectionArrayList.add(myceliumConnection);
+                        game.connectionArrayList.add(myceliumConnection);
                     }
                     case "fungus" -> {
                         switch (cmd.get(3)) {
