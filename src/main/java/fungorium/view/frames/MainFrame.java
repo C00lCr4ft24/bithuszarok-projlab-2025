@@ -5,10 +5,10 @@ import java.awt.BorderLayout;
 import javax.swing.JFrame;
 
 import fungorium.GameModel;
-import fungorium.view.bars.FungoriumMenuBar;
-import fungorium.view.bars.FungusPlayerToolBar;
-import fungorium.view.bars.GameSettingsToolBar;
-import fungorium.view.bars.InsectPlayerToolBar;
+import fungorium.view.FungoriumMenuBar;
+import fungorium.view.FungusPlayerToolBar;
+import fungorium.view.GameSettingsToolBar;
+import fungorium.view.InsectPlayerToolBar;
 
 public class MainFrame extends JFrame {
     public MainFrame() {

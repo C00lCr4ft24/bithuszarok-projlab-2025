@@ -8,13 +8,14 @@ import javax.swing.JFrame;
 import fungorium.GameModel;
 import fungorium.model.tecton.Tecton;
 
-public class MainFrame extends JFrame {
-    public MainFrame() {
+public class MainFramer extends JFrame {
+    public MainFramer() {
 
         //GAMEMODEL
         GameModel gameModel = new GameModel();
 
         //VIEW
+        
         GameSettingsToolBar gSetToolB = new GameSettingsToolBar();
         gSetToolB.addNewGameButtonActionListener((ActionEvent e) -> { gameModel.resetGameModel(gSetToolB.getFungusPlayersCount(), gSetToolB.getInsectPlayersCount()); });
         gameModel.registerObserver(gSetToolB.getPlayerNameTextField());
@@ -42,8 +43,9 @@ public class MainFrame extends JFrame {
         GameView            gameView            = new GameView();
         gameModel.registerObserver(gameView.getGameViewText());
 
+gameModel.registerObserver(gameView.getMapPanel()); // Add this line
         FungoriumMenuBar    fungoriumMenuBar    = new FungoriumMenuBar();
-
+            
 
 
         this.setJMenuBar(fungoriumMenuBar);

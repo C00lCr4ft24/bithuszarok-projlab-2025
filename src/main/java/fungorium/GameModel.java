@@ -70,7 +70,7 @@ public class GameModel implements Subject {
         currentPlayerIndex %= playerArrayList.size();
     }
 
-    private void createMap() {
+    public void createMap() {
 
         List<List<Tecton>> tectonsByLevel = new ArrayList<>();
 
