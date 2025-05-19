@@ -2,10 +2,10 @@ package fungorium.view;
 
 import fungorium.GameModel;
 import fungorium.model.tecton.Tecton;
-import fungorium.view.toolbars.GameSettingsToolBar;
 import fungorium.model.player.Player;
 import fungorium.model.mycelium.*;
 import fungorium.model.Insect;
+import fungorium.view.toolbars.GameSettingsToolBar;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,26 +14,26 @@ import java.util.List;
 
 public class MapPanel extends JPanel {
     private static GameModel gameModel;
-    private static final int HEX_SIZE = 50;
+    private static final int HEX_RADIUS = 50;
 
     // Player colors for fungi
     private static final Color[] PLAYER_COLORS = {
-            new Color(255, 100, 100, 220), // Player 1 (Fungus)
-            new Color(100, 180, 255, 220), // Player 2 (Fungus)
-            new Color(120, 255, 120, 220), // Player 3 (Fungus)
-            new Color(255, 200, 100, 220), // Player 4 (Fungus)
-            new Color(100, 80, 30, 220), // Player 5 (Fungus)
-            new Color(50, 10, 30, 220) // Player 6 (Fungus)
+            new Color(255, 100, 100, 220),  // Player 1 (Fungus)
+            new Color(100, 180, 255, 220),  // Player 2 (Fungus)
+            new Color(120, 255, 120, 220),  // Player 3 (Fungus)
+            new Color(255, 200, 100, 220),   // Player 4 (Fungus)
+            new Color(100, 80, 30, 220),   // Player 5 (Fungus)
+            new Color(50, 10, 30, 220)   // Player 6 (Fungus)
     };
 
     // Insect colors by player
     private static final Color[] INSECT_COLORS = {
-            new Color(200, 50, 50, 240), // Player 1 (Insect)
-            new Color(50, 120, 200, 240), // Player 2 (Insect)
-            new Color(50, 200, 50, 240), // Player 3 (Insect)
-            new Color(200, 150, 50, 240), // Player 4 (Insect)
-            new Color(100, 80, 30, 240), // Player 5 (Fungus)
-            new Color(50, 10, 30, 240) // Player 6 (Insect)
+            new Color(200, 50, 50, 240),    // Player 1 (Insect)
+            new Color(50, 120, 200, 240),   // Player 2 (Insect)
+            new Color(50, 200, 50, 240),    // Player 3 (Insect)
+            new Color(200, 150, 50, 240),    // Player 4 (Insect)
+            new Color(100, 80, 30, 240),   // Player 5 (Fungus)
+            new Color(50, 10, 30, 240)    // Player 6 (Insect)
 
     };
 
@@ -52,7 +52,8 @@ public class MapPanel extends JPanel {
         setOpaque(true);
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(80, 80, 90), 2),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)
+        ));
     }
 
     @Override
@@ -67,12 +68,13 @@ public class MapPanel extends JPanel {
                 .mapToInt(List::size)
                 .max().orElse(0);
 
-        int hexHeight = (int) (HEX_SIZE * Math.sqrt(3));
-        int hexWidth = (int) (HEX_SIZE * 1.5);
+        int hexHeight = HEX_RADIUS * 2;
+        int hexWidth  = (int)(HEX_RADIUS * Math.sqrt(3));
 
         return new Dimension(
                 (maxTectonsInLevel + 2) * hexWidth + 100,
-                (levels + 3) * hexHeight + 100);
+                (levels + 3) * hexHeight + 100
+        );
     }
 
     private Map<Integer, List<Tecton>> organizeTectonsByLevel() {
@@ -135,24 +137,20 @@ public class MapPanel extends JPanel {
 
     private Point getCenterPoint(Tecton tecton) {
         Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-        int hexWidth = (int) (HEX_SIZE * 1.5);
-        int hexHeight = (int) (HEX_SIZE * Math.sqrt(3));
-        int startY = 50;
+        int hexWidth = (int)(HEX_RADIUS * Math.sqrt(3));
+        int hexHeight = HEX_RADIUS * 2;
+        int startY = 65;
 
         for (Map.Entry<Integer, List<Tecton>> entry : tectonsByLevel.entrySet()) {
             int level = entry.getKey();
             List<Tecton> tectons = entry.getValue();
             int levelWidth = tectons.size() * hexWidth;
-            if (level % 2 == 1)
-                levelWidth += hexWidth / 2;
             int levelStartX = (getWidth() - levelWidth) / 2;
 
             for (int i = 0; i < tectons.size(); i++) {
                 if (tectons.get(i) == tecton) {
                     int x = levelStartX + i * hexWidth;
-                    int y = startY + level * hexHeight;
-                    if (level % 2 == 1)
-                        x += hexWidth / 2;
+                    int y = startY + level * (hexHeight - (HEX_RADIUS / 2) + 1);
                     return new Point(x, y);
                 }
             }
@@ -171,24 +169,20 @@ public class MapPanel extends JPanel {
 
     private void drawHexagonalMap(Graphics2D g2d) {
         Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-        int hexWidth = (int) (HEX_SIZE * 1.5);
-        int hexHeight = (int) (HEX_SIZE * Math.sqrt(3));
-        int startY = 50;
+        int hexWidth = (int)(HEX_RADIUS * Math.sqrt(3));
+        int hexHeight = HEX_RADIUS * 2;
+        int startY = 70;
 
         for (Map.Entry<Integer, List<Tecton>> entry : tectonsByLevel.entrySet()) {
             int level = entry.getKey();
             List<Tecton> tectons = entry.getValue();
             int levelWidth = tectons.size() * hexWidth;
-            if (level % 2 == 1)
-                levelWidth += hexWidth / 2;
             int levelStartX = (getWidth() - levelWidth) / 2;
 
             for (int i = 0; i < tectons.size(); i++) {
                 Tecton tecton = tectons.get(i);
                 int x = levelStartX + i * hexWidth;
-                int y = startY + level * hexHeight;
-                if (level % 2 == 1)
-                    x += hexWidth / 2;
+                int y = startY + level * (hexHeight - (HEX_RADIUS / 2) + 1);
                 drawHexagon(g2d, x, y, tecton);
             }
         }
@@ -198,10 +192,10 @@ public class MapPanel extends JPanel {
         // Create hexagon shape
         Polygon hexagon = new Polygon();
         for (int i = 0; i < 6; i++) {
-            double angle = i * Math.PI / 3;
-            hexagon.addPoint(
-                    centerX + (int) (HEX_SIZE * Math.cos(angle)),
-                    centerY + (int) (HEX_SIZE * Math.sin(angle)));
+            double angle_deg = Math.toRadians((i * 60) + 30);
+            int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
+            int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
+            hexagon.addPoint(x, y);
         }
 
         // Fill hex based on content
@@ -224,8 +218,8 @@ public class MapPanel extends JPanel {
         } else {
             // Empty hex
             GradientPaint emptyHexGradient = new GradientPaint(
-                    centerX - HEX_SIZE, centerY - HEX_SIZE, new Color(250, 250, 255),
-                    centerX + HEX_SIZE, centerY + HEX_SIZE, new Color(230, 230, 235));
+                    centerX - HEX_RADIUS, centerY - HEX_RADIUS, new Color(250, 250, 255),
+                    centerX + HEX_RADIUS, centerY + HEX_RADIUS, new Color(230, 230, 235));
             g2d.setPaint(emptyHexGradient);
             g2d.fillPolygon(hexagon);
         }
@@ -240,7 +234,7 @@ public class MapPanel extends JPanel {
         g2d.setFont(new Font("SansSerif", Font.PLAIN, 10));
         String shortId = tecton.getId();
         FontMetrics fm = g2d.getFontMetrics();
-        g2d.drawString(shortId, centerX - fm.stringWidth(shortId) / 2, centerY + fm.getAscent() / 2 + 10);
+        g2d.drawString(shortId, centerX - fm.stringWidth(shortId)/2, centerY + fm.getAscent()/2 + 10);
 
         // Draw only one insect per player per tecton
         if (!tecton.getInsects().isEmpty()) {
@@ -256,18 +250,18 @@ public class MapPanel extends JPanel {
                     int offsetY = -25 + (displayIndex / 3) * 12;
 
                     g2d.setColor(insectColor);
-                    g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 12, 12);
+                    g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 14, 14);
                     g2d.setColor(Color.BLACK);
                     g2d.setFont(new Font("SansSerif", Font.BOLD, 8));
-                    String insectNumber = "R" + (playerIndex - GameSettingsToolBar.getFungusPlayersCount() + 1);
+                    String insectNumber = "R" + (playerIndex- GameSettingsToolBar.getFungusPlayersCount()+1);
                     g2d.drawString(insectNumber, centerX + offsetX - 4, centerY + offsetY + 2);
+
 
                     displayedPlayers.add(insect.getPlayer());
                     displayIndex++;
 
                     // Max 9 insects displayed (3x3 grid)
-                    if (displayIndex >= 9)
-                        break;
+                    if (displayIndex >= 9) break;
                 }
             }
         }
@@ -290,7 +284,5 @@ public class MapPanel extends JPanel {
         }
     }
 
-    public static void setGameModel(GameModel model) {
-        gameModel = model;
-    }
+    public static void setGameModel(GameModel model) { gameModel = model; }
 }
