@@ -43,9 +43,6 @@ public class Controller {
 
         // Gombafonal növesztéshez tartozó eszköztár megjelenítése
         MainFrame.growMyceliumToolBar.setVisible(true);
-        GameModel.executeAPlayerRound();
-        updateSelectedTectonComboBox();
-        GameSettingsToolBar.playerNameTextField.setText(GameModel.getCurrentPlayer().toString());
     }
 
     /**
@@ -96,27 +93,33 @@ public class Controller {
 
     // MŰVELETEK MEGERŐSÍTÉSE
     public static void growMyceliumConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     public static void growFungusConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     public static void spreadSporesConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     public static void moveInsectConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     public static void cutMyceliumConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     public static void eatSporeConfirmPressed() {
-
+        //TODO
+        initForNextPlayer();
     }
 
     private static void hideActionToolBars() {
@@ -146,6 +149,14 @@ public class Controller {
             InsectPlayerToolBar.cutMyceliumButton.setEnabled(true);
             InsectPlayerToolBar.eatSporeButton.setEnabled(true);
         }
+    }
+
+    private static void initForNextPlayer() {
+        GameModel.executeAPlayerRound();
+        updateSelectedTectonComboBox();
+        GameSettingsToolBar.playerNameTextField.setText(GameModel.getCurrentPlayer().toString());
+        hideActionToolBars();
+        enableCurrentPlayerTools();
     }
 
     private static void updateSelectedTectonComboBox() {
