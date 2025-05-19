@@ -58,6 +58,8 @@ public class Tecton implements FungoriumEntity {
 
     public ArrayList<Insect> getInsects() { return new ArrayList<>(insects); }
 
+    public ArrayList<Tecton> getNeighborTectons() { return TectonN; }
+
     /**
      * Létrehoz egy új Tecton példányt a megadott szomszédos Tecton-ok alapján.
      *
@@ -118,6 +120,13 @@ public class Tecton implements FungoriumEntity {
      * @return A Tecton MyceliumJunction listája.
      */
     public ArrayList<MyceliumJunction> getMyceliumJunctions() { return new ArrayList<>(myceliumJunctions); }
+
+    public MyceliumJunction getMyceliumJunctionOfFungus() {
+        for (MyceliumJunction j : myceliumJunctions) {
+            if(j.hasAFungus()) return j;
+        }
+        return null;
+    }
 
     /**
      * Eltávolítja a szükséges tápanyagtartalmú spórát egy gomba növesztéséhez.

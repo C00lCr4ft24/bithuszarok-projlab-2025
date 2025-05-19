@@ -40,6 +40,8 @@ public class Fungus implements FungoriumEntity {
 
     public String getId() { return id; }
 
+    public Player getPlayer() { return player; }
+
     public Fungus(String id, MyceliumJunction junctionPosition) {
         this.id = id;
         this.sporeLevel = 0;
@@ -167,6 +169,11 @@ public class Fungus implements FungoriumEntity {
                 canSpreadSpore = true;
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 
     /**

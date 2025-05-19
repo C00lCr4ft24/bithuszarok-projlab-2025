@@ -34,7 +34,7 @@ public class MyceliumJunction implements FungoriumEntity {
         this.position = position;
         position.addJunction(this);
     }
-
+    
     /**
      * Létrehoz egy új MyceliumJunction példányt és beállítja a kapott Tecton pozíciót.
      *
