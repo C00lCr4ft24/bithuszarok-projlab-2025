@@ -35,7 +35,7 @@ public class GameModel {
     public static Insect selectedInsect;
 
     public static int roundN = 0;
-    public static int currentPlayerIndex;
+    public static int currentPlayerIndex = 0;
     public static boolean isGameOver = false;
 
     public static final Random random = new Random();
@@ -50,6 +50,7 @@ public class GameModel {
         playerArrayList.clear();
 
         roundN = 0;
+        currentPlayerIndex = 0;
         isGameOver = false;
 
         PlayerFactory.resetCounters();
