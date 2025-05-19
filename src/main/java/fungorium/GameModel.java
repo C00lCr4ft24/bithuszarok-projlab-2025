@@ -70,7 +70,7 @@ public class GameModel {
 
         List<List<Tecton>> tectonsByLevel = new ArrayList<>();
 
-        int levels = random.nextInt(3) + 5; // 5-7 levels
+        int levels = random.nextInt(3) + 9; // 5-7 levels
         for(int i = 0; i < levels; i++) {
             List<Tecton> tectonsOnThisLevel = new ArrayList<>();
             for (int j = 0; j <= i; j++) {
