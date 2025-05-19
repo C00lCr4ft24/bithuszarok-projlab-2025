@@ -3,16 +3,16 @@ package fungorium.view.toolbars;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
-import fungorium.controller.ButtonFunctions;
+import fungorium.controller.Controller;
 import fungorium.view.buttons.ButtonFactory;
 
 public class FungusPlayerToolBar extends JToolBar {
     public static final JButton growMyceliumButton = ButtonFactory.getNewButton("Grow Mycelium",
-            ButtonFunctions::growMyceliumButtonPressed);
+            Controller::growMyceliumButtonPressed);
     public static final JButton growFungusButton = ButtonFactory.getNewButton("Grow Fungus",
-            ButtonFunctions::growFungusButtonPressed);
+            Controller::growFungusButtonPressed);
     public static final JButton spreadSporesButton = ButtonFactory.getNewButton("Spread Spores",
-            ButtonFunctions::spreadSporesButtonPressed);
+            Controller::spreadSporesButtonPressed);
 
     public FungusPlayerToolBar() {
         this.setFloatable(false);

@@ -15,17 +15,17 @@ import java.util.*;
 
 public class GameModel {
 
-    public static final ArrayList<Tecton>                         tectonArrayList = new ArrayList<>();
-    public static final ArrayList<Spore>                           sporeArrayList = new ArrayList<>();
-    public static final ArrayList<Fungus>                         fungusArrayList = new ArrayList<>();
-    public static final ArrayList<MyceliumConnection>         connectionArrayList = new ArrayList<>();
-    public static final ArrayList<MyceliumJunction>             junctionArrayList = new ArrayList<>();
-    public static final ArrayList<Insect>                         insectArrayList = new ArrayList<>();
-    public static final ArrayList<Player>                        playerArrayList = new ArrayList<>();
+    public static final List<Tecton>                         tectonArrayList = new ArrayList<>();
+    public static final List<Spore>                           sporeArrayList = new ArrayList<>();
+    public static final List<Fungus>                         fungusArrayList = new ArrayList<>();
+    public static final List<MyceliumConnection>         connectionArrayList = new ArrayList<>();
+    public static final List<MyceliumJunction>             junctionArrayList = new ArrayList<>();
+    public static final List<Insect>                         insectArrayList = new ArrayList<>();
+    public static final List<Player>                        playerArrayList = new ArrayList<>();
 
 
     public static Tecton selectedTecton;
-    public Tecton getSelectedTecton() { return selectedTecton; }
+    public static Tecton getSelectedTecton() { return selectedTecton; }
     public void setSelectedTecton(Tecton tecton) { selectedTecton = tecton; }
 
     public static Spore selectedSpore;
@@ -148,14 +148,13 @@ public class GameModel {
 
     public static void startGame() {
         initBeforeStart();
-        executeAPlayerRound();
     }
 
-    public Player getCurrentPlayer() {
+    public static Player getCurrentPlayer() {
         return playerArrayList.get(currentPlayerIndex);
     }
 
-    public ArrayList<Tecton> getAllTectonsForCurrentPlayer() {
+    public static List<Tecton> getAllTectonsForCurrentPlayer() {
         Player currentPlayer = getCurrentPlayer();
 
         var list = new ArrayList<Tecton>();

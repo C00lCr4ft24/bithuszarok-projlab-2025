@@ -1,7 +1,7 @@
 package fungorium.view.toolbars;
 
 import fungorium.GameModel;
-import fungorium.controller.ButtonFunctions;
+import fungorium.controller.Controller;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.buttons.ButtonFactory;
 
@@ -15,11 +15,11 @@ public class GameSettingsToolBar extends JToolBar {
 
     public static final JTextField fungusField = new JTextField();
     public static final JTextField insectField = new JTextField();
-    public static final JButton newGameButton = ButtonFactory.getNewButton("New Game", ButtonFunctions::newGameButtonPressed);
-    public static final PlayerNameTextField playerNameTextField = new PlayerNameTextField();
+    public static final JButton newGameButton = ButtonFactory.getNewButton("New Game", Controller::newGameButtonPressed);
+    public static final JTextField playerNameTextField = new JTextField();
 
     public static final selectedTectonText selectedTectonText       = new selectedTectonText();
-    public static final selectedTectonComboBox selecedTectonComboBox = new selectedTectonComboBox();
+    public static final selectedTectonComboBox selectedTectonComboBox = new selectedTectonComboBox();
 
     
     public GameSettingsToolBar() {
@@ -46,7 +46,7 @@ public class GameSettingsToolBar extends JToolBar {
         add(insectField);
 
         add(selectedTectonText);
-        add(selecedTectonComboBox);
+        add(selectedTectonComboBox);
 
         DocumentListener listener = new DocumentListener() {
             private void updateButtonState() { newGameButton.setEnabled(isValidNumber(fungusField.getText()) && isValidNumber(insectField.getText())); }
@@ -73,39 +73,7 @@ public class GameSettingsToolBar extends JToolBar {
 
 
 
-
-
-
-    public PlayerNameTextField getPlayerNameTextField() { return playerNameTextField; }
-
-    public static class PlayerNameTextField extends JTextField {
-        public PlayerNameTextField() {
-            super();
-            setEditable(false);
-            setFocusable(false);
-        }
-
-        public void update(GameModel gameModel) {
-            setText(gameModel.getCurrentPlayer().toString());
-        }
-    }
-
-
-
-
-
     public void addNewGameButtonActionListener(ActionListener l) { newGameButton.addActionListener(l); }
-
-    private static class NewGameButton extends JButton {
-
-        public NewGameButton() {
-            setText("New Game");
-            setEnabled(false);
-        }
-    }
-
-
-
 
 
     public static class selectedTectonText extends JTextPane {
@@ -120,9 +88,9 @@ public class GameSettingsToolBar extends JToolBar {
 
 
 
-    public selectedTectonComboBox getSelectedTectonComboBox() { return selecedTectonComboBox; }
+    public selectedTectonComboBox getSelectedTectonComboBox() { return selectedTectonComboBox; }
 
-    public void setSelecedTectonComboBoxListener(ActionListener listener) { selecedTectonComboBox.addActionListener(listener); }
+    public void setSelecedTectonComboBoxListener(ActionListener listener) { selectedTectonComboBox.addActionListener(listener); }
 
     public static class selectedTectonComboBox extends JComboBox<Tecton> {
         public selectedTectonComboBox() {
