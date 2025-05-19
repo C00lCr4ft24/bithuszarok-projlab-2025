@@ -13,19 +13,28 @@ public class ButtonFunctions {
     //JÁTÉK INDÍTÁSA
 
     public static void newGameButtonPressed() {
-        GameModel.resetGameModel(Integer.parseInt(GameSettingsToolBar.getFungusField().getText()),
-                                 Integer.parseInt(GameSettingsToolBar.getInsectField().getText()));
+        GameModel.resetGameModel(Integer.parseInt(GameSettingsToolBar.fungusField.getText()),
+                                 Integer.parseInt(GameSettingsToolBar.insectField.getText()));
 
-        FungusPlayerToolBar.getGrowMyceliumButton().setEnabled(true);
-        FungusPlayerToolBar.getGrowFungusButton().setEnabled(true);
-        FungusPlayerToolBar.getSpreadSporesButton().setEnabled(true);
+        FungusPlayerToolBar.growMyceliumButton.setEnabled(true);
+        FungusPlayerToolBar.growFungusButton.setEnabled(true);
+        FungusPlayerToolBar.spreadSporesButton.setEnabled(true);
 
-        InsectPlayerToolBar.getCutMyceliumButton().setEnabled(true);
-        InsectPlayerToolBar.getMoveInsectButton().setEnabled(true);
-        InsectPlayerToolBar.getEatSporeButton().setEnabled(true);
+        InsectPlayerToolBar.cutMyceliumButton.setEnabled(true);
+        InsectPlayerToolBar.moveInsectButton.setEnabled(true);
+        InsectPlayerToolBar.eatSporeButton.setEnabled(true);
     }
 
     //MŰVELETI MENÜK
+
+    private static void hideActionToolBars() {
+        MainFrame.growMyceliumToolBar.setVisible(false);
+        MainFrame.growFungusToolBar.setVisible(false); 
+        MainFrame.spreadSporesToolBar.setVisible(false);
+        MainFrame.moveInsectToolBar.setVisible(false);
+        MainFrame.cutMyceliumToolBar.setVisible(false);
+        MainFrame.eatSporeToolBar.setVisible(false);
+    }
 
     /**
      * Grow Mycelium gomb lenyomásához tartozó függvény
@@ -33,11 +42,10 @@ public class ButtonFunctions {
     public static void growMyceliumButtonPressed() {
 
         //Többi művelethez tartozó eszköztár elrejtése
-        MainFrame.getGrowFungusToolBar().setVisible(false); 
-        MainFrame.getSpreadSporesToolBar().setVisible(false);
+        hideActionToolBars();
         
         //Gombafonal növesztéshez tartozó eszköztár megjelenítése
-        MainFrame.getGrowMyceliumToolBar().setVisible(true);
+        MainFrame.growMyceliumToolBar.setVisible(true);
     }
 
     /**
@@ -46,45 +54,68 @@ public class ButtonFunctions {
     public static void growFungusButtonPressed() {
 
         //Többi művelethez tartozó eszköztár elrejtése
-        MainFrame.getGrowMyceliumToolBar().setVisible(false);
-        MainFrame.getSpreadSporesToolBar().setVisible(false);
-
-        //Gombatest növesztéshez tartozó eszköztár megjelenítése
-        MainFrame.getGrowFungusToolBar().setVisible(true);
+        hideActionToolBars();
+        
+        //Gombafonal növesztéshez tartozó eszköztár megjelenítése
+        MainFrame.growFungusToolBar.setVisible(true); 
     }
 
     public static void spreadSporesButtonPressed() {
 
         //Többi művelethez tartozó eszköztár elrejtése
-        MainFrame.getGrowFungusToolBar().setVisible(false); 
-        MainFrame.getGrowMyceliumToolBar().setVisible(false);
+        hideActionToolBars();
         
         //Spóra szóráshoz tartozó eszköztár megjelenítése
-        MainFrame.getSpreadSporesToolBar().setVisible(true);
+        MainFrame.spreadSporesToolBar.setVisible(true);
     }
 
     public static void cutMyceliumButtonPressed() {
-        //TODO
+
+        //Többi művelethez tartozó eszköztár elrejtése
+        hideActionToolBars();
+        
+        //Spóra szóráshoz tartozó eszköztár megjelenítése
+        MainFrame.cutMyceliumToolBar.setVisible(true);
     }
 
     public static void moveInsectButtonPressed() {
-        //TODO
+        //Többi művelethez tartozó eszköztár elrejtése
+        hideActionToolBars();
+        
+        //Spóra szóráshoz tartozó eszköztár megjelenítése
+        MainFrame.moveInsectToolBar.setVisible(true);
     }
 
     public static void eatSporeButtonPressed() {
-        //TODO
+        //Többi művelethez tartozó eszköztár elrejtése
+        hideActionToolBars();
+        
+        //Spóra szóráshoz tartozó eszköztár megjelenítése
+        MainFrame.eatSporeToolBar.setVisible(true);
     }
 
     //MŰVELETEK MEGERŐSÍTÉSE
     public static void growMyceliumConfirmPressed() {
-        //TODO
+        Controller.growMycelium();
     }
 
     public static void growFungusConfirmPressed() {
-        //TODO
+        Controller.growFungus();
     }
 
     public static void spreadSporesConfirmPressed() {
-        //TODO
+        Controller.spreadSpores();
+    }
+
+    public static void moveInsectConfirmPressed() {
+        Controller.moveInsect();
+    }
+
+    public static void cutMyceliumConfirmPressed() {
+        Controller.cutMycelium();
+    }
+
+    public static void eatSporeConfirmPressed() {
+        Controller.eatSpore();
     }
 }

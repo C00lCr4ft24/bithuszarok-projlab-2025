@@ -2,8 +2,6 @@ package fungorium.view.buttons;
 
 import javax.swing.JButton;
 
-import fungorium.view.frames.MainFrame;
-
 import java.awt.event.ActionEvent;
 
 public class ButtonFactory {

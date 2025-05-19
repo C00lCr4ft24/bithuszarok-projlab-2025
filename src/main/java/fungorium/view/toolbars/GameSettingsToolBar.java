@@ -10,16 +10,14 @@ import java.awt.*;
 
 public class GameSettingsToolBar extends JToolBar {
 
-    private static final JTextField fungusField = new JTextField();
-    private static final JTextField insectField = new JTextField();
-    private static final JButton newGameButton = ButtonFactory.getNewButton("New Game", ButtonFunctions::newGameButtonPressed);
+    public static final JTextField fungusField = new JTextField();
+    public static final JTextField insectField = new JTextField();
+    public static final JButton newGameButton = ButtonFactory.getNewButton("New Game", ButtonFunctions::newGameButtonPressed);
 
     public GameSettingsToolBar() {
         setFloatable(false);
         setLayout(new GridLayout(0, 2));
-        JTextArea fungusText = new JTextArea("Gombászok Száma: ");
-        fungusText.setEditable(false);
-        add(fungusText);
+        add(new JLabel("Gombászok Száma: "));
         add(fungusField);
         JTextArea insectText = new JTextArea("Rovarászok Száma: ");
         insectText.setEditable(false);
@@ -39,23 +37,12 @@ public class GameSettingsToolBar extends JToolBar {
         insectField.getDocument().addDocumentListener(listener);
     }
 
-    private boolean isValidNumber(String s) {
+    private static boolean isValidNumber(String s) {
         try {
             Integer.parseInt(s);
             return !s.isEmpty();
         } catch (NumberFormatException e) {
             return false;
         }
-    }
-
-    public static JTextField getFungusField() {
-        return fungusField;
-    }
-
-    public static JTextField getInsectField() {
-        return insectField;
-    }
-    public static JButton getNewgamebutton() {
-        return newGameButton;
     }
 }

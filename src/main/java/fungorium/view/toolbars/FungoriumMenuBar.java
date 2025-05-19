@@ -5,6 +5,6 @@ import javax.swing.JMenuBar;
 
 public class FungoriumMenuBar extends JMenuBar {
     public FungoriumMenuBar() {
-        this.add(new JMenu("File"));
+        this.add(new JMenu("Help"));
     }
 }
