@@ -1,20 +1,19 @@
 package fungorium.view.toolbars;
 
 import fungorium.GameModel;
-import fungorium.view.buttons.NewGameButton;
+import fungorium.view.buttons.ButtonFactory;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class GameSettingsToolBar extends JToolBar {
 
     private final JTextField fungusField = new JTextField();
     private final JTextField insectField = new JTextField();
-    private final NewGameButton newGameButton = new NewGameButton();
+    private final JButton newGameButton = ButtonFactory.getNewButton("New Game", null);
 
     public GameSettingsToolBar() {
         setFloatable(false);
@@ -27,6 +26,7 @@ public class GameSettingsToolBar extends JToolBar {
         insectText.setEditable(false);
         add(insectText);
         add(insectField);
+        newGameButton.setEnabled(false);
         add(newGameButton);
 
         DocumentListener listener = new DocumentListener() {

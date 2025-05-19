@@ -6,7 +6,6 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
-import fungorium.view.buttons.NewGameButton;
 import fungorium.view.toolbars.FungoriumMenuBar;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;

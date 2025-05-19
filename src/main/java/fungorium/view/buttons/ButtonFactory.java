@@ -8,103 +8,23 @@ import java.awt.event.ActionEvent;
 
 public class ButtonFactory {
 
-    
-    private ButtonFactory() { throw new IllegalStateException("Static class, cannot be instantiated"); }
-
-    /**
-     * Visszaad egy gombot, ami a gombatest növesztés menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
-     */
-    public static JButton getGrowFungusButton() {
-        JButton button = new JButton("Grow Fungus");
-        
-        button.addActionListener((ActionEvent e) -> {
-            System.out.println("GrowFungusButton pressed");
-
-            MainFrame.getGrowMyceliumToolBar().setVisible(false);
-            MainFrame.getSpreadSporesToolBar().setVisible(false);
-
-            MainFrame.getGrowFungusToolBar().setVisible(true);
-        });
-        
-        return button;
+    private ButtonFactory() {
+        throw new IllegalStateException("Static class, cannot be instantiated");
     }
 
     /**
-     * Visszaad egy gombot, ami a gombafonal növesztés menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
+     * Készít egy új gombot, mely testreszabható a konstruktorban
+     * @param title A gomb neve
+     * @param runOnPress A függvény amit lenyomáskor futtat
+     * @return Egy új gomb
      */
-    public static JButton getGrowMyceliumButton() {
-        JButton button = new JButton("Grow Mycelium");
-
-        button.addActionListener((ActionEvent e) -> {
-            System.out.println("GrowMyceliumButton pressed");
-
-            MainFrame.getGrowFungusToolBar().setVisible(false);
-            MainFrame.getSpreadSporesToolBar().setVisible(false);
-
-            MainFrame.getGrowMyceliumToolBar().setVisible(true);
-
-        });
-
+    public static JButton getNewButton(String title, Runnable runOnPress) {
+        JButton button = new JButton(title);
+        if(runOnPress == null) {
+            button.addActionListener((ActionEvent e) -> System.err.println("Nincs függvény megadva a gombhoz!"));
+        } else {
+            button.addActionListener((ActionEvent e) -> runOnPress.run());
+        }
         return button;
     }
-
-    /**
-     * Visszaad egy gombot, ami a spóra szórás menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
-     */
-    public static JButton getSpreadSporesButton() {
-        JButton button = new JButton("Spread Spores");
-
-        button.addActionListener((ActionEvent e) -> {
-            System.out.println("SpreadSporesButton pressed");
-
-            MainFrame.getGrowMyceliumToolBar().setVisible(false);
-            MainFrame.getGrowFungusToolBar().setVisible(false);
-
-            MainFrame.getSpreadSporesToolBar().setVisible(true);
-        });
-        return button;
-    }
-
-    /**
-     * Visszaad egy gombot, ami a gombafonal vágás menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
-     */
-    public static JButton getCutMyceliumButton() {
-        JButton button = new JButton("Cut Mycelium");
-
-        button.addActionListener((ActionEvent e) -> {
-
-        });
-        return button;
-    }
-
-    /**
-     * Visszaad egy gombot, ami a spóra evés menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
-     */
-    public static JButton getEatSporesButton() {
-        JButton button = new JButton("Eat Spores");
-
-        button.addActionListener((ActionEvent e) -> {
-
-        });
-        return button;
-    }
-
-    /**
-     * Visszaad egy gombot, ami a rovar mozgás menüjét jeleníti meg ha megnyomják
-     * @return előre felparaméterezett gomb
-     */
-    public static JButton getMoveInsectButton() {
-        JButton button = new JButton("Move Insect");
-
-        button.addActionListener((ActionEvent e) -> {
-
-        });
-        return button;
-    }
-
 }

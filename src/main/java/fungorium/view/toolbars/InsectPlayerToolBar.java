@@ -14,9 +14,9 @@ public class InsectPlayerToolBar extends JToolBar {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);
 
-        cutMyceliumButton = ButtonFactory.getCutMyceliumButton();
-        moveInsectButton = ButtonFactory.getMoveInsectButton();
-        eatSporeButton = ButtonFactory.getEatSporesButton();
+        cutMyceliumButton = ButtonFactory.getNewButton("Cut Mycelium", null);
+        moveInsectButton = ButtonFactory.getNewButton("Move Insect", null);
+        eatSporeButton = ButtonFactory.getNewButton("Eat Spore", null);
         
         this.add(cutMyceliumButton);
         this.add(moveInsectButton);

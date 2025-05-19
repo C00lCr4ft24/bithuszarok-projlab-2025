@@ -14,9 +14,9 @@ public class FungusPlayerToolBar extends JToolBar {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);
 
-        growMyceliumButton = ButtonFactory.getGrowMyceliumButton();
-        growFungusButton = ButtonFactory.getGrowFungusButton();
-        spreadSporesButton = ButtonFactory.getSpreadSporesButton();
+        growMyceliumButton = ButtonFactory.getNewButton("Grow Mycelium", null);
+        growFungusButton = ButtonFactory.getNewButton("Grow Fungus", null);
+        spreadSporesButton = ButtonFactory.getNewButton("Spread Spores", null);
         
         this.add(growMyceliumButton);
         this.add(growFungusButton);
