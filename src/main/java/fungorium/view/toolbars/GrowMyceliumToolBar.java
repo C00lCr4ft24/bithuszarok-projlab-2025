@@ -8,7 +8,7 @@ import javax.swing.JToolBar;
 public class GrowMyceliumToolBar extends JToolBar {
     
     public GrowMyceliumToolBar() {
-        this.add(new JLabel("Grow Mycelium to: "));
+        this.add(new JLabel("Grow Mycelium to Tecton: "));
         this.add(new JComboBox<>());
         this.add(new JButton("Confirm"));
 

@@ -8,7 +8,7 @@ import javax.swing.JToolBar;
 public class GrowFungusToolBar extends JToolBar {
     
     public GrowFungusToolBar() {
-        this.add(new JLabel("Grow Fungus to: "));
+        this.add(new JLabel("Grow Fungus to Tecton: "));
         this.add(new JComboBox<>());
         this.add(new JButton("Confirm"));
 

@@ -21,7 +21,7 @@ public class ButtonFactory {
     public static JButton getNewButton(String title, Runnable runOnPress) {
         JButton button = new JButton(title);
         if(runOnPress == null) {
-            button.addActionListener((ActionEvent e) -> System.err.println("Nincs függvény megadva a gombhoz!"));
+            button.addActionListener((ActionEvent e) -> System.err.println("Nincs függvény megadva a gombhoz:" + title));
         } else {
             button.addActionListener((ActionEvent e) -> runOnPress.run());
         }
