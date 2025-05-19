@@ -113,6 +113,7 @@ public class GameModel implements Subject {
     }
 
     private void executeAPlayerRound() {
+        incrementCurrentPlayerIndex();
         updateAll();
     }
     private void initBeforeStart() {
