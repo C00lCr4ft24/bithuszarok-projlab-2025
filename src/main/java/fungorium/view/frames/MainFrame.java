@@ -13,13 +13,20 @@ import fungorium.view.toolbars.GameSettingsToolBar;
 import fungorium.view.toolbars.GrowFungusToolBar;
 import fungorium.view.toolbars.GrowMyceliumToolBar;
 import fungorium.view.toolbars.InsectPlayerToolBar;
+import fungorium.view.toolbars.SpreadSporesToolBar;
 
 public class MainFrame extends JFrame {
     private static InsectPlayerToolBar insectPlayerToolBar = new InsectPlayerToolBar();
+
     private static FungusPlayerToolBar fungusPlayerToolBar = new FungusPlayerToolBar();
+
     private static GameSettingsToolBar gameSettingsToolBar = new GameSettingsToolBar();
+
     private static GrowFungusToolBar growFungusToolBar = new GrowFungusToolBar();
     private static GrowMyceliumToolBar growMyceliumToolBar = new GrowMyceliumToolBar();
+    private static SpreadSporesToolBar spreadSporesToolBar = new SpreadSporesToolBar();
+
+
 
     public MainFrame() {
         this.setJMenuBar(new FungoriumMenuBar());
@@ -30,10 +37,11 @@ public class MainFrame extends JFrame {
         this.add(insectPlayerToolBar, BorderLayout.WEST);
         this.add(fungusPlayerToolBar, BorderLayout.EAST);
         this.add(gameSettingsToolBar, BorderLayout.SOUTH);
+
         container.add(growFungusToolBar);
         container.add(growMyceliumToolBar);
-        growFungusToolBar.setVisible(false);
-        growMyceliumToolBar.setVisible(false);
+        container.add(spreadSporesToolBar);
+
         this.add(container, BorderLayout.NORTH);
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
@@ -48,5 +56,9 @@ public class MainFrame extends JFrame {
 
     public static GrowMyceliumToolBar getGrowMyceliumToolBar() {
         return growMyceliumToolBar;
+    }
+
+    public static SpreadSporesToolBar getSpreadSporesToolBar() {
+        return spreadSporesToolBar;
     }
 }

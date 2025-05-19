@@ -2,7 +2,6 @@ package fungorium.view.buttons;
 
 import javax.swing.JButton;
 
-import fungorium.Main;
 import fungorium.view.frames.MainFrame;
 
 import java.awt.event.ActionEvent;
@@ -23,6 +22,7 @@ public class ButtonFactory {
             System.out.println("GrowFungusButton pressed");
 
             MainFrame.getGrowMyceliumToolBar().setVisible(false);
+            MainFrame.getSpreadSporesToolBar().setVisible(false);
 
             MainFrame.getGrowFungusToolBar().setVisible(true);
         });
@@ -41,6 +41,7 @@ public class ButtonFactory {
             System.out.println("GrowMyceliumButton pressed");
 
             MainFrame.getGrowFungusToolBar().setVisible(false);
+            MainFrame.getSpreadSporesToolBar().setVisible(false);
 
             MainFrame.getGrowMyceliumToolBar().setVisible(true);
 
@@ -57,7 +58,12 @@ public class ButtonFactory {
         JButton button = new JButton("Spread Spores");
 
         button.addActionListener((ActionEvent e) -> {
+            System.out.println("SpreadSporesButton pressed");
 
+            MainFrame.getGrowMyceliumToolBar().setVisible(false);
+            MainFrame.getGrowFungusToolBar().setVisible(false);
+
+            MainFrame.getSpreadSporesToolBar().setVisible(true);
         });
         return button;
     }
