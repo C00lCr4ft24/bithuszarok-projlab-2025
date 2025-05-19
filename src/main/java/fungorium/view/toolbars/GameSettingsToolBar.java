@@ -1,4 +1,4 @@
-package fungorium.view.bars;
+package fungorium.view.toolbars;
 
 import fungorium.GameModel;
 import fungorium.view.buttons.NewGameButton;

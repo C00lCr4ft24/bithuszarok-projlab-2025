@@ -1,4 +1,4 @@
-package fungorium.view.bars;
+package fungorium.view.toolbars;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
