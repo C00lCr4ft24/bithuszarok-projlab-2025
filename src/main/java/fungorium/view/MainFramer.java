@@ -41,7 +41,7 @@ public class MainFramer extends JFrame {
 
 
         GameView            gameView            = new GameView();
-        gameModel.registerObserver(gameView.getGameViewText());
+        //gameModel.registerObserver(gameView.getGameViewText());
 
 gameModel.registerObserver(gameView.getMapPanel()); // Add this line
         FungoriumMenuBar    fungoriumMenuBar    = new FungoriumMenuBar();
@@ -57,7 +57,7 @@ gameModel.registerObserver(gameView.getMapPanel()); // Add this line
         this.add(gSetToolB, BorderLayout.SOUTH);
         this.setSize(720, 720);
         this.setLocationRelativeTo(null);
-        //this.setExtendedState(MAXIMIZED_BOTH);
+        this.setExtendedState(MAXIMIZED_BOTH);
         this.setDefaultCloseOperation(EXIT_ON_CLOSE);
         this.setVisible(true);
     }

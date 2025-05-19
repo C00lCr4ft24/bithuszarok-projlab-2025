@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 
 public class GameSettingsToolBar extends JToolBar {
 
-    private final JTextField fungusField = new JTextField();
+    public static final JTextField fungusField = new JTextField();
     private final JTextField insectField = new JTextField();
     private final NewGameButton newGameButton = new NewGameButton();
     private final PlayerNameTextField playerNameTextField = new PlayerNameTextField();
@@ -20,6 +20,7 @@ public class GameSettingsToolBar extends JToolBar {
     private final selectedTectonText selectedTectonText       = new selectedTectonText();
     private final selectedTectonComboBox selecedTectonComboBox = new selectedTectonComboBox();
 
+    
     public GameSettingsToolBar() {
         setFloatable(false);
         setLayout(new GridLayout(0, 4));
@@ -57,13 +58,13 @@ public class GameSettingsToolBar extends JToolBar {
         insectField.getDocument().addDocumentListener(listener);
     }
 
-    public int getFungusPlayersCount() { return Integer.parseInt(fungusField.getText()); }
+    public static int getFungusPlayersCount() { return Integer.parseInt(fungusField.getText()); }
 
     public int getInsectPlayersCount() { return Integer.parseInt(insectField.getText()); }
 
     private boolean isValidNumber(String s) {
         try {
-            return !s.isEmpty() && Integer.parseInt(s) > 0;
+            return !s.isEmpty() && Integer.parseInt(s) > 0 && Integer.parseInt(s) < 7;
         } catch (NumberFormatException e) {
             return false;
         }
@@ -130,7 +131,16 @@ public class GameSettingsToolBar extends JToolBar {
 
         @Override
         public void update(GameModel gameModel) {
-            setModel(new DefaultComboBoxModel<Tecton>(gameModel.getAllTectonsForCurrentPlayer().toArray(new Tecton[0])));
+            Tecton previouslySelected = (Tecton)getSelectedItem();
+            removeAllItems();
+            for (Tecton tecton : gameModel.tectonArrayList) {
+                addItem(tecton);
+            }
+            if (previouslySelected != null) {
+                setSelectedItem(previouslySelected);
+            } else if (gameModel.getSelectedTecton() != null) {
+                setSelectedItem(gameModel.getSelectedTecton());
+            }
         }
     }
 }

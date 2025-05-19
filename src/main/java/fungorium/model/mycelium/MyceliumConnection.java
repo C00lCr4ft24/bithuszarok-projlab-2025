@@ -50,7 +50,9 @@ public class MyceliumConnection implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
-
+    public MyceliumJunction getJunctionA() { return junctionA; }
+    public MyceliumJunction getJunctionB() { return junctionB; }
+    public int getLifetime() { return lifetime; }
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
      *
