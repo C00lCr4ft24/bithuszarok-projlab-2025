@@ -58,7 +58,7 @@ public class MapPanel extends JPanel {
 
     @Override
     public Dimension getPreferredSize() {
-        if (gameModel == null || gameModel.tectonArrayList.isEmpty()) {
+        if (gameModel == null || GameModel.tectonArrayList.isEmpty()) {
             return new Dimension(900, 700);
         }
 
@@ -79,7 +79,7 @@ public class MapPanel extends JPanel {
 
     private Map<Integer, List<Tecton>> organizeTectonsByLevel() {
         Map<Integer, List<Tecton>> tectonsByLevel = new TreeMap<>();
-        for (Tecton tecton : gameModel.tectonArrayList) {
+        for (Tecton tecton : GameModel.tectonArrayList) {
             String[] parts = tecton.getId().split("-");
             int level = Integer.parseInt(parts[0].substring(2));
             tectonsByLevel.computeIfAbsent(level, k -> new ArrayList<>()).add(tecton);
@@ -99,8 +99,8 @@ public class MapPanel extends JPanel {
         g2d.setPaint(gradient);
         g2d.fillRect(0, 0, getWidth(), getHeight());
 
-        if (gameModel == null || gameModel.tectonArrayList.isEmpty()) {
-            drawCenteredMessage(g2d, "Loading map...");
+        if (gameModel == null || GameModel.tectonArrayList.isEmpty()) {
+            drawCenteredMessage(g2d);
             return;
         }
 
@@ -118,7 +118,7 @@ public class MapPanel extends JPanel {
         g2d.setColor(MYCELIUM_COLOR);
         g2d.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
 
-        for (MyceliumConnection connection : gameModel.connectionArrayList) {
+        for (MyceliumConnection connection : GameModel.connectionArrayList) {
             Point p1 = getCenterPoint(connection.getJunctionA().getPosition());
             Point p2 = getCenterPoint(connection.getJunctionB().getPosition());
 
@@ -158,12 +158,12 @@ public class MapPanel extends JPanel {
         return new Point(0, 0);
     }
 
-    private void drawCenteredMessage(Graphics2D g2d, String message) {
+    private void drawCenteredMessage(Graphics2D g2d) {
         g2d.setColor(new Color(80, 80, 90));
         g2d.setFont(new Font("SansSerif", Font.BOLD, 24));
         FontMetrics fm = g2d.getFontMetrics();
-        g2d.drawString(message,
-                (getWidth() - fm.stringWidth(message)) / 2,
+        g2d.drawString("Loading map...",
+                (getWidth() - fm.stringWidth("Loading map...")) / 2,
                 (getHeight() - fm.getHeight()) / 2 + fm.getAscent());
     }
 
@@ -203,7 +203,7 @@ public class MapPanel extends JPanel {
             MyceliumJunction junction = tecton.getMyceliumJunctions().get(0);
             if (junction.getFungus() != null) {
                 Player owner = junction.getFungus().getPlayer();
-                int colorIndex = gameModel.playerArrayList.indexOf(owner) % PLAYER_COLORS.length;
+                int colorIndex = GameModel.playerArrayList.indexOf(owner) % PLAYER_COLORS.length;
                 g2d.setColor(PLAYER_COLORS[colorIndex]);
                 g2d.fillPolygon(hexagon);
 
@@ -243,7 +243,7 @@ public class MapPanel extends JPanel {
 
             for (Insect insect : tecton.getInsects()) {
                 if (!displayedPlayers.contains(insect.getPlayer())) {
-                    int playerIndex = gameModel.playerArrayList.indexOf(insect.getPlayer());
+                    int playerIndex = GameModel.playerArrayList.indexOf(insect.getPlayer());
                     Color insectColor = INSECT_COLORS[playerIndex % INSECT_COLORS.length];
 
                     int offsetX = -12 + (displayIndex % 3) * 12;
