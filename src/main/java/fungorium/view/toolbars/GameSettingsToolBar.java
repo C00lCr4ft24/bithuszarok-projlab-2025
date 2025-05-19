@@ -1,8 +1,9 @@
 package fungorium.view.toolbars;
 
 import fungorium.GameModel;
+import fungorium.controller.ButtonFunctions;
 import fungorium.model.tecton.Tecton;
-import fungorium.observer.Observer;
+import fungorium.view.buttons.ButtonFactory;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -14,11 +15,11 @@ public class GameSettingsToolBar extends JToolBar {
 
     public static final JTextField fungusField = new JTextField();
     public static final JTextField insectField = new JTextField();
-    private final NewGameButton newGameButton = new NewGameButton();
-    private final PlayerNameTextField playerNameTextField = new PlayerNameTextField();
+    public static final JButton newGameButton = ButtonFactory.getNewButton("New Game", ButtonFunctions::newGameButtonPressed);
+    public static final PlayerNameTextField playerNameTextField = new PlayerNameTextField();
 
-    private final selectedTectonText selectedTectonText       = new selectedTectonText();
-    private final selectedTectonComboBox selecedTectonComboBox = new selectedTectonComboBox();
+    public static final selectedTectonText selectedTectonText       = new selectedTectonText();
+    public static final selectedTectonComboBox selecedTectonComboBox = new selectedTectonComboBox();
 
     
     public GameSettingsToolBar() {
@@ -77,14 +78,13 @@ public class GameSettingsToolBar extends JToolBar {
 
     public PlayerNameTextField getPlayerNameTextField() { return playerNameTextField; }
 
-    public static class PlayerNameTextField extends JTextField implements Observer {
+    public static class PlayerNameTextField extends JTextField {
         public PlayerNameTextField() {
             super();
             setEditable(false);
             setFocusable(false);
         }
 
-        @Override
         public void update(GameModel gameModel) {
             setText(gameModel.getCurrentPlayer().toString());
         }
@@ -124,12 +124,11 @@ public class GameSettingsToolBar extends JToolBar {
 
     public void setSelecedTectonComboBoxListener(ActionListener listener) { selecedTectonComboBox.addActionListener(listener); }
 
-    public static class selectedTectonComboBox extends JComboBox<Tecton> implements Observer {
+    public static class selectedTectonComboBox extends JComboBox<Tecton> {
         public selectedTectonComboBox() {
             setEditable(false);
         }
 
-        @Override
         public void update(GameModel gameModel) {
             Tecton previouslySelected = (Tecton)getSelectedItem();
             removeAllItems();

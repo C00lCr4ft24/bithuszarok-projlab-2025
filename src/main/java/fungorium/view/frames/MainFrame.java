@@ -6,6 +6,7 @@ import java.awt.FlowLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import fungorium.view.MapPanel;
 import fungorium.view.toolbars.CutMyceliumToolBar;
 import fungorium.view.toolbars.EatSporeToolBar;
 import fungorium.view.toolbars.FungoriumMenuBar;
@@ -32,6 +33,8 @@ public class MainFrame extends JFrame {
     public static final CutMyceliumToolBar cutMyceliumToolBar = new CutMyceliumToolBar();
     public static final EatSporeToolBar eatSporeToolBar = new EatSporeToolBar();
 
+    public static final MapPanel mapPanel = new MapPanel();
+
     public MainFrame() {
         this.setJMenuBar(new FungoriumMenuBar());
         this.setLayout(new BorderLayout());
@@ -51,6 +54,9 @@ public class MainFrame extends JFrame {
         container.add(eatSporeToolBar);
 
         this.add(container, BorderLayout.NORTH);
+
+        this.add(mapPanel, BorderLayout.CENTER);
+        
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);

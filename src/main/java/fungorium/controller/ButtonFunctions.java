@@ -1,6 +1,7 @@
 package fungorium.controller;
 
 import fungorium.GameModel;
+import fungorium.view.MapPanel;
 import fungorium.view.frames.MainFrame;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
@@ -15,6 +16,8 @@ public class ButtonFunctions {
     public static void newGameButtonPressed() {
         GameModel.resetGameModel(Integer.parseInt(GameSettingsToolBar.fungusField.getText()),
                                  Integer.parseInt(GameSettingsToolBar.insectField.getText()));
+        MapPanel.setGameModel(new GameModel());
+        MainFrame.mapPanel.repaint();
 
         FungusPlayerToolBar.growMyceliumButton.setEnabled(true);
         FungusPlayerToolBar.growFungusButton.setEnabled(true);
