@@ -5,7 +5,6 @@ import fungorium.model.FungoriumEntity;
 import fungorium.model.tecton.Tecton;
 
 import java.util.ArrayList;
-import java.util.Set;
 
 /**
  * Két MyceliumJunction közötti kapcsolatot reprezentál.

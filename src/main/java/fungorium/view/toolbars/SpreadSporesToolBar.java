@@ -8,7 +8,7 @@ import javax.swing.JToolBar;
 public class SpreadSporesToolBar extends JToolBar {
 
     public SpreadSporesToolBar() {
-        this.add(new JLabel("Spread Spores to Tecton: "));
+        this.add(new JLabel("Select a Tecton to spread spores on: "));
         this.add(new JComboBox<>());
         this.add(new JButton("Confirm"));
 

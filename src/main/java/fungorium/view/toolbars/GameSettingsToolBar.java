@@ -1,6 +1,5 @@
 package fungorium.view.toolbars;
 
-import fungorium.GameModel;
 import fungorium.controller.ButtonFunctions;
 import fungorium.view.buttons.ButtonFactory;
 
@@ -8,7 +7,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 
 public class GameSettingsToolBar extends JToolBar {
 
@@ -39,7 +37,6 @@ public class GameSettingsToolBar extends JToolBar {
 
         fungusField.getDocument().addDocumentListener(listener);
         insectField.getDocument().addDocumentListener(listener);
-        //newGameButton.addActionListener((ActionEvent e) -> { GameModel.resetGameModel(Integer.parseInt(fungusField.getText()), Integer.parseInt(insectField.getText())); });
     }
 
     private boolean isValidNumber(String s) {
@@ -57,5 +54,8 @@ public class GameSettingsToolBar extends JToolBar {
 
     public static JTextField getInsectField() {
         return insectField;
+    }
+    public static JButton getNewgamebutton() {
+        return newGameButton;
     }
 }

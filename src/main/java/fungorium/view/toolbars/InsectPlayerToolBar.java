@@ -3,33 +3,39 @@ package fungorium.view.toolbars;
 import javax.swing.JButton;
 import javax.swing.JToolBar;
 
+import fungorium.controller.ButtonFunctions;
 import fungorium.view.buttons.ButtonFactory;
 
 public class InsectPlayerToolBar extends JToolBar {
-    private JButton cutMyceliumButton;
-    private JButton moveInsectButton;
-    private JButton eatSporeButton;
+    private static final JButton cutMyceliumButton = ButtonFactory.getNewButton("Cut Mycelium",
+            ButtonFunctions::cutMyceliumButtonPressed);
+    private static final JButton moveInsectButton = ButtonFactory.getNewButton("Move Insect",
+            ButtonFunctions::moveInsectButtonPressed);
+    private static final JButton eatSporeButton = ButtonFactory.getNewButton("Eat Spore",
+            ButtonFunctions::eatSporeButtonPressed);
 
     public InsectPlayerToolBar() {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);
 
-        cutMyceliumButton = ButtonFactory.getNewButton("Cut Mycelium", null);
-        moveInsectButton = ButtonFactory.getNewButton("Move Insect", null);
-        eatSporeButton = ButtonFactory.getNewButton("Eat Spore", null);
-        
+        cutMyceliumButton.setEnabled(false);
+        moveInsectButton.setEnabled(false);
+        eatSporeButton.setEnabled(false);
+
         this.add(cutMyceliumButton);
         this.add(moveInsectButton);
         this.add(eatSporeButton);
     }
-    
-    public JButton getCutMyceliumButton() {
+
+    public static JButton getCutMyceliumButton() {
         return cutMyceliumButton;
     }
-    public JButton getMoveInsectButton() {
+
+    public static JButton getMoveInsectButton() {
         return moveInsectButton;
     }
-    public JButton getEatSporeButton() {
+
+    public static JButton getEatSporeButton() {
         return eatSporeButton;
     }
 }
