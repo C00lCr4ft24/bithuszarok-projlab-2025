@@ -1,11 +1,18 @@
 package fungorium.controller;
 
+import fungorium.GameModel;
 import fungorium.view.frames.MainFrame;
+import fungorium.view.toolbars.GameSettingsToolBar;
 
 public class ButtonFunctions {
 
     private ButtonFunctions() { throw new IllegalStateException("Static class, cannot be instantiated"); }
     
+    public static void newGameButtonPressed() {
+        GameModel.resetGameModel(Integer.parseInt(GameSettingsToolBar.getFungusField().getText()),
+                                 Integer.parseInt(GameSettingsToolBar.getInsectField().getText()));
+    }
+
     /**
      * Grow Mycelium gomb lenyomásához tartozó függvény
      */

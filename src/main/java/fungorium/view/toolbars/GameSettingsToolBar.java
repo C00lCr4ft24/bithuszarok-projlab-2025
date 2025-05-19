@@ -1,6 +1,7 @@
 package fungorium.view.toolbars;
 
 import fungorium.GameModel;
+import fungorium.controller.ButtonFunctions;
 import fungorium.view.buttons.ButtonFactory;
 
 import javax.swing.*;
@@ -11,9 +12,9 @@ import java.awt.event.ActionEvent;
 
 public class GameSettingsToolBar extends JToolBar {
 
-    private final JTextField fungusField = new JTextField();
-    private final JTextField insectField = new JTextField();
-    private final JButton newGameButton = ButtonFactory.getNewButton("New Game", null);
+    private static final JTextField fungusField = new JTextField();
+    private static final JTextField insectField = new JTextField();
+    private static final JButton newGameButton = ButtonFactory.getNewButton("New Game", ButtonFunctions::newGameButtonPressed);
 
     public GameSettingsToolBar() {
         setFloatable(false);
@@ -38,7 +39,7 @@ public class GameSettingsToolBar extends JToolBar {
 
         fungusField.getDocument().addDocumentListener(listener);
         insectField.getDocument().addDocumentListener(listener);
-        newGameButton.addActionListener((ActionEvent e) -> { GameModel.resetGameModel(Integer.parseInt(fungusField.getText()), Integer.parseInt(insectField.getText())); });
+        //newGameButton.addActionListener((ActionEvent e) -> { GameModel.resetGameModel(Integer.parseInt(fungusField.getText()), Integer.parseInt(insectField.getText())); });
     }
 
     private boolean isValidNumber(String s) {
@@ -48,5 +49,13 @@ public class GameSettingsToolBar extends JToolBar {
         } catch (NumberFormatException e) {
             return false;
         }
+    }
+
+    public static JTextField getFungusField() {
+        return fungusField;
+    }
+
+    public static JTextField getInsectField() {
+        return insectField;
     }
 }
