@@ -24,9 +24,9 @@ public class GameView extends JPanel {
 
     public MapPanel getMapPanel() { return mapPanel; }
 
-    private static class MapPanel extends JPanel implements Observer {
+    public static class MapPanel extends JPanel implements Observer {
         private GameModel gameModel;
-        private static final int HEX_SIZE = 50;
+        private static final int HEX_RADIUS = 50;
         
         // Player colors for fungi
         private static final Color[] PLAYER_COLORS = {
@@ -80,8 +80,8 @@ public class GameView extends JPanel {
                 .mapToInt(List::size)
                 .max().orElse(0);
             
-            int hexHeight = (int)(HEX_SIZE * Math.sqrt(3));
-            int hexWidth = (int)(HEX_SIZE * 1.5);
+            int hexHeight = HEX_RADIUS * 2;
+            int hexWidth  = (int)(HEX_RADIUS * Math.sqrt(3));
             
             return new Dimension(
                 (maxTectonsInLevel + 2) * hexWidth + 100,
@@ -149,8 +149,8 @@ public class GameView extends JPanel {
 
         private Point getCenterPoint(Tecton tecton) {
             Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-            int hexWidth = (int)(HEX_SIZE * 1.5);
-            int hexHeight = (int)(HEX_SIZE * Math.sqrt(3));
+            int hexWidth = (int)(HEX_RADIUS * 1.5);
+            int hexHeight = (int)(HEX_RADIUS * Math.sqrt(3));
             int startY = 50;
             
             for (Map.Entry<Integer, List<Tecton>> entry : tectonsByLevel.entrySet()) {
@@ -183,22 +183,20 @@ public class GameView extends JPanel {
 
         private void drawHexagonalMap(Graphics2D g2d) {
             Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-            int hexWidth = (int)(HEX_SIZE * 1.5);
-            int hexHeight = (int)(HEX_SIZE * Math.sqrt(3));
-            int startY = 50;
-            
+            int hexWidth = (int)(HEX_RADIUS * Math.sqrt(3));
+            int hexHeight = HEX_RADIUS * 2;
+            int startY = 100;
+
             for (Map.Entry<Integer, List<Tecton>> entry : tectonsByLevel.entrySet()) {
                 int level = entry.getKey();
                 List<Tecton> tectons = entry.getValue();
                 int levelWidth = tectons.size() * hexWidth;
-                if (level % 2 == 1) levelWidth += hexWidth / 2;
                 int levelStartX = (getWidth() - levelWidth) / 2;
-                
+
                 for (int i = 0; i < tectons.size(); i++) {
                     Tecton tecton = tectons.get(i);
                     int x = levelStartX + i * hexWidth;
-                    int y = startY + level * hexHeight;
-                    if (level % 2 == 1) x += hexWidth / 2;
+                    int y = startY + level * (hexHeight - (HEX_RADIUS / 2) + 1);
                     drawHexagon(g2d, x, y, tecton);
                 }
             }
@@ -208,11 +206,10 @@ public class GameView extends JPanel {
             // Create hexagon shape
             Polygon hexagon = new Polygon();
             for (int i = 0; i < 6; i++) {
-                double angle = i * Math.PI / 3;
-                hexagon.addPoint(
-                    centerX + (int)(HEX_SIZE * Math.cos(angle)),
-                    centerY + (int)(HEX_SIZE * Math.sin(angle))
-                );
+                double angle_deg = Math.toRadians((i * 60) + 30);
+                int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
+                int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
+                hexagon.addPoint(x, y);
             }
 
             // Fill hex based on content
@@ -235,8 +232,8 @@ public class GameView extends JPanel {
             } else {
                 // Empty hex
                 GradientPaint emptyHexGradient = new GradientPaint(
-                    centerX - HEX_SIZE, centerY - HEX_SIZE, new Color(250, 250, 255),
-                    centerX + HEX_SIZE, centerY + HEX_SIZE, new Color(230, 230, 235));
+                    centerX - HEX_RADIUS, centerY - HEX_RADIUS, new Color(250, 250, 255),
+                    centerX + HEX_RADIUS, centerY + HEX_RADIUS, new Color(230, 230, 235));
                 g2d.setPaint(emptyHexGradient);
                 g2d.fillPolygon(hexagon);
             }
