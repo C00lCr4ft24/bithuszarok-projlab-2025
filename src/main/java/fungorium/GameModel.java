@@ -286,7 +286,7 @@ public class GameModel {
     }
 
     public static void executeAllgameStep() {
-        if(random.nextInt(10) <= 10) { //Tesztelés miatt 100% eséllyel törik ketté tekton
+        if(random.nextInt(10) < 0) { //Tesztelés miatt 100% eséllyel törik ketté tekton
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
             Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
             if (splitted != null) {
