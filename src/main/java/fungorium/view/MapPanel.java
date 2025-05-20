@@ -5,16 +5,21 @@ import fungorium.model.tecton.Tecton;
 import fungorium.model.player.Player;
 import fungorium.model.mycelium.*;
 import fungorium.model.Insect;
-import fungorium.view.toolbars.GameSettingsToolBar;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 import java.util.*;
 import java.util.List;
 
 public class MapPanel extends JPanel {
     private static GameModel gameModel;
     private static final int HEX_RADIUS = 50;
+    private static BufferedImage fungusImg;
+    private static BufferedImage insectImg;
 
     // Player colors for fungi
     private static final Color[] PLAYER_COLORS = {
@@ -54,6 +59,14 @@ public class MapPanel extends JPanel {
                 BorderFactory.createLineBorder(new Color(80, 80, 90), 2),
                 BorderFactory.createEmptyBorder(15, 15, 15, 15)
         ));
+
+        try {
+            fungusImg = ImageIO.read(getClass().getResourceAsStream("/fungus.png"));
+            insectImg = ImageIO.read(getClass().getResourceAsStream("/insect.png"));
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
     }
 
     @Override
@@ -209,7 +222,15 @@ public class MapPanel extends JPanel {
 
                 // Draw fungus visualization
                 g2d.setColor(FUNGUS_COLOR);
-                g2d.fillOval(centerX - 10, centerY - 10, 20, 20);
+                //g2d.fillOval(centerX - 10, centerY - 10, 20, 20);
+
+                g2d.drawImage(fungusImg, centerX - (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2), null);
+
+                String ownerShortName = owner.toString().replaceAll("^([A-Za-zÁá]).*?(\\d+)$", "$1$2");
+                g2d.setColor(Color.WHITE);
+                g2d.setFont(new Font("SansSerif", Font.BOLD, 13));
+                FontMetrics fm = g2d.getFontMetrics();
+                g2d.drawString(ownerShortName, centerX - (fm.stringWidth(ownerShortName) / 2), centerY - 2);
             } else {
                 // Just junction without fungus
                 g2d.setColor(JUNCTION_COLOR);
@@ -234,7 +255,7 @@ public class MapPanel extends JPanel {
         g2d.setFont(new Font("SansSerif", Font.PLAIN, 10));
         String shortId = tecton.getId();
         FontMetrics fm = g2d.getFontMetrics();
-        g2d.drawString(shortId, centerX - fm.stringWidth(shortId)/2, centerY + fm.getAscent()/2 + 10);
+        g2d.drawString(shortId, centerX - fm.stringWidth(shortId) / 2, centerY + 30);
 
         // Draw only one insect per player per tecton
         if (!tecton.getInsects().isEmpty()) {
@@ -250,11 +271,14 @@ public class MapPanel extends JPanel {
                     int offsetY = -25 + (displayIndex / 3) * 12;
 
                     g2d.setColor(insectColor);
-                    g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 14, 14);
-                    g2d.setColor(Color.BLACK);
-                    g2d.setFont(new Font("SansSerif", Font.BOLD, 8));
-                    String insectNumber = "R" + (playerIndex- GameSettingsToolBar.getFungusPlayersCount()+1);
-                    g2d.drawString(insectNumber, centerX + offsetX - 4, centerY + offsetY + 2);
+                    //g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 14, 14);
+
+                    g2d.drawImage(insectImg, centerX + offsetX - 6, centerY + offsetY - 6, null);
+
+                    g2d.setFont(new Font("SansSerif", Font.BOLD, 11));
+                    Player owner = insect.getPlayer();
+                    String ownerShortName = owner.toString().replaceAll("^([A-Za-zÁá]).*?(\\d+)$", "$1$2");
+                    g2d.drawString(ownerShortName, centerX + offsetX + 3 - (fm.stringWidth(ownerShortName) / 2), centerY + offsetY + 10);
 
 
                     displayedPlayers.add(insect.getPlayer());

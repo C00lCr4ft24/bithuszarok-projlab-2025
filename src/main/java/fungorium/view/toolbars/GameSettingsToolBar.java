@@ -31,6 +31,7 @@ public class GameSettingsToolBar extends JToolBar {
         fungusText.setEditable(false);
         add(fungusText);
 
+        fungusField.setText("6");
         add(fungusField);
 
         add(newGameButton);
@@ -43,6 +44,7 @@ public class GameSettingsToolBar extends JToolBar {
         insectText.setFocusable(false);
         add(insectText);
 
+        insectField.setText("6");
         add(insectField);
 
         add(selectedTectonText);
