@@ -301,7 +301,7 @@ public class MapPanel extends JPanel {
         }
 
         // Highlight selected tecton
-        if (gameModel.getSelectedTecton() == tecton) {
+        if (GameModel.getSelectedTecton() == tecton) {
             g2d.setColor(SELECTION_COLOR);
             g2d.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.drawPolygon(hexagon);
