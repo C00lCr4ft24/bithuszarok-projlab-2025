@@ -12,14 +12,7 @@ import fungorium.model.spore.SporeTypes;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.MapPanel;
 import fungorium.view.frames.MainFrame;
-import fungorium.view.toolbars.EatSporeToolBar;
-import fungorium.view.toolbars.FungusPlayerToolBar;
-import fungorium.view.toolbars.GameSettingsToolBar;
-import fungorium.view.toolbars.GrowFungusToolBar;
-import fungorium.view.toolbars.GrowMyceliumToolBar;
-import fungorium.view.toolbars.InsectPlayerToolBar;
-import fungorium.view.toolbars.MoveInsectToolBar;
-import fungorium.view.toolbars.SpreadSporesToolBar;
+import fungorium.view.toolbars.*;
 
 public class Controller {
 
@@ -110,9 +103,19 @@ public class Controller {
     }
 
     public static void cutMyceliumButtonPressed() {
-
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
+
+        // ComboBox-ok ürítése
+        CutMyceliumToolBar.availableInsectsComboBox.removeAllItems();
+        CutMyceliumToolBar.availableConnectionsComboBox.removeAllItems();
+
+        // ComboBox-ok feltöltése az aktuális adatokkal
+        for (Insect insect : GameModel.insectArrayList) {
+            if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                CutMyceliumToolBar.availableInsectsComboBox.addItem(insect);
+            }
+        }
 
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.cutMyceliumToolBar.setVisible(true);
