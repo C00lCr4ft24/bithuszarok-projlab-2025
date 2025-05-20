@@ -9,10 +9,16 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+/**
+ * A SpreadSporesToolBar osztály a spóra szórásához szükséges eszköztárat reprezentálja.
+ */
 public class SpreadSporesToolBar extends JToolBar {
     public static final JComboBox<Fungus> availableFungiComboBox = new JComboBox<>();
     public static final JComboBox<Tecton> availableTectonsComboBox = new JComboBox<>();
 
+    /**
+     * A SpreadSporesToolBar osztály konstruktora, amely beállítja a spóra szórásához szükséges eszköztárat.
+     */
     public SpreadSporesToolBar() {
         this.add(new JLabel("Válassz egy gombatestet: "));
         this.add(availableFungiComboBox);

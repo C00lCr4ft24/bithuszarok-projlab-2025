@@ -38,7 +38,15 @@ public class MyceliumConnection implements FungoriumEntity {
     private boolean hasBeenTerminated = false;
 
     private String id;
+    /**
+     * Visszaadja a gombafonal azonosítóját.
+     *
+     * @return Az azonosító.
+     */
     public String getId() { return id; }
+    /**
+     * 2 paraméteres konstruktor.
+     */
     public MyceliumConnection(String id, MyceliumJunction a, MyceliumJunction b) {
         this.id = id;
         junctionA = a;
@@ -49,8 +57,24 @@ public class MyceliumConnection implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
+    /**
+     * Visszaadja a kapcsolat első végpontját.
+     *
+     * @return Az első MyceliumJunction.
+     */
     public MyceliumJunction getJunctionA() { return junctionA; }
+    /**
+     * Visszaadja a kapcsolat második végpontját.
+     *
+     * @return A második MyceliumJunction.
+     */
     public MyceliumJunction getJunctionB() { return junctionB; }
+    /**
+     * Visszaadja a gombafonal élettartamát.
+     *
+     * @return Az élettartam.
+     */
     public int getLifetime() { return lifetime; }
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.

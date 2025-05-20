@@ -30,17 +30,31 @@ public class MyceliumJunction implements FungoriumEntity {
     private Player player;
 
     private String id;
-
+    /**
+     * Visszaadja a Junction azonosítóját.
+     *
+     * @return Az azonosító.
+     */
     public String getId() {
         return id;
     }
-
+    /**
+     * 2 paraméteres konstruktor.
+     * @param id       Az azonosító.
+     * @param position A Tecton, amelyhez a csomópont tartozik.
+     */
     public MyceliumJunction(String id, Tecton position) {
         this.id = id;
         this.position = position;
         position.addJunction(this);
     }
-
+    /**
+     * 3 paraméteres konstruktor.
+     *
+     * @param id       Az azonosító.
+     * @param position A Tecton, amelyhez a csomópont tartozik.
+     * @param player   A játékos, akihez a csomópont tartozik.
+     */
     public MyceliumJunction(String id, Tecton position, Player player) {
         this.id = id;
         this.position = position;
@@ -57,10 +71,17 @@ public class MyceliumJunction implements FungoriumEntity {
         this.position = position;
     }
 
+    /**
+     * Visszaadja a Junction-höz tartozó játékost.
+     *
+     * @return A játékos példánya.
+     */
     public Player getPlayer() {
         return player;
     }
-
+    /**
+     * Gombafonalat növeszt egy szomszédes tectonra.
+     */
     public void createConnectionToNeighbourTecton(Tecton tecton) throws IllegalStateException {
         if (this.getPosition().equals(tecton)) {
             throw new IllegalStateException("A kiválasztott tekton megegyezik a kiválasztott csomópont helyével!");
@@ -80,7 +101,11 @@ public class MyceliumJunction implements FungoriumEntity {
     public void addConnection(MyceliumConnection c) {
         connections.add(c);
     }
-
+    /**
+     * Visszaadja a csomóponthoz tartozó MyceliumConnection példányokat.
+     *
+     * @return A csomóponthoz tartozó MyceliumConnection példányok listája.
+     */
     public ArrayList<MyceliumConnection> getConnections() {
         return new ArrayList<>(connections);
     }
@@ -223,6 +248,7 @@ public class MyceliumJunction implements FungoriumEntity {
         return position;
     }
 
+    
     @Override
     public String toString() {
         return id;

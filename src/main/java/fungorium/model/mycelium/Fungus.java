@@ -38,15 +38,21 @@ public class Fungus implements FungoriumEntity {
     private Player player;
 
     private String id;
-
+    /**
+     * Visszaadja a gombatest azonosítóját.
+     */
     public String getId() {
         return id;
     }
-
+    /**
+     * Visszadja gombatesthez tartozó játékost.
+     */
     public Player getPlayer() {
         return player;
     }
-
+    /**
+     * 2 paraméteres konstruktor.
+     */
     public Fungus(String id, MyceliumJunction junctionPosition) {
         this.id = id;
         this.sporeLevel = 0;
@@ -57,7 +63,9 @@ public class Fungus implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
-
+    /**
+     * 3 paraméteres konstruktor.
+     */
     public Fungus(String id, Player player, MyceliumJunction junctionPosition) {
         this.id = id;
         this.player = player;
@@ -142,7 +150,11 @@ public class Fungus implements FungoriumEntity {
         }
         return fungusHasDied;
     }
-
+    /**
+     * Visszaadja hogy csatlakozva van-e a megadott fonal a fungushoz.
+     *
+     * @return logikai érték.
+     */
     public boolean isThisConnectionConnectedTo(MyceliumConnection mc) {
         if (mc == null)
             return false;

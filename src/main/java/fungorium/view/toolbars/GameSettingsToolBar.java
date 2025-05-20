@@ -11,6 +11,9 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionListener;
 
+/**
+ * A GameSettingsToolBar osztály a játék beállításait tartalmazó eszköztárat reprezentálja.
+ */
 public class GameSettingsToolBar extends JToolBar {
 
     public static final JTextField fungusField = new JTextField();
@@ -20,7 +23,9 @@ public class GameSettingsToolBar extends JToolBar {
     public static final JButton skipStepButton = ButtonFactory.getNewButton("Lépés kihagyása", Controller::initForNextPlayer);
     public static final JComboBox<Tecton> selectedTectonComboBox = new JComboBox<>();
 
-    
+    /**
+     * A GameSettingsToolBar osztály konstruktora, amely beállítja a játék beállításait tartalmazó eszköztárat.
+     */
     public GameSettingsToolBar() {
         setFloatable(false);
         setLayout(new GridLayout(0, 5));

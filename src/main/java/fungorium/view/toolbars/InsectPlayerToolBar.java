@@ -6,6 +6,9 @@ import javax.swing.JToolBar;
 import fungorium.controller.Controller;
 import fungorium.view.buttons.ButtonFactory;
 
+/**
+ * A InsectPlayerToolBar osztály a rovar játékos eszköztárát reprezentálja.
+ */
 public class InsectPlayerToolBar extends JToolBar {
     public static final JButton moveInsectButton = ButtonFactory.getNewButton("Rovar mozgás",
             Controller::moveInsectButtonPressed);
@@ -14,6 +17,9 @@ public class InsectPlayerToolBar extends JToolBar {
     public static final JButton eatSporeButton = ButtonFactory.getNewButton("Spóra evés",
             Controller::eatSporeButtonPressed);
 
+/**
+ * A InsectPlayerToolBar osztály a rovar játékos eszköztárát reprezentálja.
+ */  
     public InsectPlayerToolBar() {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);
