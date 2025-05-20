@@ -1,5 +1,8 @@
 package fungorium.model.player;
 
+/**
+ * Egy játékost reprezentáló osztály, amely tartalmazza a játékos nevét, típusát és pontszámát.
+ */
 public class Player {
     /**
      * PlayerTypes enum, mely megmodja, hogy a jatekos milyen tipusu

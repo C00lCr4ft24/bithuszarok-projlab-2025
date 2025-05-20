@@ -1,5 +1,8 @@
 package fungorium.model.player;
 
+/**
+ * Különböző játékos létrehozására szolgáló osztály.
+ */
 public class PlayerFactory {
     /**
      * A gombász játékosokhoz tartozó Név id-k számlálója.
@@ -30,6 +33,13 @@ public class PlayerFactory {
             default -> playerName = "Not Valid Player";
         }
         return new Player(type, playerName);
+    }
+
+    /**
+     * Privát konstruktor, hogy megakadályozza a példányosítást.
+     */
+    private PlayerFactory() {
+        throw new IllegalStateException("Static class, cannot be instantiated");
     }
 
     /**
