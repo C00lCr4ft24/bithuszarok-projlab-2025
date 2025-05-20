@@ -64,12 +64,8 @@ public class MyceliumJunction implements FungoriumEntity {
         if (!this.getPosition().isThisYourNeighbourInRange(tecton, 1)) {
             throw new IllegalStateException("A kiválasztott tekton nem szomszédos a gombafonal csomóponttal!");
         }
-        if (tecton.hasSpaceForJunction()) {
-                MyceliumJunction newJunction = tecton.createMyceliumJunction(this.getPlayer());
-                new MyceliumConnection(this, newJunction);
-                return;
-        }
-        throw new IllegalStateException("A kiválasztott tektonra már más játékos növesztett gombafonal csomópontot!");
+        MyceliumJunction newJunction = tecton.createMyceliumJunction(this.getPlayer());
+        new MyceliumConnection(this, newJunction);
     }
 
     /**
