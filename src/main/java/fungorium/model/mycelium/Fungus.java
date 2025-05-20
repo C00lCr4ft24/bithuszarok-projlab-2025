@@ -16,7 +16,7 @@ public class Fungus implements FungoriumEntity {
     /**
      * A spóra lövéshez szükséges minimum spóraszint.
      */
-    private static final int MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE = 3;
+    private static final int MINIMUM_SPORE_LEVEL_TO_SPREAD_SPORE = 2; //ALAPBÓL 2
     /**
      * A gombához tartozó MyceliumJunction pozíció.
      */
@@ -117,7 +117,7 @@ public class Fungus implements FungoriumEntity {
                     case STUN_SPORE -> newSpore = new StunSpore(id, 200, 3);
                     case RANDOM_SPORE -> newSpore = SporeFactory.createSpore(id, SporeTypes.RANDOM_SPORE);
                 }
-                String log = "Fungus " + id + " spread " + sporeType.toString() + " " + id + " to " + target.getId() + ".";
+                String log = "Fungus " + this.id + " spread " + sporeType.toString() + " " + id + " to " + target.getId() + ".";
                 System.out.println(log);
                 TestFramework.logOutput(log);
                 target.putASpore(newSpore);

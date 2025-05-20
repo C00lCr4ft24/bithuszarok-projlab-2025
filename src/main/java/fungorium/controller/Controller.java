@@ -3,13 +3,19 @@ package fungorium.controller;
 import javax.swing.ComboBoxModel;
 
 import fungorium.GameModel;
+import fungorium.model.Insect;
+import fungorium.model.mycelium.Fungus;
 import fungorium.model.player.PlayerTypes;
+import fungorium.model.spore.SporeTypes;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.MapPanel;
 import fungorium.view.frames.MainFrame;
+import fungorium.view.toolbars.EatSporeToolBar;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
 import fungorium.view.toolbars.InsectPlayerToolBar;
+import fungorium.view.toolbars.MoveInsectToolBar;
+import fungorium.view.toolbars.SpreadSporesToolBar;
 
 public class Controller {
 
@@ -62,6 +68,16 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        //ComboBox-ok feltöltése az aktuális adatokkal
+        for (Fungus fungus : GameModel.fungusArrayList) {
+            if (fungus.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                SpreadSporesToolBar.availableFungiComboBox.addItem(fungus);
+            }
+        }
+        for (Tecton tecton : GameModel.tectonArrayList) {
+            SpreadSporesToolBar.availableTectonsComboBox.addItem(tecton);
+        }
+
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.spreadSporesToolBar.setVisible(true);
     }
@@ -79,6 +95,16 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        for (Insect insect : GameModel.insectArrayList) {
+            if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                MoveInsectToolBar.availableInsectsComboBox.addItem(insect);
+            }
+        }
+
+        for (Tecton tecton : GameModel.tectonArrayList) {
+            MoveInsectToolBar.availableTectonsComboBox.addItem(tecton);
+        }
+
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.moveInsectToolBar.setVisible(true);
     }
@@ -87,6 +113,11 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        for (Insect insect : GameModel.insectArrayList) {
+            if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                EatSporeToolBar.availableInsectsComboBox.addItem(insect);
+            }
+        }
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.eatSporeToolBar.setVisible(true);
     }
@@ -103,12 +134,16 @@ public class Controller {
     }
 
     public static void spreadSporesConfirmPressed() {
-        //TODO
+        Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
+        selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "TESZT!!!");
         initForNextPlayer();
     }
 
     public static void moveInsectConfirmPressed() {
-        //TODO
+        Insect selectedInsect = (Insect)MoveInsectToolBar.availableInsectsComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton)MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
+        selectedInsect.move(selectedTecton);
         initForNextPlayer();
     }
 
@@ -118,7 +153,8 @@ public class Controller {
     }
 
     public static void eatSporeConfirmPressed() {
-        //TODO
+        Insect selectedInsect = (Insect)EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
+        selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
         initForNextPlayer();
     }
 
