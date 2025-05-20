@@ -11,6 +11,9 @@ import java.util.ArrayList;
  */
 public class MyceliumConnection implements FungoriumEntity {
 
+    /**
+     * A kapcsolat alapértelmezett élettartama, amelyet a rovarok elvágásakor használnak.
+     */
     public static final int CUT_DEFAULT_LIFETIME = 3;
     /**
      * A kapcsolat fennmaradó élettartama. Alapértelmezett érték: -1, amely végtelen élettartamot jelent.
@@ -38,7 +41,15 @@ public class MyceliumConnection implements FungoriumEntity {
     private boolean hasBeenTerminated = false;
 
     private String id;
+    /**
+     * Visszaadja a gombafonal azonosítóját.
+     *
+     * @return Az azonosító.
+     */
     public String getId() { return id; }
+    /**
+     * 2 paraméteres konstruktor.
+     */
     public MyceliumConnection(String id, MyceliumJunction a, MyceliumJunction b) {
         this.id = id;
         junctionA = a;
@@ -49,8 +60,24 @@ public class MyceliumConnection implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
+    /**
+     * Visszaadja a kapcsolat első végpontját.
+     *
+     * @return Az első MyceliumJunction.
+     */
     public MyceliumJunction getJunctionA() { return junctionA; }
+    /**
+     * Visszaadja a kapcsolat második végpontját.
+     *
+     * @return A második MyceliumJunction.
+     */
     public MyceliumJunction getJunctionB() { return junctionB; }
+    /**
+     * Visszaadja a gombafonal élettartamát.
+     *
+     * @return Az élettartam.
+     */
     public int getLifetime() { return lifetime; }
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
@@ -63,6 +90,10 @@ public class MyceliumConnection implements FungoriumEntity {
         junctionA.addConnection(this);
         junctionB = b;
         junctionB.addConnection(this);
+        this.id = junctionA.getPosition().getId() + " - " + junctionB.getPosition().getId() + " – " + junctionA.getPlayer().toString();
+        String log = "MyceliumConnection " + this.id + " was added created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**

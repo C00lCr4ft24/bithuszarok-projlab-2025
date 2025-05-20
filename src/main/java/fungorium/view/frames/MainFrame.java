@@ -18,6 +18,9 @@ import fungorium.view.toolbars.InsectPlayerToolBar;
 import fungorium.view.toolbars.MoveInsectToolBar;
 import fungorium.view.toolbars.SpreadSporesToolBar;
 
+/**
+ * A MainFrame osztály a fő ablakot reprezentálja, amely tartalmazza a menüt.
+ */
 public class MainFrame extends JFrame {
     public static final InsectPlayerToolBar insectPlayerToolBar = new InsectPlayerToolBar();
 
@@ -34,7 +37,10 @@ public class MainFrame extends JFrame {
     public static final EatSporeToolBar eatSporeToolBar = new EatSporeToolBar();
 
     public static final MapPanel mapPanel = new MapPanel();
-
+    
+    /**
+     * A MainFrame osztály konstruktora, amely beállítja a menüt.
+     */
     public MainFrame() {
         this.setJMenuBar(new FungoriumMenuBar());
         this.setLayout(new BorderLayout());

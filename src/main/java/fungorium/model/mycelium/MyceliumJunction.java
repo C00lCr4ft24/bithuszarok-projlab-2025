@@ -30,13 +30,31 @@ public class MyceliumJunction implements FungoriumEntity {
     private Player player;
 
     private String id;
-    public String getId() { return id; }
+    /**
+     * Visszaadja a Junction azonosítóját.
+     *
+     * @return Az azonosító.
+     */
+    public String getId() {
+        return id;
+    }
+    /**
+     * 2 paraméteres konstruktor.
+     * @param id       Az azonosító.
+     * @param position A Tecton, amelyhez a csomópont tartozik.
+     */
     public MyceliumJunction(String id, Tecton position) {
         this.id = id;
         this.position = position;
         position.addJunction(this);
     }
-
+    /**
+     * 3 paraméteres konstruktor.
+     *
+     * @param id       Az azonosító.
+     * @param position A Tecton, amelyhez a csomópont tartozik.
+     * @param player   A játékos, akihez a csomópont tartozik.
+     */
     public MyceliumJunction(String id, Tecton position, Player player) {
         this.id = id;
         this.position = position;
@@ -53,10 +71,17 @@ public class MyceliumJunction implements FungoriumEntity {
         this.position = position;
     }
 
+    /**
+     * Visszaadja a Junction-höz tartozó játékost.
+     *
+     * @return A játékos példánya.
+     */
     public Player getPlayer() {
         return player;
     }
-
+    /**
+     * Gombafonalat növeszt egy szomszédes tectonra.
+     */
     public void createConnectionToNeighbourTecton(Tecton tecton) throws IllegalStateException {
         if (this.getPosition().equals(tecton)) {
             throw new IllegalStateException("A kiválasztott tekton megegyezik a kiválasztott csomópont helyével!");
@@ -64,12 +89,8 @@ public class MyceliumJunction implements FungoriumEntity {
         if (!this.getPosition().isThisYourNeighbourInRange(tecton, 1)) {
             throw new IllegalStateException("A kiválasztott tekton nem szomszédos a gombafonal csomóponttal!");
         }
-        if (tecton.hasSpaceForJunction()) {
-                MyceliumJunction newJunction = tecton.createMyceliumJunction(this.getPlayer());
-                new MyceliumConnection(this, newJunction);
-                return;
-        }
-        throw new IllegalStateException("A kiválasztott tektonra már más játékos növesztett gombafonal csomópontot!");
+        MyceliumJunction newJunction = tecton.createMyceliumJunction(this.getPlayer());
+        new MyceliumConnection(this, newJunction);
     }
 
     /**
@@ -80,7 +101,11 @@ public class MyceliumJunction implements FungoriumEntity {
     public void addConnection(MyceliumConnection c) {
         connections.add(c);
     }
-
+    /**
+     * Visszaadja a csomóponthoz tartozó MyceliumConnection példányokat.
+     *
+     * @return A csomóponthoz tartozó MyceliumConnection példányok listája.
+     */
     public ArrayList<MyceliumConnection> getConnections() {
         return new ArrayList<>(connections);
     }
@@ -129,7 +154,7 @@ public class MyceliumJunction implements FungoriumEntity {
             String log = "Can not grow new Fungus as there is already one on " + position.getId() + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return null;
+            throw new IllegalStateException("Már van ezen a tektonon gombatest!");
         }
         try {
             position.removeSporeForFungus();
@@ -137,9 +162,9 @@ public class MyceliumJunction implements FungoriumEntity {
             String log = "Can not grow new Fungus as there is not enough spore on " + position.getId() + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return null;
+            throw new IllegalStateException("Nincs elég spóra a gombatest növesztéshez!");
         }
-        Fungus newFungus = new Fungus(id, this);
+        Fungus newFungus = new Fungus(id, this.getPlayer(), this);
         this.currentFungus = newFungus;
         return newFungus;
     }
@@ -157,7 +182,7 @@ public class MyceliumJunction implements FungoriumEntity {
      * @param newFungus Új Fungus, amit beállítunk
      */
     public void setFungus(Fungus newFungus) {
-        if(currentFungus == null) {
+        if (currentFungus == null) {
             currentFungus = newFungus;
         }
     }
@@ -185,38 +210,33 @@ public class MyceliumJunction implements FungoriumEntity {
      * A Junction megpróbálja elfogyasztani a rajta lévő Insect-et és növeszteni egy új gombatestet.
      * Ha a rovar valóban rajta van és bénult, akkor megemészti és gombatestet növeszt (ha más nem akadályozza ezt).
      *
-     * @param insect A megevésre szánt rovar.
      * @return Az új gombatest vagy null, ha nem tud újat létrehozni.
      */
-    public Fungus tryConsumeInsect(String id, Insect insect) {
-        if (!insect.isStunned()) {
-            String log = "Can not consume insect " + insect.getId() + " as it is not stunned.";
+    public Fungus tryConsumeInsect(String id) {
+        if (!position.isFungusSpaceEmpty()) {
+                String log = "Can not consume insect because fungus " + getPosition().getId()
+                        + " is already on " + id + ".";
+                System.out.println(log);
+                TestFramework.logOutput(log);
+                throw new IllegalStateException("Már van ezen a tektonon gombatest!");
+            }
+        for (Insect insect : this.getPosition().getInsects()) {
+            if (!insect.isStunned()) {
+                continue;
+            }
+
+            insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
+            Fungus newFungus = new Fungus(id, this.getPlayer(), this);
+            this.currentFungus = newFungus;
+
+            String log = "Insect " + insect.getId() + " was eaten and Fungus " + currentFungus.getId() + " grew on "
+                    + this.id + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return null;
-        }
-        if(insect.getPosition() != position) {
-            String log = "Can not consume insect " + insect.getId() + " as it is not on tecton " + position.getId() + ".";
-            System.out.println(log);
-            TestFramework.logOutput(log);
-            return null;
-        }
-        if(!position.isFungusSpaceEmpty()) {
-            String log = "Can not consume insect " + insect.getId() + " as a fungus " + currentFungus.getId() + " is already on " + id + ".";
-            System.out.println(log);
-            TestFramework.logOutput(log);
-            return null;
-        }
 
-        insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
-        Fungus newFungus = new Fungus(id, this);
-        this.currentFungus = newFungus;
-
-        String log = "Insect " + insect.getId() + " was eaten and Fungus " + currentFungus.getId() + " grew on " + this.id + ".";
-        System.out.println(log);
-        TestFramework.logOutput(log);
-
-        return newFungus;
+            return newFungus;
+        }
+        throw new IllegalStateException("Nem volt elkábított rovar a tektonon!");
     }
 
     /**
@@ -228,6 +248,7 @@ public class MyceliumJunction implements FungoriumEntity {
         return position;
     }
 
+    
     @Override
     public String toString() {
         return id;

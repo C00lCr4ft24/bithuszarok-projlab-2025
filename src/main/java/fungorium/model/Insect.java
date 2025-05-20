@@ -57,6 +57,11 @@ public class Insect implements FungoriumEntity {
         return id;
     }
 
+    /**
+     * 2 paraméteres konstruktor.
+     * @param id       Az Insect azonosítója.
+     * @param position  A játékos, akihez az Insect tartozik.
+     */
     public Insect(String id, Tecton position) {
         this.id = id;
         this.position = position;
@@ -67,7 +72,13 @@ public class Insect implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
-
+    /**
+     * 3 paraméteres konstruktor.
+     *
+     * @param id       Az Insect azonosítója.
+     * @param player   A játékos, akihez az Insect tartozik.
+     * @param position Az Insect kezdő pozíciója.
+     */
     public Insect(String id, Player player, Tecton position) {
         this.id = id;
         this.position = position;

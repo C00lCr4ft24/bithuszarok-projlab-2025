@@ -18,7 +18,7 @@ public class Tecton implements FungoriumEntity {
     /**
      * A szükséges spórák száma egy gomba növesztéséhez.
      */
-    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 250;
+    protected static final int REQ_NUTRIENT_TO_GROW_FUNGUS = 200;
     /**
      * A Tecton-on található MyceliumJunction-ok tárolója.
      */
@@ -216,7 +216,10 @@ public class Tecton implements FungoriumEntity {
                 return myceliumJunction;
             }
         }
-        return new MyceliumJunction("MJ-" + this.id + "-" + player.toString(), this, player);
+        if(this.hasSpaceForJunction()) {
+            return new MyceliumJunction("MJ-" + this.id + "-" + player.toString(), this, player);
+        }
+        throw new IllegalStateException("A kiválasztott tektonra már más játékos növesztett gombafonal csomópontot!");
     }
 
     public void addJunction(MyceliumJunction junction) {

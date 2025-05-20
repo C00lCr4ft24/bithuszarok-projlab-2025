@@ -9,14 +9,20 @@ import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
 
+/**
+ * A MoveInsectToolBar osztály a rovar mozgatásához szükséges eszköztárat reprezentálja.
+ */
 public class MoveInsectToolBar extends JToolBar {
     public static final JComboBox<Insect> availableInsectsComboBox = new JComboBox<>();
     public static final JComboBox<Tecton> availableTectonsComboBox = new JComboBox<>();
 
+    /**
+     * A MoveInsectToolBar osztály konstruktora, amely beállítja a rovar mozgatásához szükséges eszköztárat.
+     */
     public MoveInsectToolBar() {
         this.add(new JLabel("Válassz egy rovart: "));
         this.add(availableInsectsComboBox);
-        this.add(new JLabel("Válassz egy tektont célnak: "));
+        this.add(new JLabel(" Válassz egy tektont célnak: "));
         this.add(availableTectonsComboBox);
         this.add(ButtonFactory.getNewButton("Elfogad", Controller::moveInsectConfirmPressed));
 
