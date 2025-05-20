@@ -11,6 +11,9 @@ import java.util.ArrayList;
  */
 public class MyceliumConnection implements FungoriumEntity {
 
+    /**
+     * A kapcsolat alapértelmezett élettartama, amelyet a rovarok elvágásakor használnak.
+     */
     public static final int CUT_DEFAULT_LIFETIME = 3;
     /**
      * A kapcsolat fennmaradó élettartama. Alapértelmezett érték: -1, amely végtelen élettartamot jelent.
