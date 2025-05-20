@@ -290,7 +290,7 @@ public class GameModel {
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
             Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
             if (splitted != null) {
-                tectonArrayList.add(tectonArrayList.indexOf(toSplit), splitted);
+                tectonArrayList.add(tectonArrayList.indexOf(toSplit) + 1, splitted);
                 MainFrame.mapPanel.repaint();
             }
         }

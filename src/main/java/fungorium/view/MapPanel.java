@@ -22,22 +22,22 @@ public class MapPanel extends JPanel {
 
     // Player colors for fungi
     private static final Color[] PLAYER_COLORS = {
-            new Color(255, 100, 100, 220),  // Player 1 (Fungus)
-            new Color(100, 180, 255, 220),  // Player 2 (Fungus)
-            new Color(120, 255, 120, 220),  // Player 3 (Fungus)
-            new Color(255, 200, 100, 220),   // Player 4 (Fungus)
-            new Color(100, 80, 30, 220),   // Player 5 (Fungus)
-            new Color(50, 10, 30, 220)   // Player 6 (Fungus)
+            new Color(255, 100, 100, 220), // Player 1 (Fungus)
+            new Color(100, 180, 255, 220), // Player 2 (Fungus)
+            new Color(120, 255, 120, 220), // Player 3 (Fungus)
+            new Color(255, 200, 100, 220), // Player 4 (Fungus)
+            new Color(100, 80, 30, 220), // Player 5 (Fungus)
+            new Color(50, 10, 30, 220) // Player 6 (Fungus)
     };
 
     // Insect colors by player
     private static final Color[] INSECT_COLORS = {
-            new Color(200, 50, 50, 240),    // Player 1 (Insect)
-            new Color(50, 120, 200, 240),   // Player 2 (Insect)
-            new Color(50, 200, 50, 240),    // Player 3 (Insect)
-            new Color(200, 150, 50, 240),    // Player 4 (Insect)
-            new Color(100, 80, 30, 240),   // Player 5 (Fungus)
-            new Color(50, 10, 30, 240)    // Player 6 (Insect)
+            new Color(200, 50, 50, 240), // Player 1 (Insect)
+            new Color(50, 120, 200, 240), // Player 2 (Insect)
+            new Color(50, 200, 50, 240), // Player 3 (Insect)
+            new Color(200, 150, 50, 240), // Player 4 (Insect)
+            new Color(100, 80, 30, 240), // Player 5 (Fungus)
+            new Color(50, 10, 30, 240) // Player 6 (Insect)
 
     };
 
@@ -56,8 +56,7 @@ public class MapPanel extends JPanel {
         setOpaque(true);
         setBorder(BorderFactory.createCompoundBorder(
                 BorderFactory.createLineBorder(new Color(80, 80, 90), 2),
-                BorderFactory.createEmptyBorder(15, 15, 15, 15)
-        ));
+                BorderFactory.createEmptyBorder(15, 15, 15, 15)));
 
         try {
             fungusImg = ImageIO.read(getClass().getResourceAsStream("/fungus.png"));
@@ -81,12 +80,11 @@ public class MapPanel extends JPanel {
                 .max().orElse(0);
 
         int hexHeight = HEX_RADIUS * 2;
-        int hexWidth  = (int)(HEX_RADIUS * Math.sqrt(3));
+        int hexWidth = (int) (HEX_RADIUS * Math.sqrt(3));
 
         return new Dimension(
                 (maxTectonsInLevel + 2) * hexWidth + 100,
-                (levels + 3) * hexHeight + 100
-        );
+                (levels + 3) * hexHeight + 100);
     }
 
     private Map<Integer, List<Tecton>> organizeTectonsByLevel() {
@@ -149,7 +147,7 @@ public class MapPanel extends JPanel {
 
     private Point getCenterPoint(Tecton tecton) {
         Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-        int hexWidth = (int)(HEX_RADIUS * Math.sqrt(3));
+        int hexWidth = (int) (HEX_RADIUS * Math.sqrt(3));
         int hexHeight = HEX_RADIUS * 2;
         int startY = 65;
 
@@ -181,7 +179,7 @@ public class MapPanel extends JPanel {
 
     private void drawHexagonalMap(Graphics2D g2d) {
         Map<Integer, List<Tecton>> tectonsByLevel = organizeTectonsByLevel();
-        int hexWidth = (int)(HEX_RADIUS * Math.sqrt(3));
+        int hexWidth = (int) (HEX_RADIUS * Math.sqrt(3));
         int hexHeight = HEX_RADIUS * 2;
         int startY = 70;
 
@@ -193,22 +191,43 @@ public class MapPanel extends JPanel {
 
             for (int i = 0; i < tectons.size(); i++) {
                 Tecton tecton = tectons.get(i);
-                int x = levelStartX + i * hexWidth;
+                int x;
+                x = levelStartX + i * hexWidth;
                 int y = startY + level * (hexHeight - (HEX_RADIUS / 2) + 1);
-                drawHexagon(g2d, x, y, tecton);
+                drawTecton(g2d, x, y, tecton);
             }
         }
     }
 
-    private void drawHexagon(Graphics2D g2d, int centerX, int centerY, Tecton tecton) {
-        // Create hexagon shape
-        Polygon hexagon = new Polygon();
-        for (int i = 0; i < 6; i++) {
-            double angle_deg = Math.toRadians((i * 60) + 30);
-            int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
-            int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
-            hexagon.addPoint(x, y);
+    private void createTectonPolygonPoints(Polygon tectonPolygon, int centerX, int centerY, Tecton tecton) {
+        if (tecton.getId().contains("-S")) {
+            for (int i = 0; i < 4; i++) {
+                double angle_deg = Math.toRadians((i * 60) + 270);
+                int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
+                int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
+                tectonPolygon.addPoint(x, y);
+            }
+        } else if (tecton.isBroken()) {
+            for (int i = 0; i < 4; i++) {
+                double angle_deg = Math.toRadians((i * 60) + 90);
+                int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
+                int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
+                tectonPolygon.addPoint(x, y);
+            }
+        } else {
+            for (int i = 0; i < 6; i++) {
+                double angle_deg = Math.toRadians((i * 60) + 30);
+                int x = (int) (centerX + HEX_RADIUS * Math.cos(angle_deg));
+                int y = (int) (centerY + HEX_RADIUS * Math.sin(angle_deg));
+                tectonPolygon.addPoint(x, y);
+            }
         }
+    }
+
+    private void drawTecton(Graphics2D g2d, int centerX, int centerY, Tecton tecton) {
+        // Create hexagon shape
+        Polygon tectonPolygon = new Polygon();
+        createTectonPolygonPoints(tectonPolygon, centerX, centerY, tecton);
 
         // Fill hex based on content
         if (!tecton.getMyceliumJunctions().isEmpty()) {
@@ -217,13 +236,14 @@ public class MapPanel extends JPanel {
                 Player owner = junction.getFungus().getPlayer();
                 int colorIndex = GameModel.playerArrayList.indexOf(owner) % PLAYER_COLORS.length;
                 g2d.setColor(PLAYER_COLORS[colorIndex]);
-                g2d.fillPolygon(hexagon);
+                g2d.fillPolygon(tectonPolygon);
 
                 // Draw fungus visualization
                 g2d.setColor(FUNGUS_COLOR);
-                //g2d.fillOval(centerX - 10, centerY - 10, 20, 20);
+                // g2d.fillOval(centerX - 10, centerY - 10, 20, 20);
 
-                g2d.drawImage(fungusImg, centerX - (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2), null);
+                g2d.drawImage(fungusImg, centerX - (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2),
+                        null);
 
                 String ownerShortName = owner.toString().replaceAll("^([A-Za-zÁá]).*?(\\d+)$", "$1$2");
                 g2d.setColor(Color.WHITE);
@@ -233,7 +253,7 @@ public class MapPanel extends JPanel {
             } else {
                 // Just junction without fungus
                 g2d.setColor(JUNCTION_COLOR);
-                g2d.fillPolygon(hexagon);
+                g2d.fillPolygon(tectonPolygon);
             }
         } else {
             // Empty hex
@@ -241,13 +261,13 @@ public class MapPanel extends JPanel {
                     centerX - HEX_RADIUS, centerY - HEX_RADIUS, new Color(250, 250, 255),
                     centerX + HEX_RADIUS, centerY + HEX_RADIUS, new Color(230, 230, 235));
             g2d.setPaint(emptyHexGradient);
-            g2d.fillPolygon(hexagon);
+            g2d.fillPolygon(tectonPolygon);
         }
 
         // Draw outline
         g2d.setColor(HEX_BORDER_COLOR);
         g2d.setStroke(new BasicStroke(1.5f));
-        g2d.drawPolygon(hexagon);
+        g2d.drawPolygon(tectonPolygon);
 
         // Draw tecton ID
         g2d.setColor(HEX_ID_COLOR);
@@ -270,21 +290,22 @@ public class MapPanel extends JPanel {
                     int offsetY = -25 + (displayIndex / 3) * 12;
 
                     g2d.setColor(insectColor);
-                    //g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 14, 14);
+                    // g2d.fillOval(centerX + offsetX - 6, centerY + offsetY - 6, 14, 14);
 
                     g2d.drawImage(insectImg, centerX + offsetX - 6, centerY + offsetY - 6, null);
 
                     g2d.setFont(new Font("SansSerif", Font.BOLD, 11));
                     Player owner = insect.getPlayer();
                     String ownerShortName = owner.toString().replaceAll("^([A-Za-zÁá]).*?(\\d+)$", "$1$2");
-                    g2d.drawString(ownerShortName, centerX + offsetX + 3 - (fm.stringWidth(ownerShortName) / 2), centerY + offsetY + 10);
-
+                    g2d.drawString(ownerShortName, centerX + offsetX + 3 - (fm.stringWidth(ownerShortName) / 2),
+                            centerY + offsetY + 10);
 
                     displayedPlayers.add(insect.getPlayer());
                     displayIndex++;
 
                     // Max 9 insects displayed (3x3 grid)
-                    if (displayIndex >= 9) break;
+                    if (displayIndex >= 9)
+                        break;
                 }
             }
         }
@@ -303,9 +324,11 @@ public class MapPanel extends JPanel {
         if (GameModel.getSelectedTecton() == tecton) {
             g2d.setColor(SELECTION_COLOR);
             g2d.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
-            g2d.drawPolygon(hexagon);
+            g2d.drawPolygon(tectonPolygon);
         }
     }
 
-    public static void setGameModel(GameModel model) { gameModel = model; }
+    public static void setGameModel(GameModel model) {
+        gameModel = model;
+    }
 }
