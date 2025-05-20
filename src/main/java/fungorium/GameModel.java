@@ -136,7 +136,7 @@ public class GameModel {
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
         if(tecton.isFungusSpaceEmpty()) {
             var junction = tecton.createMyceliumJunction(player);
-            var fungus = new Fungus("F0", player, junction);
+            var fungus = new Fungus("F" + player.getNextEntityId() + "-" + player.toString(), player, junction);
             junction.setFungus(fungus);
             fungusArrayList.add(fungus);
         }
@@ -147,7 +147,7 @@ public class GameModel {
         if(player.getType() != PlayerTypes.ROVARASZ) { return; }
 
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
-        new Insect("I0", player, tecton);
+        new Insect("I" + player.getNextEntityId() + "-" + player.toString(), player, tecton);
         updateInsectList();
     }
 
