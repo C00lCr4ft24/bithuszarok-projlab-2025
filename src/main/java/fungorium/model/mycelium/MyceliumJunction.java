@@ -3,6 +3,7 @@ package fungorium.model.mycelium;
 import fungorium.TestFramework;
 import fungorium.model.FungoriumEntity;
 import fungorium.model.Insect;
+import fungorium.model.player.Player;
 import fungorium.model.tecton.Tecton;
 
 import java.util.ArrayList;
@@ -26,12 +27,20 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     private Fungus currentFungus;
 
+    private Player player;
 
     private String id;
     public String getId() { return id; }
     public MyceliumJunction(String id, Tecton position) {
         this.id = id;
         this.position = position;
+        position.addJunction(this);
+    }
+
+    public MyceliumJunction(String id, Tecton position, Player player) {
+        this.id = id;
+        this.position = position;
+        this.player = player;
         position.addJunction(this);
     }
     
@@ -42,6 +51,10 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public MyceliumJunction(Tecton position) {
         this.position = position;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     /**

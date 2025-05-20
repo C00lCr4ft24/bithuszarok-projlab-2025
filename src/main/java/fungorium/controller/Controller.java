@@ -5,6 +5,8 @@ import javax.swing.JOptionPane;
 import fungorium.GameModel;
 import fungorium.model.Insect;
 import fungorium.model.mycelium.Fungus;
+import fungorium.model.mycelium.MyceliumConnection;
+import fungorium.model.mycelium.MyceliumJunction;
 import fungorium.model.player.PlayerTypes;
 import fungorium.model.spore.SporeTypes;
 import fungorium.model.tecton.Tecton;
@@ -13,6 +15,7 @@ import fungorium.view.frames.MainFrame;
 import fungorium.view.toolbars.EatSporeToolBar;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
+import fungorium.view.toolbars.GrowMyceliumToolBar;
 import fungorium.view.toolbars.InsectPlayerToolBar;
 import fungorium.view.toolbars.MoveInsectToolBar;
 import fungorium.view.toolbars.SpreadSporesToolBar;
@@ -46,6 +49,18 @@ public class Controller {
 
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
+
+        GrowMyceliumToolBar.availableJunctionsComboBox.removeAllItems();
+        GrowMyceliumToolBar.availableTectonsComboBox.removeAllItems();
+
+        for (MyceliumJunction junction : GameModel.junctionArrayList) {
+            if(junction.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                GrowMyceliumToolBar.availableJunctionsComboBox.addItem(junction);
+            }
+        }
+        for (Tecton tecton : GameModel.tectonArrayList) {
+            GrowMyceliumToolBar.availableTectonsComboBox.addItem(tecton);
+        }
 
         // Gombafonal növesztéshez tartozó eszköztár megjelenítése
         MainFrame.growMyceliumToolBar.setVisible(true);
@@ -136,8 +151,19 @@ public class Controller {
 
     // MŰVELETEK MEGERŐSÍTÉSE
     public static void growMyceliumConfirmPressed() {
-        //TODO
-        initForNextPlayer();
+        MyceliumJunction selectedJunction = (MyceliumJunction)GrowMyceliumToolBar.availableJunctionsComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton)GrowMyceliumToolBar.availableTectonsComboBox.getSelectedItem();
+        try {
+            if (selectedJunction.getPosition().isThisYourNeighbourInRange(selectedTecton, 1)){
+                MyceliumJunction newJunction = selectedTecton.createMyceliumJunction(selectedJunction.getPlayer());
+                new MyceliumConnection(selectedJunction, newJunction);
+                initForNextPlayer();
+            } else {
+                throw new IllegalStateException("A kiválasztott tekton nem szomszédos a gombafonal csomóponttal!");
+            }
+        } catch (IllegalStateException e) {
+            showErrorMessageDialog(e);
+        }
     }
 
     public static void growFungusConfirmPressed() {

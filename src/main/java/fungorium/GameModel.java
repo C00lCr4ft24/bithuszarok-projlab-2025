@@ -130,7 +130,7 @@ public class GameModel {
 
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
         if(tecton.isFungusSpaceEmpty()) {
-            var junction = tecton.createMyceliumJunction();
+            var junction = tecton.createMyceliumJunction(player);
             var fungus = new Fungus("F0", player, junction);
             junction.setFungus(fungus);
             fungusArrayList.add(fungus);

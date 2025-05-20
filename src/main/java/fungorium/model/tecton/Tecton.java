@@ -5,6 +5,7 @@ import fungorium.model.FungoriumEntity;
 import fungorium.model.Insect;
 import fungorium.model.mycelium.MyceliumConnection;
 import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.player.Player;
 import fungorium.model.spore.Spore;
 
 import java.util.*;
@@ -186,7 +187,7 @@ public class Tecton implements FungoriumEntity {
                 MyceliumConnection toBeChangedConnection = mj.getMyceliumConnectionByOtherEndTecton(tempTecton);
                 if (toBeChangedConnection != null) {
                     if (newMyceliumJunction == null) {
-                        newMyceliumJunction = newTecton.createMyceliumJunction();
+                        newMyceliumJunction = newTecton.createMyceliumJunction(mj.getPlayer());
                     }
                     mj.removeConnection(toBeChangedConnection);
                     newMyceliumJunction.addConnection(toBeChangedConnection);
@@ -206,10 +207,13 @@ public class Tecton implements FungoriumEntity {
      *
      * @return A létrehozott MyceliumJunction.
      */
-    public MyceliumJunction createMyceliumJunction() { //--------------------------------------------------------------------------------------------------------
-        MyceliumJunction junction = new MyceliumJunction(this);
-        myceliumJunctions.add(junction);
-        return junction;
+    public MyceliumJunction createMyceliumJunction(Player player) { //--------------------------------------------------------------------------------------------------------
+        for (MyceliumJunction myceliumJunction : myceliumJunctions) {
+            if (myceliumJunction.getPlayer().equals(player)) {
+                return myceliumJunction;
+            }
+        }
+        return new MyceliumJunction("MJ0", this, player);
     }
 
     public void addJunction(MyceliumJunction junction) {
