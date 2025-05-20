@@ -63,7 +63,10 @@ public class GameModel {
 
     public static void incrementCurrentPlayerIndex() {
         currentPlayerIndex++;
-        if(currentPlayerIndex >= playerArrayList.size()) { executeAllgameStep(); }
+        if(currentPlayerIndex >= playerArrayList.size()) {
+            executeAllgameStep();
+            updateAllList();
+        }
         currentPlayerIndex %= playerArrayList.size();
     }
 
@@ -111,11 +114,8 @@ public class GameModel {
     }
 
     public static void executeAPlayerRound() {
+        updateAllList();
         incrementCurrentPlayerIndex();
-        updateFungusList();
-        updateInsectList();
-        updateJunctionList();
-        updateSporeList();
     }
     public static void initBeforeStart() {
         createMap();                                //Tectonok generalasa
@@ -235,6 +235,14 @@ public class GameModel {
         throw new IllegalArgumentException("No Spore with id " + id + " exists");
     }
 
+    public static void updateAllList(){
+        updateSporeList();
+        updateFungusList();
+        updateJunctionList();
+        updateConnectionList();
+        updateInsectList();
+    }
+
     public static void updateSporeList() {
         sporeArrayList.clear();
         for(Tecton tecton : tectonArrayList ) {
@@ -262,7 +270,7 @@ public class GameModel {
         connectionArrayList.clear();
         Set<MyceliumConnection> list = new HashSet<>();
         for(Tecton tecton : tectonArrayList ) {
-            for(MyceliumJunction mj : junctionArrayList) {
+            for(MyceliumJunction mj : tecton.getMyceliumJunctions()) {
                 list.addAll(mj.getConnections());
             }
         }
@@ -280,11 +288,11 @@ public class GameModel {
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
         }
-        for(MyceliumConnection myceliumConnection : connectionArrayList) {
-            myceliumConnection.gameStep();
-        }
         for(MyceliumJunction mycjunction : junctionArrayList) {
             mycjunction.gameStep();
+        }
+        for(MyceliumConnection myceliumConnection : connectionArrayList) {
+            myceliumConnection.gameStep();
         }
         for(Insect insect : insectArrayList) {
             insect.gameStep();
@@ -292,7 +300,6 @@ public class GameModel {
         for(Tecton tecton : tectonArrayList ) {
             tecton.gameStep();
         }
-        updateSporeList();
         String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
         System.out.println(log);
         TestFramework.logOutput(log);
