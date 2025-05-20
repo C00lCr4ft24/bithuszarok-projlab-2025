@@ -63,6 +63,10 @@ public class MyceliumConnection implements FungoriumEntity {
         junctionA.addConnection(this);
         junctionB = b;
         junctionB.addConnection(this);
+        this.id = junctionA.getPosition().getId() + " - " + junctionB.getPosition().getId() + " – " + junctionA.getPlayer().toString();
+        String log = "MyceliumConnection " + this.id + " was added created.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
