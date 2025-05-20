@@ -186,7 +186,9 @@ public class Insect implements FungoriumEntity {
      */
     public void move(Tecton target) throws IllegalStateException {
         // printAction("move");
-        if (target == null) { return; }
+        if (target == null || target.equals(position)) {
+            throw new IllegalStateException("A kiválasztott tekton megegyezik a rovar pozíciójával!");
+        }
         if (isStunned) {
             String log = "Insect " + id + " can not move to " + target.getId() + " as it is stunned.";
             System.out.println(log);
