@@ -175,8 +175,8 @@ public class MapPanel extends JPanel {
         g2d.setColor(new Color(80, 80, 90));
         g2d.setFont(new Font("SansSerif", Font.BOLD, 24));
         FontMetrics fm = g2d.getFontMetrics();
-        g2d.drawString("Loading map...",
-                (getWidth() - fm.stringWidth("Loading map...")) / 2,
+        g2d.drawString("Pálya betöltése...",
+                (getWidth() - fm.stringWidth("Pálya betöltése...")) / 2,
                 (getHeight() - fm.getHeight()) / 2 + fm.getAscent());
     }
 
