@@ -154,13 +154,8 @@ public class Controller {
         MyceliumJunction selectedJunction = (MyceliumJunction)GrowMyceliumToolBar.availableJunctionsComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)GrowMyceliumToolBar.availableTectonsComboBox.getSelectedItem();
         try {
-            if (selectedJunction.getPosition().isThisYourNeighbourInRange(selectedTecton, 1)){
-                MyceliumJunction newJunction = selectedTecton.createMyceliumJunction(selectedJunction.getPlayer());
-                new MyceliumConnection(selectedJunction, newJunction);
-                initForNextPlayer();
-            } else {
-                throw new IllegalStateException("A kiválasztott tekton nem szomszédos a gombafonal csomóponttal!");
-            }
+            selectedJunction.createConnectionToNeighbourTecton(selectedTecton);
+            initForNextPlayer();
         } catch (IllegalStateException e) {
             showErrorMessageDialog(e);
         }

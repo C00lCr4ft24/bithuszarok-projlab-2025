@@ -213,7 +213,7 @@ public class Tecton implements FungoriumEntity {
                 return myceliumJunction;
             }
         }
-        return new MyceliumJunction("MJ0", this, player);
+        return new MyceliumJunction("MJ-" + this.id + "-" + player.toString(), this, player);
     }
 
     public void addJunction(MyceliumJunction junction) {

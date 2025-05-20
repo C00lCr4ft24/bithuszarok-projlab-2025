@@ -57,6 +57,21 @@ public class MyceliumJunction implements FungoriumEntity {
         return player;
     }
 
+    public void createConnectionToNeighbourTecton(Tecton tecton) throws IllegalStateException {
+        if (this.getPosition().equals(tecton)) {
+            throw new IllegalStateException("A kiválasztott tekton megegyezik a kiválasztott csomópont helyével!");
+        }
+        if (!this.getPosition().isThisYourNeighbourInRange(tecton, 1)) {
+            throw new IllegalStateException("A kiválasztott tekton nem szomszédos a gombafonal csomóponttal!");
+        }
+        if (tecton.hasSpaceForJunction()) {
+                MyceliumJunction newJunction = tecton.createMyceliumJunction(this.getPlayer());
+                new MyceliumConnection(this, newJunction);
+                return;
+        }
+        throw new IllegalStateException("A kiválasztott tektonra már más játékos növesztett gombafonal csomópontot!");
+    }
+
     /**
      * Hozzáad egy új kapcsolatot ehhez a csomóponthoz.
      *
@@ -211,6 +226,11 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public Tecton getPosition() {
         return position;
+    }
+
+    @Override
+    public String toString() {
+        return id;
     }
 
     /**
