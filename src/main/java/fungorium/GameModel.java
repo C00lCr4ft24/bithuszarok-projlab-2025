@@ -168,7 +168,7 @@ public class GameModel {
         }
         if(currentPlayer.getType().equals(PlayerTypes.GOMBASZ )) {
             for(MyceliumJunction junction : junctionArrayList) {
-                if(junction.getFungus().getPlayer().equals(currentPlayer)) {
+                if(junction.hasAFungus() && junction.getFungus().getPlayer().equals(currentPlayer)) {
                     list.add(junction.getPosition());
                 }
             }

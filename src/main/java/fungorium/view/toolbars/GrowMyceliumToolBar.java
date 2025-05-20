@@ -10,9 +10,9 @@ import javax.swing.JToolBar;
 public class GrowMyceliumToolBar extends JToolBar {
     
     public GrowMyceliumToolBar() {
-        this.add(new JLabel("Select a tecton to grow a mycelium to: "));
+        this.add(new JLabel("Válassz egy tektont célnak a gombafonal növesztéshez: "));
         this.add(new JComboBox<>());
-        this.add(ButtonFactory.getNewButton("Confirm", Controller::growMyceliumConfirmPressed));
+        this.add(ButtonFactory.getNewButton("Elfogad", Controller::growMyceliumConfirmPressed));
 
         this.setFloatable(false);
         this.setVisible(false);

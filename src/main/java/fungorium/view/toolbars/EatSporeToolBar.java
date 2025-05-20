@@ -1,6 +1,5 @@
 package fungorium.view.toolbars;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
@@ -12,13 +11,11 @@ import fungorium.view.buttons.ButtonFactory;
 public class EatSporeToolBar extends JToolBar {
 
     public static final JComboBox<Insect> availableInsectsComboBox = new JComboBox<>();
-    public static final JButton confirmButton = ButtonFactory.getNewButton("Confirm",
-    Controller::eatSporeConfirmPressed);
 
     public EatSporeToolBar() {
-        this.add(new JLabel("Select an Insect to eat a spore with: "));
+        this.add(new JLabel("Válassz egy rovart a spóra evéshez: "));
         this.add(availableInsectsComboBox);
-        this.add(confirmButton);
+        this.add(ButtonFactory.getNewButton("Elfogad", Controller::eatSporeConfirmPressed));
 
         this.setFloatable(false);
         this.setVisible(false);

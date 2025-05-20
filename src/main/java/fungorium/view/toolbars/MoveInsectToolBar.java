@@ -14,11 +14,11 @@ public class MoveInsectToolBar extends JToolBar {
     public static final JComboBox<Tecton> availableTectonsComboBox = new JComboBox<>();
 
     public MoveInsectToolBar() {
-        this.add(new JLabel("Select an Insect to move: "));
+        this.add(new JLabel("Válassz egy rovart: "));
         this.add(availableInsectsComboBox);
-        this.add(new JLabel("Select a Tecton to move on: "));
+        this.add(new JLabel("Válassz egy tektont célnak: "));
         this.add(availableTectonsComboBox);
-        this.add(ButtonFactory.getNewButton("Confirm", Controller::moveInsectConfirmPressed));
+        this.add(ButtonFactory.getNewButton("Elfogad", Controller::moveInsectConfirmPressed));
 
         this.setFloatable(false);
         this.setVisible(false);

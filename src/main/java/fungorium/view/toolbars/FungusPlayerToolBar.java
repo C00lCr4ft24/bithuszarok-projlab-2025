@@ -7,11 +7,11 @@ import fungorium.controller.Controller;
 import fungorium.view.buttons.ButtonFactory;
 
 public class FungusPlayerToolBar extends JToolBar {
-    public static final JButton growMyceliumButton = ButtonFactory.getNewButton("Grow Mycelium",
+    public static final JButton growMyceliumButton = ButtonFactory.getNewButton("Gombafonal növesztés",
             Controller::growMyceliumButtonPressed);
-    public static final JButton growFungusButton = ButtonFactory.getNewButton("Grow Fungus",
+    public static final JButton growFungusButton = ButtonFactory.getNewButton("Gombatest növesztés",
             Controller::growFungusButtonPressed);
-    public static final JButton spreadSporesButton = ButtonFactory.getNewButton("Spread Spores",
+    public static final JButton spreadSporesButton = ButtonFactory.getNewButton("Spóra szórás",
             Controller::spreadSporesButtonPressed);
 
     public FungusPlayerToolBar() {

@@ -146,8 +146,10 @@ public class Controller {
     }
 
     public static void spreadSporesConfirmPressed() {
+        //kiválasztott elemek lekérése a ComboBox-okból
         Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
+        //Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
             selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "SPORE");
             initForNextPlayer();
@@ -157,6 +159,7 @@ public class Controller {
     }
 
     public static void moveInsectConfirmPressed() {
+        //kiválasztott elemek lekérése a ComboBox-okból
         Insect selectedInsect = (Insect)MoveInsectToolBar.availableInsectsComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
         selectedInsect.move(selectedTecton);
@@ -169,7 +172,9 @@ public class Controller {
     }
 
     public static void eatSporeConfirmPressed() {
+        //kiválasztott elemek lekérése a ComboBox-okból
         Insect selectedInsect = (Insect)EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
+        //Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
             selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
             initForNextPlayer();

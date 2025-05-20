@@ -14,11 +14,11 @@ public class SpreadSporesToolBar extends JToolBar {
     public static final JComboBox<Tecton> availableTectonsComboBox = new JComboBox<>();
 
     public SpreadSporesToolBar() {
-        this.add(new JLabel("Select a Fungus to spread spores with: "));
+        this.add(new JLabel("Válassz egy gombatestet: "));
         this.add(availableFungiComboBox);
-        this.add(new JLabel("Select a Tecton to spread spores on: "));
+        this.add(new JLabel("Válassz egy tektont célnak a spóra szóráshoz: "));
         this.add(availableTectonsComboBox);
-        this.add(ButtonFactory.getNewButton("Confirm", Controller::spreadSporesConfirmPressed));
+        this.add(ButtonFactory.getNewButton("Elfogad", Controller::spreadSporesConfirmPressed));
 
         this.setFloatable(false);
         this.setVisible(false);
