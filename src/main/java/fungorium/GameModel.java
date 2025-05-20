@@ -142,7 +142,7 @@ public class GameModel {
         if(player.getType() != PlayerTypes.ROVARASZ) { return; }
 
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
-        tecton.putInsect(new Insect("I0", player, tecton));
+        new Insect("I0", player, tecton);
         updateInsectList();
     }
 
