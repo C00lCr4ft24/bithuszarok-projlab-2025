@@ -10,6 +10,7 @@ import fungorium.model.spore.SporeTypes;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.MapPanel;
 import fungorium.view.frames.MainFrame;
+import fungorium.view.toolbars.EatSporeToolBar;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
 import fungorium.view.toolbars.InsectPlayerToolBar;
@@ -112,6 +113,11 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        for (Insect insect : GameModel.insectArrayList) {
+            if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                EatSporeToolBar.availableInsectsComboBox.addItem(insect);
+            }
+        }
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.eatSporeToolBar.setVisible(true);
     }
@@ -147,7 +153,8 @@ public class Controller {
     }
 
     public static void eatSporeConfirmPressed() {
-        //TODO
+        Insect selectedInsect = (Insect)EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
+        selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
         initForNextPlayer();
     }
 
