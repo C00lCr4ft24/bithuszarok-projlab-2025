@@ -129,7 +129,7 @@ public class MyceliumJunction implements FungoriumEntity {
             String log = "Can not grow new Fungus as there is already one on " + position.getId() + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return null;
+            throw new IllegalStateException("Már van ezen a gombafonal csomóponton gombatest!");
         }
         try {
             position.removeSporeForFungus();
@@ -137,9 +137,9 @@ public class MyceliumJunction implements FungoriumEntity {
             String log = "Can not grow new Fungus as there is not enough spore on " + position.getId() + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return null;
+            throw new IllegalStateException("Nincs elég spóra a gombatest növesztéshez!");
         }
-        Fungus newFungus = new Fungus(id, this);
+        Fungus newFungus = new Fungus(id, this.getPlayer(), this);
         this.currentFungus = newFungus;
         return newFungus;
     }
@@ -209,7 +209,7 @@ public class MyceliumJunction implements FungoriumEntity {
         }
 
         insect.getPosition().removeInsect(insect); // Insect eltavolitasa a Tectonrol
-        Fungus newFungus = new Fungus(id, this);
+        Fungus newFungus = new Fungus(id, this.getPlayer(), this);
         this.currentFungus = newFungus;
 
         String log = "Insect " + insect.getId() + " was eaten and Fungus " + currentFungus.getId() + " grew on " + this.id + ".";

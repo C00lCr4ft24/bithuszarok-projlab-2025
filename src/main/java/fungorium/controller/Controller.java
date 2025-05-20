@@ -15,6 +15,7 @@ import fungorium.view.frames.MainFrame;
 import fungorium.view.toolbars.EatSporeToolBar;
 import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
+import fungorium.view.toolbars.GrowFungusToolBar;
 import fungorium.view.toolbars.GrowMyceliumToolBar;
 import fungorium.view.toolbars.InsectPlayerToolBar;
 import fungorium.view.toolbars.MoveInsectToolBar;
@@ -73,6 +74,13 @@ public class Controller {
 
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
+
+        GrowFungusToolBar.availableMyceliumJunctions.removeAllItems();
+        for (MyceliumJunction myceliumJunction : GameModel.junctionArrayList) {
+            if (myceliumJunction.getPlayer().equals(GameModel.getCurrentPlayer())) {
+                GrowFungusToolBar.availableMyceliumJunctions.addItem(myceliumJunction);
+            }
+        }
 
         // Gombafonal növesztéshez tartozó eszköztár megjelenítése
         MainFrame.growFungusToolBar.setVisible(true);
@@ -162,8 +170,13 @@ public class Controller {
     }
 
     public static void growFungusConfirmPressed() {
-        //TODO
-        initForNextPlayer();
+        MyceliumJunction selectedJunction = (MyceliumJunction)GrowFungusToolBar.availableMyceliumJunctions.getSelectedItem();
+        try {
+            selectedJunction.createFungus("F" + selectedJunction.getPlayer().getNextEntityId() + "-" + selectedJunction.getPlayer().toString());
+            initForNextPlayer();
+        } catch (IllegalStateException e) {
+            showErrorMessageDialog(e);
+        }
     }
 
     public static void spreadSporesConfirmPressed() {
