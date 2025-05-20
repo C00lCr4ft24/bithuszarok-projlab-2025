@@ -1,6 +1,5 @@
 package fungorium.controller;
 
-import javax.swing.ComboBoxModel;
 import javax.swing.JOptionPane;
 
 import fungorium.GameModel;
@@ -150,11 +149,10 @@ public class Controller {
         Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
         try {
-            selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "TESZT!!!");
+            selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "SPORE");
             initForNextPlayer();
         } catch (IllegalStateException e) {
-            JOptionPane.showMessageDialog(null, e, "Rossz lépés!", JOptionPane.OK_OPTION);
-            System.err.println(e.getLocalizedMessage());
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Rossz lépés!", JOptionPane.OK_OPTION);
         }
     }
 
@@ -172,8 +170,12 @@ public class Controller {
 
     public static void eatSporeConfirmPressed() {
         Insect selectedInsect = (Insect)EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
-        selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
-        initForNextPlayer();
+        try {
+            selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
+            initForNextPlayer();
+        } catch (IllegalStateException e) {
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Hibás lépés!", JOptionPane.OK_OPTION);
+        }
     }
 
     private static void hideActionToolBars() {
@@ -205,7 +207,7 @@ public class Controller {
         }
     }
 
-    private static void initForNextPlayer() {
+    public static void initForNextPlayer() {
         GameModel.executeAPlayerRound();
         updateSelectedTectonComboBox();
         GameSettingsToolBar.playerNameTextField.setText(GameModel.getCurrentPlayer().toString());

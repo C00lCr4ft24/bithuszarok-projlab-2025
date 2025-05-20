@@ -95,7 +95,7 @@ public class Fungus implements FungoriumEntity {
     public boolean spreadSpores(Tecton target, SporeTypes sporeType, String id) throws IllegalStateException {
         boolean fungusHasDied = false;
         if (!canSpreadSpore) {
-            String log = "Fungus " + id + " can not spread spores.";
+            String log = "Fungus " + this.id + " can not spread spores.";
             System.out.println(log);
             TestFramework.logOutput(log);
             throw new IllegalStateException("A kiválasztott gombatest nem tud spórát szórni még, "

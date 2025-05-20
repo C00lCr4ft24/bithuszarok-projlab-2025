@@ -15,20 +15,18 @@ public class GameSettingsToolBar extends JToolBar {
 
     public static final JTextField fungusField = new JTextField();
     public static final JTextField insectField = new JTextField();
-    public static final JButton newGameButton = ButtonFactory.getNewButton("New Game", Controller::newGameButtonPressed);
+    public static final JButton newGameButton = ButtonFactory.getNewButton("Új játék", Controller::newGameButtonPressed);
     public static final JTextField playerNameTextField = new JTextField();
-
-    public static final selectedTectonText selectedTectonText       = new selectedTectonText();
-    public static final selectedTectonComboBox selectedTectonComboBox = new selectedTectonComboBox();
+    public static final JButton skipStepButton = ButtonFactory.getNewButton("Lépés kihagyása", Controller::initForNextPlayer);
+    public static final JComboBox<Tecton> selectedTectonComboBox = new JComboBox<>();
 
     
     public GameSettingsToolBar() {
         setFloatable(false);
-        setLayout(new GridLayout(0, 4));
+        setLayout(new GridLayout(0, 5));
 
-        JTextArea fungusText = new JTextArea("Gombászok Száma: ");
+        JLabel fungusText = new JLabel("Gombászok Száma: ");
         fungusText.setFocusable(false);
-        fungusText.setEditable(false);
         add(fungusText);
 
         fungusField.setText("6");
@@ -39,15 +37,16 @@ public class GameSettingsToolBar extends JToolBar {
         playerNameTextField.setEditable(false);
         add(playerNameTextField);
 
-        JTextArea insectText = new JTextArea("Rovarászok Száma: ");
-        insectText.setEditable(false);
+        add(skipStepButton);
+
+        JLabel insectText = new JLabel("Rovarászok Száma: ");
         insectText.setFocusable(false);
         add(insectText);
 
         insectField.setText("6");
         add(insectField);
 
-        add(selectedTectonText);
+        add(new JLabel("Kiválasztott tekton: "));
         add(selectedTectonComboBox);
 
         DocumentListener listener = new DocumentListener() {
@@ -70,46 +69,6 @@ public class GameSettingsToolBar extends JToolBar {
             return !s.isEmpty() && Integer.parseInt(s) > 0 && Integer.parseInt(s) < 7;
         } catch (NumberFormatException e) {
             return false;
-        }
-    }
-
-
-
-    public void addNewGameButtonActionListener(ActionListener l) { newGameButton.addActionListener(l); }
-
-
-    public static class selectedTectonText extends JTextPane {
-        public selectedTectonText() {
-            setEditable(false);
-            setFocusable(false);
-            setText("Selected Tecton:");
-        }
-    }
-
-
-
-
-
-    public selectedTectonComboBox getSelectedTectonComboBox() { return selectedTectonComboBox; }
-
-    public void setSelecedTectonComboBoxListener(ActionListener listener) { selectedTectonComboBox.addActionListener(listener); }
-
-    public static class selectedTectonComboBox extends JComboBox<Tecton> {
-        public selectedTectonComboBox() {
-            setEditable(false);
-        }
-
-        public void update(GameModel gameModel) {
-            Tecton previouslySelected = (Tecton)getSelectedItem();
-            removeAllItems();
-            for (Tecton tecton : gameModel.tectonArrayList) {
-                addItem(tecton);
-            }
-            if (previouslySelected != null) {
-                setSelectedItem(previouslySelected);
-            } else if (gameModel.getSelectedTecton() != null) {
-                setSelectedItem(gameModel.getSelectedTecton());
-            }
         }
     }
 }

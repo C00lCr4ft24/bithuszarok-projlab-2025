@@ -150,12 +150,17 @@ public class Insect implements FungoriumEntity {
      *
      * @param spore A {@link Spore}, amelyet a rovar elfogyaszt.
      */
-    public void eatSpore(Spore spore) {
+    public void eatSpore(Spore spore) throws IllegalStateException {
         if(spore == null) {
             String log = "Insect " + id + " tried to eat a spore, but there was no spore to eat.";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return;
+            throw new IllegalStateException("A kiválaszott rovar tektonján nincs spóra!");
+        }
+        if(this.isStunned) {
+            String log = "Insect " + id + " tried to eat a spore, but it was stunned.";
+            System.out.println(log);
+            throw new IllegalStateException("A kiválasztott rovar kábítás hatása alatt áll!");
         }
         position.removeSpore(spore); // spora eltavolitasa a tectonrol
         eatenNutrient += spore.getNutrientValue(); // spora tapanyag hozzaadasa
@@ -178,7 +183,7 @@ public class Insect implements FungoriumEntity {
             String log = "Insect " + id + " can not move to " + target.getId() + " as it is stunned.";
             System.out.println(log);
             TestFramework.logOutput(log);
-            return;
+            throw new IllegalStateException("A kiválasztott rovar kábítás hatása alatt áll!");
         }
 
         int currentSpeed = 0;
