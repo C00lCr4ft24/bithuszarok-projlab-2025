@@ -129,7 +129,7 @@ public class Controller {
 
     public static void spreadSporesConfirmPressed() {
         Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
-        Tecton selectedTecton = (Tecton)MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
         selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "TESZT!!!");
         initForNextPlayer();
     }
