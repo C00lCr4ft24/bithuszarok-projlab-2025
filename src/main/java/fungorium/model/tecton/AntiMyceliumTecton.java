@@ -55,7 +55,7 @@ public class AntiMyceliumTecton extends Tecton {
      */
     @Override
     protected Tecton createNewInstance() {
-        return new AntiMyceliumTecton();
+        return new AntiMyceliumTecton(this.id + "-S");
     }
 
     /**

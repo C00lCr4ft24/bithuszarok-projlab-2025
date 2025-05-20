@@ -40,7 +40,7 @@ public class AntiCrossingTecton extends Tecton {
      */
     @Override
     protected Tecton createNewInstance() {
-        return new AntiCrossingTecton();
+        return new AntiCrossingTecton(this.id + "-S");
     }
 
     /**

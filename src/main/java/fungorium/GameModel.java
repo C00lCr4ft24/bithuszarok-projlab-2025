@@ -10,6 +10,7 @@ import fungorium.model.player.PlayerTypes;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 import fungorium.model.tecton.TectonFactory;
+import fungorium.view.frames.MainFrame;
 
 import java.util.*;
 
@@ -285,6 +286,14 @@ public class GameModel {
     }
 
     public static void executeAllgameStep() {
+        if(random.nextInt(10) <= 10) { //Tesztelés miatt 100% eséllyel törik ketté tekton
+            Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
+            Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
+            if (splitted != null) {
+                tectonArrayList.add(tectonArrayList.indexOf(toSplit), splitted);
+                MainFrame.mapPanel.repaint();
+            }
+        }
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
         }

@@ -37,7 +37,7 @@ public class PreserverTecton extends Tecton {
      */
     @Override
     protected Tecton createNewInstance() {
-        return new PreserverTecton();
+        return new PreserverTecton(this.id + "-S");
     }
 
     /**

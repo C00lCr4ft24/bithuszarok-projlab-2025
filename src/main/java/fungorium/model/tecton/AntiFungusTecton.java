@@ -39,7 +39,7 @@ public class AntiFungusTecton extends Tecton {
      */
     @Override
     protected Tecton createNewInstance() {
-        return new AntiFungusTecton();
+        return new AntiFungusTecton(this.id + "-S");
     }
 
     /**

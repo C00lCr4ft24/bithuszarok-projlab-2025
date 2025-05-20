@@ -92,7 +92,7 @@ public class Tecton implements FungoriumEntity {
      * @return Az példány, melynek megyezik az osztály típusa azzal, akin hívódik.
      */
     protected Tecton createNewInstance() {
-        return new Tecton();
+        return new Tecton(this.id + "-S");
     }
 
 
