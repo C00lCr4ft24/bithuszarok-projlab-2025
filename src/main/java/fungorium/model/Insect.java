@@ -7,6 +7,7 @@ import fungorium.model.player.Player;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -185,8 +186,7 @@ public class Insect implements FungoriumEntity {
      */
     public void move(Tecton target) throws IllegalStateException {
         // printAction("move");
-        if (target == null)
-            return;
+        if (target == null) { return; }
         if (isStunned) {
             String log = "Insect " + id + " can not move to " + target.getId() + " as it is stunned.";
             System.out.println(log);
@@ -236,11 +236,15 @@ public class Insect implements FungoriumEntity {
             }
 
             for (MyceliumConnection conn : current.getConnections()) {
-                MyceliumJunction neighbor = conn.getOtherEnd(current);
-                if (neighbor != null && !visited.contains(neighbor)) {
-                    visited.add(neighbor);
-                    queue.add(neighbor);
-                    distances.put(neighbor, currentDistance + 1);
+                MyceliumJunction neighborJ = conn.getOtherEnd(current);
+                Tecton neigborT = neighborJ.getPosition();
+                ArrayList<MyceliumJunction> allNeighborJ = neigborT.getMyceliumJunctions();
+                for(MyceliumJunction j : allNeighborJ) {
+                    if (j != null && !visited.contains(j)) {
+                        visited.add(j);
+                        queue.add(j);
+                        distances.put(j, currentDistance + 1);
+                    }
                 }
             }
         }
