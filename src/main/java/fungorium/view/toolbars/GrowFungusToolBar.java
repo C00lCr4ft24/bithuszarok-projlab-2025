@@ -15,7 +15,7 @@ public class GrowFungusToolBar extends JToolBar {
     public GrowFungusToolBar() {
         this.add(new JLabel("Válassz egy gombafonal csomópontot célnak a gombatest növesztéshez: "));
         this.add(availableMyceliumJunctions);
-        this.add(new JLabel("Válassz egy módszert a növesztéshez: "));
+        this.add(new JLabel(" Válassz egy módszert a növesztéshez: "));
         growMode.addItem("Spórából");
         growMode.addItem("Elkábított rovarból");
         this.add(growMode);

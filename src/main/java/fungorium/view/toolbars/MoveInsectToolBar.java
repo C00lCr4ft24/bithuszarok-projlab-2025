@@ -16,7 +16,7 @@ public class MoveInsectToolBar extends JToolBar {
     public MoveInsectToolBar() {
         this.add(new JLabel("Válassz egy rovart: "));
         this.add(availableInsectsComboBox);
-        this.add(new JLabel("Válassz egy tektont célnak: "));
+        this.add(new JLabel(" Válassz egy tektont célnak: "));
         this.add(availableTectonsComboBox);
         this.add(ButtonFactory.getNewButton("Elfogad", Controller::moveInsectConfirmPressed));
 

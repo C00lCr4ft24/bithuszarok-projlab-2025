@@ -16,7 +16,7 @@ public class GrowMyceliumToolBar extends JToolBar {
     public GrowMyceliumToolBar() {
         this.add(new JLabel("Válassz egy gombafonal csomópontot: "));
         this.add(availableJunctionsComboBox);
-        this.add(new JLabel("Válassz egy tektont célnak a gombafonal növesztéshez: "));
+        this.add(new JLabel(" Válassz egy tektont célnak a gombafonal növesztéshez: "));
         this.add(availableTectonsComboBox);
         this.add(ButtonFactory.getNewButton("Elfogad", Controller::growMyceliumConfirmPressed));
 

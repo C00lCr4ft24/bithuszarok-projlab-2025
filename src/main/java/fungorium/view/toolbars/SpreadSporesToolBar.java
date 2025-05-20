@@ -16,7 +16,7 @@ public class SpreadSporesToolBar extends JToolBar {
     public SpreadSporesToolBar() {
         this.add(new JLabel("Válassz egy gombatestet: "));
         this.add(availableFungiComboBox);
-        this.add(new JLabel("Válassz egy tektont célnak a spóra szóráshoz: "));
+        this.add(new JLabel(" Válassz egy tektont célnak a spóra szóráshoz: "));
         this.add(availableTectonsComboBox);
         this.add(ButtonFactory.getNewButton("Elfogad", Controller::spreadSporesConfirmPressed));
 
