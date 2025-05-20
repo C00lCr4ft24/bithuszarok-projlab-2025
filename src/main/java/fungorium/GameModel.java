@@ -103,6 +103,7 @@ public class GameModel {
                 if (j - 1 >= 0) {
                     Tecton leftNeighbor = currLevel.get(j - 1);
                     curr.setNeighbour(leftNeighbor);
+                    leftNeighbor.setNeighbour(curr);
                     System.out.println(curr + "-" + leftNeighbor);
                 }
             }
@@ -111,6 +112,10 @@ public class GameModel {
 
     public static void executeAPlayerRound() {
         incrementCurrentPlayerIndex();
+        updateFungusList();
+        updateInsectList();
+        updateJunctionList();
+        updateSporeList();
     }
     public static void initBeforeStart() {
         createMap();                                //Tectonok generalasa
@@ -247,7 +252,9 @@ public class GameModel {
     public static void updateFungusList() {
         fungusArrayList.clear();
         for(MyceliumJunction mj : junctionArrayList) {
-            fungusArrayList.add(mj.getFungus());
+            if(mj.getFungus() != null) {
+                fungusArrayList.add(mj.getFungus());
+            }
         }
     }
 
