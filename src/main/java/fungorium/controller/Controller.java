@@ -154,7 +154,7 @@ public class Controller {
             selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "SPORE");
             initForNextPlayer();
         } catch (IllegalStateException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Rossz lépés!", JOptionPane.OK_OPTION);
+            showErrorMessageDialog(e);
         }
     }
 
@@ -162,8 +162,13 @@ public class Controller {
         //kiválasztott elemek lekérése a ComboBox-okból
         Insect selectedInsect = (Insect)MoveInsectToolBar.availableInsectsComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
-        selectedInsect.move(selectedTecton);
-        initForNextPlayer();
+        //Művelet végrehajtása, hiba esetén nincs továbblépés
+        try {
+            selectedInsect.move(selectedTecton);
+            initForNextPlayer();
+        } catch (IllegalStateException e) {
+            showErrorMessageDialog(e);
+        }
     }
 
     public static void cutMyceliumConfirmPressed() {
@@ -179,7 +184,7 @@ public class Controller {
             selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
             initForNextPlayer();
         } catch (IllegalStateException e) {
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Hibás lépés!", JOptionPane.OK_OPTION);
+            showErrorMessageDialog(e);
         }
     }
 
@@ -231,5 +236,9 @@ public class Controller {
         } else if (GameModel.getSelectedTecton() != null) {
             GameSettingsToolBar.selectedTectonComboBox.setSelectedItem(GameModel.getSelectedTecton());
         }
+    }
+
+    private static void showErrorMessageDialog(IllegalStateException e) {
+        JOptionPane.showMessageDialog(null, e.getMessage(), "Hibás lépés!", JOptionPane.OK_OPTION);
     }
 }

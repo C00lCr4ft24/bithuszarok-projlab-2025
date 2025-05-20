@@ -29,7 +29,7 @@ public class GameSettingsToolBar extends JToolBar {
         fungusText.setFocusable(false);
         add(fungusText);
 
-        fungusField.setText("6");
+        fungusField.setText("2");
         add(fungusField);
 
         add(newGameButton);
@@ -43,7 +43,7 @@ public class GameSettingsToolBar extends JToolBar {
         insectText.setFocusable(false);
         add(insectText);
 
-        insectField.setText("6");
+        insectField.setText("2");
         add(insectField);
 
         add(new JLabel("Kiválasztott tekton: "));
