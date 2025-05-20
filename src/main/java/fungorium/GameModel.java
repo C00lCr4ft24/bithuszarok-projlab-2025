@@ -140,6 +140,7 @@ public class GameModel {
             var fungus = new Fungus("F" + player.getNextEntityId() + "-" + player.toString(), player, junction);
             junction.setFungus(fungus);
             fungusArrayList.add(fungus);
+            player.addScore(1);
         }
         else addStarterJunctionAndFungus(player);
     }

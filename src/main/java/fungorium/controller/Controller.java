@@ -188,6 +188,7 @@ public class Controller {
                             + selectedJunction.getPlayer().toString());
                     break;
             }
+            selectedJunction.getPlayer().addScore(1);
             initForNextPlayer();
         } catch (IllegalStateException e) {
             showErrorMessageDialog(e);
@@ -230,7 +231,9 @@ public class Controller {
         Insect selectedInsect = (Insect) EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
         // Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
-            selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
+            var sporeTemp = selectedInsect.getPosition().getASpore();
+            selectedInsect.eatSpore(sporeTemp);
+            selectedInsect.getPlayer().addScore(sporeTemp.getNutrientValue());
             initForNextPlayer();
         } catch (IllegalStateException e) {
             showErrorMessageDialog(e);
