@@ -258,6 +258,17 @@ public class GameModel {
         }
     }
 
+    public static void updateConnectionList() {
+        connectionArrayList.clear();
+        Set<MyceliumConnection> list = new HashSet<>();
+        for(Tecton tecton : tectonArrayList ) {
+            for(MyceliumJunction mj : junctionArrayList) {
+                list.addAll(mj.getConnections());
+            }
+        }
+        connectionArrayList.addAll(list);
+    }
+
     public static void updateInsectList() {
         insectArrayList.clear();
         for(Tecton tecton : tectonArrayList ) {
