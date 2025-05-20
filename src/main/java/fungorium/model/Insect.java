@@ -293,6 +293,11 @@ public class Insect implements FungoriumEntity {
         eatenAffectingSpores.removeIf(spore -> spore.doEffect(this));
     }
 
+    @Override
+    public String toString() {
+        return id;
+    }
+
     /**
      * A rovar lehetséges mozgási sebességei. SLOW, MEDIUM, FAST.
      */

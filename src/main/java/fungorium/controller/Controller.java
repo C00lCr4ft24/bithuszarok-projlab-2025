@@ -1,6 +1,7 @@
 package fungorium.controller;
 
 import javax.swing.ComboBoxModel;
+import javax.swing.JOptionPane;
 
 import fungorium.GameModel;
 import fungorium.model.Insect;
@@ -68,6 +69,10 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        //ComboBox-ok ürítése
+        SpreadSporesToolBar.availableFungiComboBox.removeAllItems();
+        SpreadSporesToolBar.availableTectonsComboBox.removeAllItems();
+
         //ComboBox-ok feltöltése az aktuális adatokkal
         for (Fungus fungus : GameModel.fungusArrayList) {
             if (fungus.getPlayer().equals(GameModel.getCurrentPlayer())) {
@@ -95,12 +100,16 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        //ComboBox-ok ürítése
+        MoveInsectToolBar.availableInsectsComboBox.removeAllItems();
+        MoveInsectToolBar.availableTectonsComboBox.removeAllItems();
+
+        //ComboBox-ok feltöltése az aktuális adatokkal
         for (Insect insect : GameModel.insectArrayList) {
             if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 MoveInsectToolBar.availableInsectsComboBox.addItem(insect);
             }
         }
-
         for (Tecton tecton : GameModel.tectonArrayList) {
             MoveInsectToolBar.availableTectonsComboBox.addItem(tecton);
         }
@@ -113,6 +122,10 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
+        //ComboBox-ok ürítése
+        EatSporeToolBar.availableInsectsComboBox.removeAllItems();
+        
+        //ComboBox-ok feltöltése az aktuális adatokkal
         for (Insect insect : GameModel.insectArrayList) {
             if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 EatSporeToolBar.availableInsectsComboBox.addItem(insect);
@@ -136,8 +149,13 @@ public class Controller {
     public static void spreadSporesConfirmPressed() {
         Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
         Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
-        selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "TESZT!!!");
-        initForNextPlayer();
+        try {
+            selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "TESZT!!!");
+            initForNextPlayer();
+        } catch (IllegalStateException e) {
+            JOptionPane.showMessageDialog(null, e, "Rossz lépés!", JOptionPane.OK_OPTION);
+            System.err.println(e.getLocalizedMessage());
+        }
     }
 
     public static void moveInsectConfirmPressed() {
