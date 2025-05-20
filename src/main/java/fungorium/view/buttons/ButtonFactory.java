@@ -4,8 +4,15 @@ import javax.swing.JButton;
 
 import java.awt.event.ActionEvent;
 
+/**
+ * Ez az osztály felelős a gombok létrehozásáért.
+ * A gombok testreszabhatóak a konstruktorban.
+ */
 public class ButtonFactory {
 
+    /**
+     * Privát konstruktor, hogy megakadályozza a példányosítást.
+     */
     private ButtonFactory() {
         throw new IllegalStateException("Static class, cannot be instantiated");
     }
