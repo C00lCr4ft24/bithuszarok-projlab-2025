@@ -95,6 +95,9 @@ public class Tecton implements FungoriumEntity {
         return new Tecton(this.id + "-S");
     }
 
+    public boolean isBroken() {
+        return isBroken;
+    }
 
     /**
      * Visszaad egy spórát a Tecton-on található spórák közül.
