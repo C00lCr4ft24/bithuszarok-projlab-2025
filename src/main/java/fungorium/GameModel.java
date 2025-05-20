@@ -16,6 +16,8 @@ import java.util.*;
 
 public class GameModel {
 
+    private static final int MAX_ROUNDS = 20;
+
     public static final List<Tecton>                         tectonArrayList = new ArrayList<>();
     public static final List<Spore>                           sporeArrayList = new ArrayList<>();
     public static final List<Fungus>                         fungusArrayList = new ArrayList<>();
@@ -302,6 +304,14 @@ public class GameModel {
     }
 
     public static void executeAllgameStep() {
+        if(roundN > MAX_ROUNDS){
+            System.out.println("Game over");
+            isGameOver = true;
+
+            return;
+        }
+        roundN++;
+
         if(random.nextInt(10) < 0) { //Tesztelés miatt 100% eséllyel törik ketté tekton
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
             Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
