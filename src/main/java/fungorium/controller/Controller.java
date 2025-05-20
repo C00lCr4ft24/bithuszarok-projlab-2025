@@ -55,7 +55,7 @@ public class Controller {
         GrowMyceliumToolBar.availableTectonsComboBox.removeAllItems();
 
         for (MyceliumJunction junction : GameModel.junctionArrayList) {
-            if(junction.getPlayer().equals(GameModel.getCurrentPlayer())) {
+            if (junction.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 GrowMyceliumToolBar.availableJunctionsComboBox.addItem(junction);
             }
         }
@@ -91,11 +91,11 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
-        //ComboBox-ok ürítése
+        // ComboBox-ok ürítése
         SpreadSporesToolBar.availableFungiComboBox.removeAllItems();
         SpreadSporesToolBar.availableTectonsComboBox.removeAllItems();
 
-        //ComboBox-ok feltöltése az aktuális adatokkal
+        // ComboBox-ok feltöltése az aktuális adatokkal
         for (Fungus fungus : GameModel.fungusArrayList) {
             if (fungus.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 SpreadSporesToolBar.availableFungiComboBox.addItem(fungus);
@@ -122,11 +122,11 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
-        //ComboBox-ok ürítése
+        // ComboBox-ok ürítése
         MoveInsectToolBar.availableInsectsComboBox.removeAllItems();
         MoveInsectToolBar.availableTectonsComboBox.removeAllItems();
 
-        //ComboBox-ok feltöltése az aktuális adatokkal
+        // ComboBox-ok feltöltése az aktuális adatokkal
         for (Insect insect : GameModel.insectArrayList) {
             if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 MoveInsectToolBar.availableInsectsComboBox.addItem(insect);
@@ -144,10 +144,10 @@ public class Controller {
         // Többi művelethez tartozó eszköztár elrejtése
         hideActionToolBars();
 
-        //ComboBox-ok ürítése
+        // ComboBox-ok ürítése
         EatSporeToolBar.availableInsectsComboBox.removeAllItems();
-        
-        //ComboBox-ok feltöltése az aktuális adatokkal
+
+        // ComboBox-ok feltöltése az aktuális adatokkal
         for (Insect insect : GameModel.insectArrayList) {
             if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 EatSporeToolBar.availableInsectsComboBox.addItem(insect);
@@ -159,8 +159,9 @@ public class Controller {
 
     // MŰVELETEK MEGERŐSÍTÉSE
     public static void growMyceliumConfirmPressed() {
-        MyceliumJunction selectedJunction = (MyceliumJunction)GrowMyceliumToolBar.availableJunctionsComboBox.getSelectedItem();
-        Tecton selectedTecton = (Tecton)GrowMyceliumToolBar.availableTectonsComboBox.getSelectedItem();
+        MyceliumJunction selectedJunction = (MyceliumJunction) GrowMyceliumToolBar.availableJunctionsComboBox
+                .getSelectedItem();
+        Tecton selectedTecton = (Tecton) GrowMyceliumToolBar.availableTectonsComboBox.getSelectedItem();
         try {
             selectedJunction.createConnectionToNeighbourTecton(selectedTecton);
             initForNextPlayer();
@@ -170,9 +171,20 @@ public class Controller {
     }
 
     public static void growFungusConfirmPressed() {
-        MyceliumJunction selectedJunction = (MyceliumJunction)GrowFungusToolBar.availableMyceliumJunctions.getSelectedItem();
+        MyceliumJunction selectedJunction = (MyceliumJunction) GrowFungusToolBar.availableMyceliumJunctions
+                .getSelectedItem();
+        int selectedMode = GrowFungusToolBar.growMode.getSelectedIndex();
         try {
-            selectedJunction.createFungus("F" + selectedJunction.getPlayer().getNextEntityId() + "-" + selectedJunction.getPlayer().toString());
+            switch (selectedMode) {
+                case 0:
+                    selectedJunction.createFungus("F" + selectedJunction.getPlayer().getNextEntityId() + "-"
+                            + selectedJunction.getPlayer().toString());
+                    break;
+                default:
+                    selectedJunction.tryConsumeInsect("F" + selectedJunction.getPlayer().getNextEntityId() + "-"
+                            + selectedJunction.getPlayer().toString());
+                    break;
+            }
             initForNextPlayer();
         } catch (IllegalStateException e) {
             showErrorMessageDialog(e);
@@ -180,10 +192,10 @@ public class Controller {
     }
 
     public static void spreadSporesConfirmPressed() {
-        //kiválasztott elemek lekérése a ComboBox-okból
-        Fungus selectedFungus = (Fungus)SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
-        Tecton selectedTecton = (Tecton)SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
-        //Művelet végrehajtása, hiba esetén nincs továbblépés
+        // kiválasztott elemek lekérése a ComboBox-okból
+        Fungus selectedFungus = (Fungus) SpreadSporesToolBar.availableFungiComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton) SpreadSporesToolBar.availableTectonsComboBox.getSelectedItem();
+        // Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
             selectedFungus.spreadSpores(selectedTecton, SporeTypes.RANDOM_SPORE, "SPORE");
             initForNextPlayer();
@@ -193,10 +205,10 @@ public class Controller {
     }
 
     public static void moveInsectConfirmPressed() {
-        //kiválasztott elemek lekérése a ComboBox-okból
-        Insect selectedInsect = (Insect)MoveInsectToolBar.availableInsectsComboBox.getSelectedItem();
-        Tecton selectedTecton = (Tecton)MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
-        //Művelet végrehajtása, hiba esetén nincs továbblépés
+        // kiválasztott elemek lekérése a ComboBox-okból
+        Insect selectedInsect = (Insect) MoveInsectToolBar.availableInsectsComboBox.getSelectedItem();
+        Tecton selectedTecton = (Tecton) MoveInsectToolBar.availableTectonsComboBox.getSelectedItem();
+        // Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
             selectedInsect.move(selectedTecton);
             initForNextPlayer();
@@ -206,14 +218,14 @@ public class Controller {
     }
 
     public static void cutMyceliumConfirmPressed() {
-        //TODO
+        // TODO
         initForNextPlayer();
     }
 
     public static void eatSporeConfirmPressed() {
-        //kiválasztott elemek lekérése a ComboBox-okból
-        Insect selectedInsect = (Insect)EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
-        //Művelet végrehajtása, hiba esetén nincs továbblépés
+        // kiválasztott elemek lekérése a ComboBox-okból
+        Insect selectedInsect = (Insect) EatSporeToolBar.availableInsectsComboBox.getSelectedItem();
+        // Művelet végrehajtása, hiba esetén nincs továbblépés
         try {
             selectedInsect.eatSpore(selectedInsect.getPosition().getASpore());
             initForNextPlayer();
@@ -260,7 +272,7 @@ public class Controller {
     }
 
     private static void updateSelectedTectonComboBox() {
-        Tecton previouslySelected = (Tecton)GameSettingsToolBar.selectedTectonComboBox.getSelectedItem();
+        Tecton previouslySelected = (Tecton) GameSettingsToolBar.selectedTectonComboBox.getSelectedItem();
         GameSettingsToolBar.selectedTectonComboBox.removeAllItems();
         for (Tecton tecton : GameModel.getAllTectonsForCurrentPlayer()) {
             GameSettingsToolBar.selectedTectonComboBox.addItem(tecton);

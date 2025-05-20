@@ -10,13 +10,13 @@ import java.awt.event.ActionEvent;
 
 public class FungoriumMenuBar extends JMenuBar {
     private static final JMenu helpMenu = new JMenu("Segítség");
-    private static final JMenuItem startDebugCommandHandler = new JMenuItem("Debug parancskezelő indítása");
+    
     private static final JMenuItem helper = new JMenuItem("Súgó");
     private static HelperFrame helperFrame = new HelperFrame();
     public FungoriumMenuBar() {
         helper.addActionListener((ActionEvent e) -> helperFrame.setVisible(true));
         helpMenu.add(helper);
-        helpMenu.add(startDebugCommandHandler);
+
         this.add(helpMenu);
     }
 }
