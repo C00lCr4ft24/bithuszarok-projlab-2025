@@ -3,7 +3,6 @@ package fungorium.view.toolbars;
 import fungorium.controller.Controller;
 import fungorium.view.buttons.ButtonFactory;
 
-import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JToolBar;
