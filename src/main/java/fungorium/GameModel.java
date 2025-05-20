@@ -285,6 +285,21 @@ public class GameModel {
         }
     }
 
+    public static void checkConnectionsAreConnectedToAFungus() {
+        for(MyceliumConnection connection : connectionArrayList) {
+            boolean isConnected = false;
+            for (Fungus fungus: fungusArrayList) {
+                if(connection.getJunctionA().getPlayer().equals(fungus.getPlayer())){
+                    isConnected = fungus.isThisConnectionConnectedTo(connection);
+                    break;
+                }
+            }
+            if(!isConnected) {
+                connection.setLifetime(random.nextInt(2, 4));
+            }
+        }
+    }
+
     public static void executeAllgameStep() {
         if(random.nextInt(10) <= 10) { //Tesztelés miatt 100% eséllyel törik ketté tekton
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
@@ -293,7 +308,10 @@ public class GameModel {
                 tectonArrayList.add(tectonArrayList.indexOf(toSplit) + 1, splitted);
                 MainFrame.mapPanel.repaint();
             }
+            updateJunctionList();
+            updateConnectionList();
         }
+        checkConnectionsAreConnectedToAFungus();
         for(Fungus fungus : fungusArrayList) {
             fungus.gameStep();
         }
