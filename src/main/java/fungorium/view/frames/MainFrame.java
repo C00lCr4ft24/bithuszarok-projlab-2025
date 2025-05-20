@@ -57,6 +57,7 @@ public class MainFrame extends JFrame {
 
         this.add(mapPanel, BorderLayout.CENTER);
         
+        this.setTitle("Bithuszárok - Fungorium");
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
