@@ -151,6 +151,12 @@ public class Insect implements FungoriumEntity {
      * @param spore A {@link Spore}, amelyet a rovar elfogyaszt.
      */
     public void eatSpore(Spore spore) {
+        if(spore == null) {
+            String log = "Insect " + id + " tried to eat a spore, but there was no spore to eat.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            return;
+        }
         position.removeSpore(spore); // spora eltavolitasa a tectonrol
         eatenNutrient += spore.getNutrientValue(); // spora tapanyag hozzaadasa
         eatenAffectingSpores.addLast(spore);
