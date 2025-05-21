@@ -263,6 +263,16 @@ public class Controller {
         MainFrame.eatSporeToolBar.setVisible(false);
     }
 
+    private static void disablePlayerTools(){
+        FungusPlayerToolBar.growMyceliumButton.setEnabled(false);
+        FungusPlayerToolBar.growFungusButton.setEnabled(false);
+        FungusPlayerToolBar.spreadSporesButton.setEnabled(false);
+
+        InsectPlayerToolBar.moveInsectButton.setEnabled(false);
+        InsectPlayerToolBar.cutMyceliumButton.setEnabled(false);
+        InsectPlayerToolBar.eatSporeButton.setEnabled(false);
+    }
+
     private static void enableCurrentPlayerTools() {
         if (GameModel.getCurrentPlayer().getType() == PlayerTypes.GOMBASZ) {
             InsectPlayerToolBar.moveInsectButton.setEnabled(false);
@@ -288,7 +298,11 @@ public class Controller {
         updateSelectedTectonComboBox();
         GameSettingsToolBar.playerNameTextField.setText(GameModel.getCurrentPlayer().toString());
         hideActionToolBars();
-        enableCurrentPlayerTools();
+        if(GameModel.isGameOver){
+            disablePlayerTools();
+        } else {
+            enableCurrentPlayerTools();
+        }
     }
 
     private static void updateSelectedTectonComboBox() {
