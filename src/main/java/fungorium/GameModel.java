@@ -119,6 +119,7 @@ public class GameModel {
     public static void executeAPlayerRound() {
         updateAllList();
         incrementCurrentPlayerIndex();
+        MainFrame.mapPanel.repaint();
     }
     public static void initBeforeStart() {
         createMap();                                //Tectonok generalasa
