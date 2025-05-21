@@ -7,7 +7,6 @@ import fungorium.model.player.Player;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 
-import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -49,18 +48,10 @@ public class Insect implements FungoriumEntity {
     private Player player;
 
     /**
-     * Visszaadja az ID-t.
-     * 
-     * @return ID String.
-     */
-    public String getId() {
-        return id;
-    }
-
-    /**
      * 2 paraméteres konstruktor.
+     *
      * @param id       Az Insect azonosítója.
-     * @param position  A játékos, akihez az Insect tartozik.
+     * @param position A játékos, akihez az Insect tartozik.
      */
     public Insect(String id, Tecton position) {
         this.id = id;
@@ -72,6 +63,7 @@ public class Insect implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * 3 paraméteres konstruktor.
      *
@@ -100,6 +92,15 @@ public class Insect implements FungoriumEntity {
         this.position = position;
         eatenNutrient = 0;
         resetEffectValues();
+    }
+
+    /**
+     * Visszaadja az ID-t.
+     *
+     * @return ID String.
+     */
+    public String getId() {
+        return id;
     }
 
     /**
@@ -256,7 +257,7 @@ public class Insect implements FungoriumEntity {
                 MyceliumJunction neighborJ = conn.getOtherEnd(current);
                 Tecton neigborT = neighborJ.getPosition();
                 ArrayList<MyceliumJunction> allNeighborJ = neigborT.getMyceliumJunctions();
-                for(MyceliumJunction j : allNeighborJ) {
+                for (MyceliumJunction j : allNeighborJ) {
                     if (j != null && !visited.contains(j)) {
                         visited.add(j);
                         queue.add(j);

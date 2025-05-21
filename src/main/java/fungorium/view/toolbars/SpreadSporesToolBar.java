@@ -5,9 +5,7 @@ import fungorium.model.mycelium.Fungus;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.buttons.ButtonFactory;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
 /**
  * A SpreadSporesToolBar osztály a spóra szórásához szükséges eszköztárat reprezentálja.

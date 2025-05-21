@@ -1,22 +1,10 @@
 package fungorium.view.frames;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-
 import fungorium.view.MapPanel;
-import fungorium.view.toolbars.CutMyceliumToolBar;
-import fungorium.view.toolbars.EatSporeToolBar;
-import fungorium.view.toolbars.FungoriumMenuBar;
-import fungorium.view.toolbars.FungusPlayerToolBar;
-import fungorium.view.toolbars.GameSettingsToolBar;
-import fungorium.view.toolbars.GrowFungusToolBar;
-import fungorium.view.toolbars.GrowMyceliumToolBar;
-import fungorium.view.toolbars.InsectPlayerToolBar;
-import fungorium.view.toolbars.MoveInsectToolBar;
-import fungorium.view.toolbars.SpreadSporesToolBar;
+import fungorium.view.toolbars.*;
+
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * A MainFrame osztály a fő ablakot reprezentálja, amely tartalmazza a menüt.
@@ -37,7 +25,7 @@ public class MainFrame extends JFrame {
     public static final EatSporeToolBar eatSporeToolBar = new EatSporeToolBar();
 
     public static final MapPanel mapPanel = new MapPanel();
-    
+
     /**
      * A MainFrame osztály konstruktora, amely beállítja a menüt.
      */
@@ -46,7 +34,7 @@ public class MainFrame extends JFrame {
         this.setLayout(new BorderLayout());
 
         JPanel container = new JPanel(new FlowLayout());
-        
+
         this.add(insectPlayerToolBar, BorderLayout.WEST);
         this.add(fungusPlayerToolBar, BorderLayout.EAST);
         this.add(gameSettingsToolBar, BorderLayout.SOUTH);
@@ -54,7 +42,7 @@ public class MainFrame extends JFrame {
         container.add(growFungusToolBar);
         container.add(growMyceliumToolBar);
         container.add(spreadSporesToolBar);
-        
+
         container.add(moveInsectToolBar);
         container.add(cutMyceliumToolBar);
         container.add(eatSporeToolBar);
@@ -62,7 +50,7 @@ public class MainFrame extends JFrame {
         this.add(container, BorderLayout.NORTH);
 
         this.add(mapPanel, BorderLayout.CENTER);
-        
+
         this.setTitle("Bithuszárok - Fungorium");
         this.setSize(1280, 720);
         this.setLocationRelativeTo(null);

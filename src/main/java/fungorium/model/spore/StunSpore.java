@@ -17,6 +17,7 @@ public class StunSpore extends Spore {
     public StunSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
     }
+
     /**
      * Létrehoz egy új `StunSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
      *
@@ -30,6 +31,7 @@ public class StunSpore extends Spore {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * Kifejti a spóra hatását a megadott rovarra, megbénítva azt.
      * Csökkenti eggyel az effectTime-át.

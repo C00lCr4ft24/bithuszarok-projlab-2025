@@ -26,6 +26,7 @@ public class Player {
 
     /**
      * A jatekos tipusa
+     *
      * @param type a jatekos tipusa
      * @param name a jatekos neve
      */
@@ -36,6 +37,7 @@ public class Player {
 
     /**
      * Hozzáadja a játékos pontszámához a megadott értéket.
+     *
      * @param score a hozzáadandó pontszám
      */
     public void addScore(int score) {
@@ -44,18 +46,25 @@ public class Player {
 
     /**
      * Visszaadja a játékos pontszámát.
+     *
      * @return a játékos pontszáma
      */
-    public int getScore() { return score; }
+    public int getScore() {
+        return score;
+    }
 
     /**
      * Visszaadja a játékos típusát.
+     *
      * @return a játékos típusa
      */
-    public PlayerTypes getType() { return type; }
+    public PlayerTypes getType() {
+        return type;
+    }
 
     /**
      * Visszaadja a játékos Entity-ásának következő index számát.
+     *
      * @return következő Entity id
      */
     public int getNextEntityId() {
@@ -65,8 +74,11 @@ public class Player {
 
     /**
      * Visszaadja a játékos nevét.
+     *
      * @return a játékos neve
      */
     @Override
-    public String toString() { return name; }
+    public String toString() {
+        return name;
+    }
 }

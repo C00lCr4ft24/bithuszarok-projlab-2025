@@ -1,7 +1,5 @@
 package fungorium.controller;
 
-import javax.swing.JOptionPane;
-
 import fungorium.GameModel;
 import fungorium.model.Insect;
 import fungorium.model.mycelium.Fungus;
@@ -13,6 +11,8 @@ import fungorium.model.tecton.Tecton;
 import fungorium.view.MapPanel;
 import fungorium.view.frames.MainFrame;
 import fungorium.view.toolbars.*;
+
+import javax.swing.*;
 
 public class Controller {
 
@@ -263,7 +263,7 @@ public class Controller {
         MainFrame.eatSporeToolBar.setVisible(false);
     }
 
-    private static void disablePlayerTools(){
+    private static void disablePlayerTools() {
         FungusPlayerToolBar.growMyceliumButton.setEnabled(false);
         FungusPlayerToolBar.growFungusButton.setEnabled(false);
         FungusPlayerToolBar.spreadSporesButton.setEnabled(false);
@@ -298,7 +298,7 @@ public class Controller {
         updateSelectedTectonComboBox();
         GameSettingsToolBar.playerNameTextField.setText(GameModel.getCurrentPlayer().toString());
         hideActionToolBars();
-        if(GameModel.isGameOver){
+        if (GameModel.isGameOver) {
             disablePlayerTools();
         } else {
             enableCurrentPlayerTools();

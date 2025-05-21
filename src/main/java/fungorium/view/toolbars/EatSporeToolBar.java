@@ -1,12 +1,10 @@
 package fungorium.view.toolbars;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
-
 import fungorium.controller.Controller;
 import fungorium.model.Insect;
 import fungorium.view.buttons.ButtonFactory;
+
+import javax.swing.*;
 
 /**
  * A EatSporeToolBar osztály a spóra evéshez szükséges eszköztárat reprezentálja.

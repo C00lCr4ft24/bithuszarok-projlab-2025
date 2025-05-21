@@ -18,6 +18,7 @@ public class SlowDownSpore extends Spore {
     public SlowDownSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
     }
+
     /**
      * Létrehoz egy új `SlowDownSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
      *
@@ -31,6 +32,7 @@ public class SlowDownSpore extends Spore {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      * Csökkenti eggyel az effectTime-át.

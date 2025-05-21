@@ -12,34 +12,33 @@ import fungorium.model.tecton.Tecton;
 import fungorium.model.tecton.TectonFactory;
 import fungorium.view.frames.AnnouncementFrame;
 import fungorium.view.frames.MainFrame;
-import fungorium.view.toolbars.FungusPlayerToolBar;
 import fungorium.view.toolbars.GameSettingsToolBar;
-import fungorium.view.toolbars.InsectPlayerToolBar;
 
 import java.util.*;
 
 public class GameModel {
 
+    public static final List<Tecton> tectonArrayList = new ArrayList<>();
+    public static final List<Spore> sporeArrayList = new ArrayList<>();
+    public static final List<Fungus> fungusArrayList = new ArrayList<>();
+    public static final List<MyceliumConnection> connectionArrayList = new ArrayList<>();
+    public static final List<MyceliumJunction> junctionArrayList = new ArrayList<>();
+    public static final List<Insect> insectArrayList = new ArrayList<>();
+    public static final List<Player> playerArrayList = new ArrayList<>();
+    public static final Random random = new Random();
     private static final int MAX_ROUNDS = 20;
-
-    public static final List<Tecton>                         tectonArrayList = new ArrayList<>();
-    public static final List<Spore>                           sporeArrayList = new ArrayList<>();
-    public static final List<Fungus>                         fungusArrayList = new ArrayList<>();
-    public static final List<MyceliumConnection>         connectionArrayList = new ArrayList<>();
-    public static final List<MyceliumJunction>             junctionArrayList = new ArrayList<>();
-    public static final List<Insect>                         insectArrayList = new ArrayList<>();
-    public static final List<Player>                        playerArrayList = new ArrayList<>();
-
-
     public static Tecton selectedTecton;
-    public static Tecton getSelectedTecton() { return selectedTecton; }
-    public void setSelectedTecton(Tecton tecton) { selectedTecton = tecton; }
-
     public static int roundN = 0;
     public static int currentPlayerIndex = 0;
     public static boolean isGameOver = false;
 
-    public static final Random random = new Random();
+    public static Tecton getSelectedTecton() {
+        return selectedTecton;
+    }
+
+    public void setSelectedTecton(Tecton tecton) {
+        selectedTecton = tecton;
+    }
 
     public static void resetGameModel(int fungusPlayers, int insectPlayers) {
         tectonArrayList.clear();
@@ -56,15 +55,19 @@ public class GameModel {
 
         PlayerFactory.resetCounters();
 
-        for(int i = fungusPlayers; i > 0; i--) { playerArrayList.add(PlayerFactory.createPlayer(PlayerTypes.GOMBASZ )); }
-        for(int i = insectPlayers; i > 0; i--) { playerArrayList.add(PlayerFactory.createPlayer(PlayerTypes.ROVARASZ)); }
+        for (int i = fungusPlayers; i > 0; i--) {
+            playerArrayList.add(PlayerFactory.createPlayer(PlayerTypes.GOMBASZ));
+        }
+        for (int i = insectPlayers; i > 0; i--) {
+            playerArrayList.add(PlayerFactory.createPlayer(PlayerTypes.ROVARASZ));
+        }
 
         startGame();
     }
 
     public static void incrementCurrentPlayerIndex() {
         currentPlayerIndex++;
-        if(currentPlayerIndex >= playerArrayList.size()) {
+        if (currentPlayerIndex >= playerArrayList.size()) {
             executeAllgameStep();
             updateAllList();
         }
@@ -76,7 +79,7 @@ public class GameModel {
         List<List<Tecton>> tectonsByLevel = new ArrayList<>();
 
         int levels = random.nextInt(3) + 9; // 5-7 levels
-        for(int i = 0; i < levels; i++) {
+        for (int i = 0; i < levels; i++) {
             List<Tecton> tectonsOnThisLevel = new ArrayList<>();
             for (int j = 0; j <= i; j++) {
                 Tecton tecton = TectonFactory.createTecton("[T" + i + "-" + j + "]");
@@ -94,13 +97,13 @@ public class GameModel {
                 Tecton curr = currLevel.get(j);
                 if (j - 1 >= 0) {
                     Tecton aboveLeft = prevLevel.get(j - 1);
-                    curr     .setNeighbour(aboveLeft);
+                    curr.setNeighbour(aboveLeft);
                     aboveLeft.setNeighbour(curr);
                     System.out.println(curr + "-" + aboveLeft);
                 }
                 if (j < prevLevel.size()) {
                     Tecton aboveRight = prevLevel.get(j);
-                    curr      .setNeighbour(aboveRight);
+                    curr.setNeighbour(aboveRight);
                     aboveRight.setNeighbour(curr);
                     System.out.println(curr + "-" + aboveRight);
                 }
@@ -119,13 +122,18 @@ public class GameModel {
         incrementCurrentPlayerIndex();
         MainFrame.mapPanel.repaint();
     }
+
     public static void initBeforeStart() {
         createMap();                                //Tectonok generalasa
 
-        for(Player player : playerArrayList) {      //KezdoFungusok generalasa
+        for (Player player : playerArrayList) {      //KezdoFungusok generalasa
             switch (player.getType()) {
-                case GOMBASZ -> { addStarterJunctionAndFungus(player); }
-                case ROVARASZ -> { addStarterInsect(player); }
+                case GOMBASZ -> {
+                    addStarterJunctionAndFungus(player);
+                }
+                case ROVARASZ -> {
+                    addStarterInsect(player);
+                }
             }
         }
         updateJunctionList();
@@ -133,24 +141,27 @@ public class GameModel {
     }
 
     public static void addStarterJunctionAndFungus(Player player) {
-        if(player.getType() != PlayerTypes.GOMBASZ) { return; }
+        if (player.getType() != PlayerTypes.GOMBASZ) {
+            return;
+        }
 
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
-        if(tecton.isFungusSpaceEmpty()) {
+        if (tecton.isFungusSpaceEmpty()) {
             var junction = tecton.createMyceliumJunction(player);
-            var fungus = new Fungus("F" + player.getNextEntityId() + "-" + player.toString(), player, junction);
+            var fungus = new Fungus("F" + player.getNextEntityId() + "-" + player, player, junction);
             junction.setFungus(fungus);
             fungusArrayList.add(fungus);
             player.addScore(1);
-        }
-        else addStarterJunctionAndFungus(player);
+        } else addStarterJunctionAndFungus(player);
     }
 
     public static void addStarterInsect(Player player) {
-        if(player.getType() != PlayerTypes.ROVARASZ) { return; }
+        if (player.getType() != PlayerTypes.ROVARASZ) {
+            return;
+        }
 
         Tecton tecton = tectonArrayList.get(random.nextInt(tectonArrayList.size() - 1));
-        new Insect("I" + player.getNextEntityId() + "-" + player.toString(), player, tecton);
+        new Insect("I" + player.getNextEntityId() + "-" + player, player, tecton);
         updateInsectList();
     }
 
@@ -167,16 +178,16 @@ public class GameModel {
 
         var list = new ArrayList<Tecton>();
 
-        if(currentPlayer.getType().equals(PlayerTypes.ROVARASZ)) {
-            for(Insect insect : insectArrayList) {
-                if(insect.getPlayer().equals(currentPlayer)) {
+        if (currentPlayer.getType().equals(PlayerTypes.ROVARASZ)) {
+            for (Insect insect : insectArrayList) {
+                if (insect.getPlayer().equals(currentPlayer)) {
                     list.add(insect.getPosition());
                 }
             }
         }
-        if(currentPlayer.getType().equals(PlayerTypes.GOMBASZ )) {
-            for(MyceliumJunction junction : junctionArrayList) {
-                if(junction.hasAFungus() && junction.getFungus().getPlayer().equals(currentPlayer)) {
+        if (currentPlayer.getType().equals(PlayerTypes.GOMBASZ)) {
+            for (MyceliumJunction junction : junctionArrayList) {
+                if (junction.hasAFungus() && junction.getFungus().getPlayer().equals(currentPlayer)) {
                     list.add(junction.getPosition());
                 }
             }
@@ -184,61 +195,7 @@ public class GameModel {
         return list;
     }
 
-    public Tecton findTecton(String id) {
-        for (Tecton tecton : tectonArrayList) {
-            if(Objects.equals(tecton.getId(), id)) {
-                return tecton;
-            }
-        }
-        throw new IllegalArgumentException("No tecton with id " + id + " exists");
-    }
-
-    public MyceliumJunction findMyceliumJunction(String id) {
-        for (MyceliumJunction mj : junctionArrayList) {
-            if(Objects.equals(mj.getId(), id)) {
-                return mj;
-            }
-        }
-        throw new IllegalArgumentException("No MyceliumJunction with id " + id + " exists");
-    }
-
-    public MyceliumConnection findMyceliumConnection(String id) {
-        for (MyceliumConnection mc : connectionArrayList) {
-            if(Objects.equals(mc.getId(), id)) {
-                return mc;
-            }
-        }
-        throw new IllegalArgumentException("No MyceliumConnection with id " + id + " exists");
-    }
-
-    public Insect findInsect(String id) {
-        for (Insect insect : insectArrayList) {
-            if(Objects.equals(insect.getId(), id)) {
-                return insect;
-            }
-        }
-        throw new IllegalArgumentException("No Insect with id " + id + " exists");
-    }
-
-    public Fungus findFungus(String id) {
-        for(Fungus fungus : fungusArrayList) {
-            if(Objects.equals(fungus.getId(), id)) {
-                return fungus;
-            }
-        }
-        throw new IllegalArgumentException("No Fungus with id " + id + " exists");
-    }
-
-    public Spore findSpore(String id) {
-        for(Spore spore : sporeArrayList) {
-            if(Objects.equals(spore.getId(), id)) {
-                return spore;
-            }
-        }
-        throw new IllegalArgumentException("No Spore with id " + id + " exists");
-    }
-
-    public static void updateAllList(){
+    public static void updateAllList() {
         updateSporeList();
         updateFungusList();
         updateJunctionList();
@@ -248,22 +205,22 @@ public class GameModel {
 
     public static void updateSporeList() {
         sporeArrayList.clear();
-        for(Tecton tecton : tectonArrayList ) {
+        for (Tecton tecton : tectonArrayList) {
             sporeArrayList.addAll(tecton.getAllSpores());
         }
     }
 
     public static void updateJunctionList() {
         junctionArrayList.clear();
-        for(Tecton tecton : tectonArrayList ) {
+        for (Tecton tecton : tectonArrayList) {
             junctionArrayList.addAll(tecton.getMyceliumJunctions());
         }
     }
 
     public static void updateFungusList() {
         fungusArrayList.clear();
-        for(MyceliumJunction mj : junctionArrayList) {
-            if(mj.getFungus() != null) {
+        for (MyceliumJunction mj : junctionArrayList) {
+            if (mj.getFungus() != null) {
                 fungusArrayList.add(mj.getFungus());
             }
         }
@@ -272,8 +229,8 @@ public class GameModel {
     public static void updateConnectionList() {
         connectionArrayList.clear();
         Set<MyceliumConnection> list = new HashSet<>();
-        for(Tecton tecton : tectonArrayList ) {
-            for(MyceliumJunction mj : tecton.getMyceliumJunctions()) {
+        for (Tecton tecton : tectonArrayList) {
+            for (MyceliumJunction mj : tecton.getMyceliumJunctions()) {
                 list.addAll(mj.getConnections());
             }
         }
@@ -282,28 +239,28 @@ public class GameModel {
 
     public static void updateInsectList() {
         insectArrayList.clear();
-        for(Tecton tecton : tectonArrayList ) {
+        for (Tecton tecton : tectonArrayList) {
             insectArrayList.addAll(tecton.getInsects());
         }
     }
 
     public static void checkConnectionsAreConnectedToAFungus() {
-        for(MyceliumConnection connection : connectionArrayList) {
+        for (MyceliumConnection connection : connectionArrayList) {
             boolean isConnected = false;
-            for (Fungus fungus: fungusArrayList) {
-                if(connection.getJunctionA().getPlayer().equals(fungus.getPlayer())){
+            for (Fungus fungus : fungusArrayList) {
+                if (connection.getJunctionA().getPlayer().equals(fungus.getPlayer())) {
                     isConnected = fungus.isThisConnectionConnectedTo(connection);
                     break;
                 }
             }
-            if(!isConnected) {
+            if (!isConnected) {
                 connection.setLifetime(random.nextInt(2, 4));
             }
         }
     }
 
     public static void executeAllgameStep() {
-        if(roundN >= MAX_ROUNDS){
+        if (roundN >= MAX_ROUNDS) {
             System.out.println("Game over");
             isGameOver = true;
             GameSettingsToolBar.skipStepButton.setEnabled(false);
@@ -312,7 +269,7 @@ public class GameModel {
         }
         roundN++;
 
-        if(random.nextInt(10) < 2) {
+        if (random.nextInt(10) < 2) {
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
             Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
             if (splitted != null) {
@@ -323,19 +280,19 @@ public class GameModel {
             updateConnectionList();
         }
         checkConnectionsAreConnectedToAFungus();
-        for(Fungus fungus : fungusArrayList) {
+        for (Fungus fungus : fungusArrayList) {
             fungus.gameStep();
         }
-        for(MyceliumJunction mycjunction : junctionArrayList) {
+        for (MyceliumJunction mycjunction : junctionArrayList) {
             mycjunction.gameStep();
         }
-        for(MyceliumConnection myceliumConnection : connectionArrayList) {
+        for (MyceliumConnection myceliumConnection : connectionArrayList) {
             myceliumConnection.gameStep();
         }
-        for(Insect insect : insectArrayList) {
+        for (Insect insect : insectArrayList) {
             insect.gameStep();
         }
-        for(Tecton tecton : tectonArrayList ) {
+        for (Tecton tecton : tectonArrayList) {
             tecton.gameStep();
         }
         String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
@@ -351,7 +308,7 @@ public class GameModel {
         for (Player player : playerArrayList) {
             switch (player.getType()) {
                 case GOMBASZ:
-                    if(player.getScore() >= fungusPlayerHighScore) {
+                    if (player.getScore() >= fungusPlayerHighScore) {
                         fungusWinner = player;
                         fungusPlayerHighScore = player.getScore();
                     }
@@ -367,11 +324,65 @@ public class GameModel {
             }
         }
         String winnerAnnouncement = "Gombász nyertes: " + fungusWinner.toString() + ", Pontszám: " + fungusPlayerHighScore + "\n"
-                                    + "Rovarász nyertes: " + insectWinner.toString() + ", Pontszám: " + insectPlayerHighScore +"\n"
-                                    + "-----------------------------------------------\n";
+                + "Rovarász nyertes: " + insectWinner.toString() + ", Pontszám: " + insectPlayerHighScore + "\n"
+                + "-----------------------------------------------\n";
         for (Player player : playerArrayList) {
             winnerAnnouncement = winnerAnnouncement.concat(player.toString() + ", Pontszám: " + player.getScore() + "\n");
         }
         new AnnouncementFrame(winnerAnnouncement);
+    }
+
+    public Tecton findTecton(String id) {
+        for (Tecton tecton : tectonArrayList) {
+            if (Objects.equals(tecton.getId(), id)) {
+                return tecton;
+            }
+        }
+        throw new IllegalArgumentException("No tecton with id " + id + " exists");
+    }
+
+    public MyceliumJunction findMyceliumJunction(String id) {
+        for (MyceliumJunction mj : junctionArrayList) {
+            if (Objects.equals(mj.getId(), id)) {
+                return mj;
+            }
+        }
+        throw new IllegalArgumentException("No MyceliumJunction with id " + id + " exists");
+    }
+
+    public MyceliumConnection findMyceliumConnection(String id) {
+        for (MyceliumConnection mc : connectionArrayList) {
+            if (Objects.equals(mc.getId(), id)) {
+                return mc;
+            }
+        }
+        throw new IllegalArgumentException("No MyceliumConnection with id " + id + " exists");
+    }
+
+    public Insect findInsect(String id) {
+        for (Insect insect : insectArrayList) {
+            if (Objects.equals(insect.getId(), id)) {
+                return insect;
+            }
+        }
+        throw new IllegalArgumentException("No Insect with id " + id + " exists");
+    }
+
+    public Fungus findFungus(String id) {
+        for (Fungus fungus : fungusArrayList) {
+            if (Objects.equals(fungus.getId(), id)) {
+                return fungus;
+            }
+        }
+        throw new IllegalArgumentException("No Fungus with id " + id + " exists");
+    }
+
+    public Spore findSpore(String id) {
+        for (Spore spore : sporeArrayList) {
+            if (Objects.equals(spore.getId(), id)) {
+                return spore;
+            }
+        }
+        throw new IllegalArgumentException("No Spore with id " + id + " exists");
     }
 }

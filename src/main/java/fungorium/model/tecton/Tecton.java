@@ -8,7 +8,9 @@ import fungorium.model.mycelium.MyceliumJunction;
 import fungorium.model.player.Player;
 import fungorium.model.spore.Spore;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedList;
 
 /**
  * A Tecton osztály a játéktér felszínét alkotó különálló kéregdarabok alapját képezi.
@@ -44,22 +46,12 @@ public class Tecton implements FungoriumEntity {
      */
     protected String id;
 
-    /**
-     * Visszaadja az ID-t.
-     * @return ID String.
-     */
-    public String getId() { return id; }
-
     public Tecton(String id) {
         this.id = id;
         String log = "Tecton " + id + " was created.";
         System.out.println(log);
         TestFramework.logOutput(log);
     }
-
-    public ArrayList<Insect> getInsects() { return new ArrayList<>(insects); }
-
-    public ArrayList<Tecton> getNeighborTectons() { return TectonN; }
 
     /**
      * Létrehoz egy új Tecton példányt a megadott szomszédos Tecton-ok alapján.
@@ -74,7 +66,8 @@ public class Tecton implements FungoriumEntity {
     /**
      * Létrehoz egy új, alapértelmezett Tecton példányt.
      */
-    public Tecton() {}
+    public Tecton() {
+    }
 
     /**
      * Létrehoz egy új Tecton példányt, amely törött állapotban van.
@@ -84,6 +77,23 @@ public class Tecton implements FungoriumEntity {
     public Tecton(boolean broken) {
         this();
         this.isBroken = broken;
+    }
+
+    /**
+     * Visszaadja az ID-t.
+     *
+     * @return ID String.
+     */
+    public String getId() {
+        return id;
+    }
+
+    public ArrayList<Insect> getInsects() {
+        return new ArrayList<>(insects);
+    }
+
+    public ArrayList<Tecton> getNeighborTectons() {
+        return TectonN;
     }
 
     /**
@@ -114,20 +124,25 @@ public class Tecton implements FungoriumEntity {
 
     /**
      * Visszaadja az összes Spórát a Tectonon.
+     *
      * @return az összes Spóra a Tectonon egy új listában.
      */
     public LinkedList<Spore> getAllSpores() {
         return new LinkedList<>(spores);
     }
+
     /**
      * Getter a Tecton MyceliumJunction listájához.
+     *
      * @return A Tecton MyceliumJunction listája.
      */
-    public ArrayList<MyceliumJunction> getMyceliumJunctions() { return new ArrayList<>(myceliumJunctions); }
+    public ArrayList<MyceliumJunction> getMyceliumJunctions() {
+        return new ArrayList<>(myceliumJunctions);
+    }
 
     public MyceliumJunction getMyceliumJunctionOfFungus() {
         for (MyceliumJunction j : myceliumJunctions) {
-            if(j.hasAFungus()) return j;
+            if (j.hasAFungus()) return j;
         }
         return null;
     }
@@ -216,7 +231,7 @@ public class Tecton implements FungoriumEntity {
                 return myceliumJunction;
             }
         }
-        if(this.hasSpaceForJunction()) {
+        if (this.hasSpaceForJunction()) {
             return new MyceliumJunction("MJ-" + this.id + "-" + player.toString(), this, player);
         }
         throw new IllegalStateException("A kiválasztott tektonra már más játékos növesztett gombafonal csomópontot!");
@@ -306,7 +321,9 @@ public class Tecton implements FungoriumEntity {
      * @param t A hozzáadni kívánt szomszédos Tecton.
      */
     public void setNeighbour(Tecton t) { //--------------------------------------------------------------------------------------------------------
-        if(t == null || TectonN.contains(t)) { return; } //Guard
+        if (t == null || TectonN.contains(t)) {
+            return;
+        } //Guard
         TectonN.add(t);
         //String log = id + " is now neighbour of " + t.id + ".";
         //System.out.println(log);

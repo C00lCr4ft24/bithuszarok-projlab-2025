@@ -5,9 +5,7 @@ import fungorium.model.Insect;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.buttons.ButtonFactory;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
 /**
  * A MoveInsectToolBar osztály a rovar mozgatásához szükséges eszköztárat reprezentálja.

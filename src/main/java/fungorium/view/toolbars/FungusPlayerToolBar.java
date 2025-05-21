@@ -1,10 +1,9 @@
 package fungorium.view.toolbars;
 
-import javax.swing.JButton;
-import javax.swing.JToolBar;
-
 import fungorium.controller.Controller;
 import fungorium.view.buttons.ButtonFactory;
+
+import javax.swing.*;
 
 /**
  * A FungusPlayerToolBar osztály a gombafonal növesztéséhez szükséges eszköztárat reprezentálja.
@@ -17,9 +16,9 @@ public class FungusPlayerToolBar extends JToolBar {
     public static final JButton spreadSporesButton = ButtonFactory.getNewButton("Spóra szórás",
             Controller::spreadSporesButtonPressed);
 
-/**
- * A FungusPlayerToolBar osztály a gombafonal növesztéséhez szükséges eszköztárat reprezentálja.
- */
+    /**
+     * A FungusPlayerToolBar osztály a gombafonal növesztéséhez szükséges eszköztárat reprezentálja.
+     */
     public FungusPlayerToolBar() {
         this.setFloatable(false);
         this.setOrientation(VERTICAL);

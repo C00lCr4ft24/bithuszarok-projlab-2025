@@ -24,6 +24,13 @@ public class SporeFactory {
     private static final Random random = new Random();
 
     /**
+     * Privát konstruktor, hogy megakadályozza a példányosítást.
+     */
+    private SporeFactory() {
+        throw new IllegalStateException("Static class, cannot be instantiated");
+    }
+
+    /**
      * Ez a metódus létrehoz egy új spórát a megadott azonosítóval és típussal.
      *
      * @param id   A spóra azonosítója.
@@ -34,15 +41,15 @@ public class SporeFactory {
         Spore newSpore = null;
 
         //Ha nem random Spore kell
-        if(type != SporeTypes.RANDOM_SPORE) {
+        if (type != SporeTypes.RANDOM_SPORE) {
             newSpore = sporeSelectorAndCreator(id, type); //Letrehozzuk a konkret Sporet
         }
         //Ha random Spore kell
-        if(type == SporeTypes.RANDOM_SPORE) {
-                SporeTypes[] sporeTypeValues = SporeTypes.values();
-                int randomType = random.nextInt((sporeTypeValues.length-1)); //Azert vonok le egyet, hogy az utolso RANDOM opcio ne legyen benne
-                SporeTypes sporeType = sporeTypeValues[randomType];
-                newSpore = sporeSelectorAndCreator(id, sporeType);
+        if (type == SporeTypes.RANDOM_SPORE) {
+            SporeTypes[] sporeTypeValues = SporeTypes.values();
+            int randomType = random.nextInt((sporeTypeValues.length - 1)); //Azert vonok le egyet, hogy az utolso RANDOM opcio ne legyen benne
+            SporeTypes sporeType = sporeTypeValues[randomType];
+            newSpore = sporeSelectorAndCreator(id, sporeType);
         }
         return newSpore;
     }
@@ -60,25 +67,18 @@ public class SporeFactory {
                 return new AntiCutSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case REPLICATION_SPORE -> {
-                return  new ReplicationSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                return new ReplicationSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case SLOW_DOWN_SPORE -> {
-                return  new SlowDownSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                return new SlowDownSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case SPEED_UP_SPORE -> {
-                return  new SpeedUpSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                return new SpeedUpSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             case STUN_SPORE -> {
-                return  new StunSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
+                return new StunSpore(id, random.nextInt(MIN_NUTRIENT_AMOUNT, MAX_NUTRIENT_AMOUNT), random.nextInt(1, MAX_EFFECT_TIME_AMOUNT));
             }
             default -> throw new AssertionError();
         }
-    }
-
-    /**
-     * Privát konstruktor, hogy megakadályozza a példányosítást.
-     */
-    private SporeFactory() {
-        throw new IllegalStateException("Static class, cannot be instantiated");
     }
 }

@@ -3,12 +3,9 @@ package fungorium.view.toolbars;
 import fungorium.controller.Controller;
 import fungorium.model.Insect;
 import fungorium.model.mycelium.MyceliumConnection;
-
 import fungorium.view.buttons.ButtonFactory;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
 /**
  * A CutMyceliumToolBar osztály a MyceliumConnection elvágásához szükséges eszköztárat reprezentálja.

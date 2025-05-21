@@ -4,9 +4,7 @@ import fungorium.controller.Controller;
 import fungorium.model.mycelium.MyceliumJunction;
 import fungorium.view.buttons.ButtonFactory;
 
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JToolBar;
+import javax.swing.*;
 
 /**
  * A GrowFungusToolBar osztály a gombatest növesztéséhez szükséges eszköztárat reprezentálja.
@@ -14,7 +12,7 @@ import javax.swing.JToolBar;
 public class GrowFungusToolBar extends JToolBar {
     public static final JComboBox<MyceliumJunction> availableMyceliumJunctions = new JComboBox<>();
     public static final JComboBox<String> growMode = new JComboBox<>();
-    
+
     /**
      * A GrowFungusToolBar osztály konstruktora, amely beállítja a gombatest növesztéséhez szükséges eszköztárat.
      */
@@ -26,8 +24,6 @@ public class GrowFungusToolBar extends JToolBar {
         growMode.addItem("Elkábított rovarból");
         this.add(growMode);
         this.add(ButtonFactory.getNewButton("Elfogad", Controller::growFungusConfirmPressed));
-
-        
 
 
         this.setFloatable(false);

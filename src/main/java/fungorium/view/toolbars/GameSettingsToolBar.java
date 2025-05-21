@@ -1,6 +1,5 @@
 package fungorium.view.toolbars;
 
-import fungorium.GameModel;
 import fungorium.controller.Controller;
 import fungorium.model.tecton.Tecton;
 import fungorium.view.buttons.ButtonFactory;
@@ -9,7 +8,6 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.awt.event.ActionListener;
 
 /**
  * A GameSettingsToolBar osztály a játék beállításait tartalmazó eszköztárat reprezentálja.
@@ -18,10 +16,10 @@ public class GameSettingsToolBar extends JToolBar {
 
     public static final JTextField fungusField = new JTextField();
     public static final JTextField insectField = new JTextField();
-    public static final JButton newGameButton = ButtonFactory.getNewButton("Új játék", Controller::newGameButtonPressed);
     public static final JTextField playerNameTextField = new JTextField();
-    public static final JButton skipStepButton = ButtonFactory.getNewButton("Lépés kihagyása", Controller::initForNextPlayer);
     public static final JComboBox<Tecton> selectedTectonComboBox = new JComboBox<>();
+    public static final JButton skipStepButton = ButtonFactory.getNewButton("Lépés kihagyása", Controller::initForNextPlayer);
+    public static final JButton newGameButton = ButtonFactory.getNewButton("Új játék", Controller::newGameButtonPressed);
 
     /**
      * A GameSettingsToolBar osztály konstruktora, amely beállítja a játék beállításait tartalmazó eszköztárat.
@@ -56,19 +54,37 @@ public class GameSettingsToolBar extends JToolBar {
         add(selectedTectonComboBox);
 
         DocumentListener listener = new DocumentListener() {
-            private void updateButtonState() { newGameButton.setEnabled(isValidNumber(fungusField.getText()) && isValidNumber(insectField.getText())); }
-            @Override public void insertUpdate(DocumentEvent e) { updateButtonState(); }
-            @Override public void removeUpdate(DocumentEvent e) { updateButtonState(); }
-            @Override public void changedUpdate(DocumentEvent e) { updateButtonState(); }
+            private void updateButtonState() {
+                newGameButton.setEnabled(isValidNumber(fungusField.getText()) && isValidNumber(insectField.getText()));
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                updateButtonState();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                updateButtonState();
+            }
+
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                updateButtonState();
+            }
         };
 
         fungusField.getDocument().addDocumentListener(listener);
         insectField.getDocument().addDocumentListener(listener);
     }
 
-    public static int getFungusPlayersCount() { return Integer.parseInt(fungusField.getText()); }
+    public static int getFungusPlayersCount() {
+        return Integer.parseInt(fungusField.getText());
+    }
 
-    public static int getInsectPlayersCount() { return Integer.parseInt(insectField.getText()); }
+    public static int getInsectPlayersCount() {
+        return Integer.parseInt(insectField.getText());
+    }
 
     private boolean isValidNumber(String s) {
         try {

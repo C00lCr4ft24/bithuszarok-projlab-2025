@@ -1,7 +1,7 @@
 package fungorium.model.spore;
 
-import fungorium.model.Insect;
 import fungorium.TestFramework;
+import fungorium.model.Insect;
 
 /**
  * Az AntiCutSpore osztály egy speciális spórát reprezentál, amely megakadályozza,
@@ -18,6 +18,7 @@ public class AntiCutSpore extends Spore {
     public AntiCutSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
     }
+
     /**
      * Létrehoz egy új `AntiCutSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
      *

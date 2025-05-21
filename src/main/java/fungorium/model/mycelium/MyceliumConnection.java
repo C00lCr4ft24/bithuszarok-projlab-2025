@@ -40,13 +40,8 @@ public class MyceliumConnection implements FungoriumEntity {
      */
     private boolean hasBeenTerminated = false;
 
-    private String id;
-    /**
-     * Visszaadja a gombafonal azonosítóját.
-     *
-     * @return Az azonosító.
-     */
-    public String getId() { return id; }
+    private final String id;
+
     /**
      * 2 paraméteres konstruktor.
      */
@@ -61,24 +56,6 @@ public class MyceliumConnection implements FungoriumEntity {
         TestFramework.logOutput(log);
     }
 
-    /**
-     * Visszaadja a kapcsolat első végpontját.
-     *
-     * @return Az első MyceliumJunction.
-     */
-    public MyceliumJunction getJunctionA() { return junctionA; }
-    /**
-     * Visszaadja a kapcsolat második végpontját.
-     *
-     * @return A második MyceliumJunction.
-     */
-    public MyceliumJunction getJunctionB() { return junctionB; }
-    /**
-     * Visszaadja a gombafonal élettartamát.
-     *
-     * @return Az élettartam.
-     */
-    public int getLifetime() { return lifetime; }
     /**
      * Új `MyceliumConnection` példányt hoz létre, amely a megadott két junction-t köti össze.
      *
@@ -97,32 +74,39 @@ public class MyceliumConnection implements FungoriumEntity {
     }
 
     /**
-     * Véglegesen megszünteti a csatlakozását a két MyceliumJunction-nek.
-     * Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel az attribútumaihoz, ezzel megszüntetve a kapcsolatot.
+     * Visszaadja a gombafonal azonosítóját.
+     *
+     * @return Az azonosító.
      */
-    private void terminateConnection() {
-        if(!hasBeenTerminated) {
-            String log = "MyceliumConnection " + id + " was destroyed.";
-            System.out.println(log);
-            TestFramework.logOutput(log);
-            hasBeenTerminated = true;
-            junctionA.removeConnection(this);
-            junctionB.removeConnection(this);
-            junctionA = null;
-            junctionB = null;
-        }
+    public String getId() {
+        return id;
     }
 
     /**
-     * Ezzel tudja elvágni a fonalat egy rovar.
-     * Az elvágás bejegyzése után rögtön beállítja a fonal életidejét a statikus CUT_DEFAULT_LIFETIME értékére.
+     * Visszaadja a kapcsolat első végpontját.
+     *
+     * @return Az első MyceliumJunction.
      */
-    public void cutMe() {
-        hasBeenCut = true;
-        setLifetime(CUT_DEFAULT_LIFETIME);
-        String log = "Connection " + id + " was cut.";
-        System.out.println(log);
-        TestFramework.logOutput(log);
+    public MyceliumJunction getJunctionA() {
+        return junctionA;
+    }
+
+    /**
+     * Visszaadja a kapcsolat második végpontját.
+     *
+     * @return A második MyceliumJunction.
+     */
+    public MyceliumJunction getJunctionB() {
+        return junctionB;
+    }
+
+    /**
+     * Visszaadja a gombafonal élettartamát.
+     *
+     * @return Az élettartam.
+     */
+    public int getLifetime() {
+        return lifetime;
     }
 
     /**
@@ -147,6 +131,35 @@ public class MyceliumConnection implements FungoriumEntity {
             // Ha newLifetime nullánál nagyobb és már a lifetime-ja még nullánál kisebb (tehát még nem lett beállítva, hogy haljon majd el) vagy a kapott newLifetime érték kisebb, mint a pillanatnyi beállított lifetime értéke.
             lifetime = newLifetime;
         }
+    }
+
+    /**
+     * Véglegesen megszünteti a csatlakozását a két MyceliumJunction-nek.
+     * Eltávolítja magát mindkét kapcsolódó junction-ből, majd `null` értéket rendel az attribútumaihoz, ezzel megszüntetve a kapcsolatot.
+     */
+    private void terminateConnection() {
+        if (!hasBeenTerminated) {
+            String log = "MyceliumConnection " + id + " was destroyed.";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            hasBeenTerminated = true;
+            junctionA.removeConnection(this);
+            junctionB.removeConnection(this);
+            junctionA = null;
+            junctionB = null;
+        }
+    }
+
+    /**
+     * Ezzel tudja elvágni a fonalat egy rovar.
+     * Az elvágás bejegyzése után rögtön beállítja a fonal életidejét a statikus CUT_DEFAULT_LIFETIME értékére.
+     */
+    public void cutMe() {
+        hasBeenCut = true;
+        setLifetime(CUT_DEFAULT_LIFETIME);
+        String log = "Connection " + id + " was cut.";
+        System.out.println(log);
+        TestFramework.logOutput(log);
     }
 
     /**
@@ -186,6 +199,7 @@ public class MyceliumConnection implements FungoriumEntity {
         list.add(junctionB);
         return list;
     }
+
     /**
      * Kicseréli a from paraméterként kapott MyceliumJunction-et a to paraméterként kapott MyceliumJunction-re, ha a from paraméter megegyezik valamelyik végével.
      *

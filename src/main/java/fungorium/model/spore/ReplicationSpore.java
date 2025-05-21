@@ -17,6 +17,7 @@ public class ReplicationSpore extends Spore {
     public ReplicationSpore(int nutrient, int effectTime) {
         super(nutrient, effectTime);
     }
+
     /**
      * Létrehoz egy új `ReplicationSpore` példányt a megadott tápanyag- és hatásidő értékekkel.
      *
@@ -30,6 +31,7 @@ public class ReplicationSpore extends Spore {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      *

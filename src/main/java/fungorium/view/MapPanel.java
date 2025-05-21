@@ -1,10 +1,11 @@
 package fungorium.view;
 
 import fungorium.GameModel;
-import fungorium.model.tecton.Tecton;
-import fungorium.model.player.Player;
-import fungorium.model.mycelium.*;
 import fungorium.model.Insect;
+import fungorium.model.mycelium.MyceliumConnection;
+import fungorium.model.mycelium.MyceliumJunction;
+import fungorium.model.player.Player;
+import fungorium.model.tecton.Tecton;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -15,16 +16,11 @@ import java.util.*;
 import java.util.List;
 
 public class MapPanel extends JPanel {
-    private static GameModel gameModel;
-    private static BufferedImage fungusImg;
-    private static BufferedImage insectImg;
-    
     private static final int HEX_RADIUS = 50;
     private static final int HEX_FULL_WIDTH = (int) (HEX_RADIUS * Math.sqrt(3));
     private static final int HEX_HALF_WIDTH = HEX_FULL_WIDTH / 2;
     private static final int HEX_HEIGHT = HEX_RADIUS * 2;
     private static final int levelStartY = 70;
-    
     // Player colors for fungi
     private static final Color[] FUNGUS_COLORS = {
             new Color(255, 153, 153, 220), // Player 1 (Fungus)
@@ -34,17 +30,15 @@ public class MapPanel extends JPanel {
             new Color(153, 255, 153, 220), // Player 5 (Fungus)
             new Color(153, 255, 255, 220), // Player 6 (Fungus)
     };
-
     // Insect colors by player
     private static final Color[] INSECT_COLORS = {
-            new Color(255, 0  , 0, 255), // Player 1 (Insect)
+            new Color(255, 0, 0, 255), // Player 1 (Insect)
             new Color(255, 0, 128, 255), // Player 2 (Insect)
             new Color(255, 128, 0, 255), // Player 3 (Insect)
             new Color(0, 128, 255, 255), // Player 4 (Insect)
             new Color(255, 255, 0, 255), // Player 5 (Insect)
             new Color(128, 255, 0, 255), // Player 6 (Insect)
     };
-
     // Visual elements
     private static final Color BACKGROUND_COLOR = new Color(245, 245, 250);
     private static final Color HEX_BORDER_COLOR = new Color(60, 60, 70);
@@ -52,6 +46,9 @@ public class MapPanel extends JPanel {
     private static final Color SELECTION_COLOR = new Color(255, 255, 0, 200);
     private static final Color JUNCTION_COLOR = new Color(170, 170, 170, 100);
     private static final Color SPORE_COLOR = new Color(76, 153, 0, 255);
+    private static GameModel gameModel;
+    private static BufferedImage fungusImg;
+    private static BufferedImage insectImg;
 
     public MapPanel() {
         setBackground(BACKGROUND_COLOR);
@@ -67,6 +64,10 @@ public class MapPanel extends JPanel {
             ex.printStackTrace();
         }
 
+    }
+
+    public static void setGameModel(GameModel model) {
+        gameModel = model;
     }
 
     @Override
@@ -155,22 +156,26 @@ public class MapPanel extends JPanel {
             int levelWidth = 0;
 
             for (Tecton t : tectons) {
-                if(!t.isBroken()) { levelWidth += HEX_FULL_WIDTH; }
-                if( t.isBroken()) { levelWidth += HEX_HALF_WIDTH; }
+                if (!t.isBroken()) {
+                    levelWidth += HEX_FULL_WIDTH;
+                }
+                if (t.isBroken()) {
+                    levelWidth += HEX_HALF_WIDTH;
+                }
             }
 
             int centerOfPrevTecton = (getWidth() - levelWidth) / 2;
             int y = levelStartY + level * (HEX_HEIGHT - (HEX_RADIUS / 2) + 1);
             boolean sign = false;
-            for(int i = 0; i < tectons.size(); i++) {
+            for (int i = 0; i < tectons.size(); i++) {
                 Tecton t = tectons.get(i);
-                if(!t.isBroken()) {
+                if (!t.isBroken()) {
                     centerOfPrevTecton += HEX_FULL_WIDTH;
                     if (tectons.get(i) == tecton) {
                         return new Point(centerOfPrevTecton, y);
                     }
                 }
-                if( t.isBroken() && !sign) {
+                if (t.isBroken() && !sign) {
                     centerOfPrevTecton += HEX_FULL_WIDTH;
                     sign = true;
                     if (tectons.get(i) == tecton) {
@@ -178,7 +183,7 @@ public class MapPanel extends JPanel {
                     }
                     continue;
                 }
-                if( t.isBroken() &&  sign) {
+                if (t.isBroken() && sign) {
                     sign = false;
                     if (tectons.get(i) == tecton) {
                         return new Point(centerOfPrevTecton + 22, y);
@@ -242,36 +247,40 @@ public class MapPanel extends JPanel {
     }
 
     private void drawLevel(Graphics2D g2d, int level, ArrayList<Tecton> tectons) {
-        
+
         int levelWidth = 0;
 
         for (Tecton t : tectons) {
-            if(!t.isBroken()) { levelWidth += HEX_FULL_WIDTH; }
-            if( t.isBroken()) { levelWidth += HEX_HALF_WIDTH; }
+            if (!t.isBroken()) {
+                levelWidth += HEX_FULL_WIDTH;
+            }
+            if (t.isBroken()) {
+                levelWidth += HEX_HALF_WIDTH;
+            }
         }
 
         int centerOfPrevTecton = (getWidth() - levelWidth) / 2;
         int y = levelStartY + level * (HEX_HEIGHT - (HEX_RADIUS / 2) + 1);
         boolean sign = false;
-        for(int i = 0; i < tectons.size(); i++) {
+        for (int i = 0; i < tectons.size(); i++) {
             Tecton t = tectons.get(i);
-            if(!t.isBroken()) {
+            if (!t.isBroken()) {
                 centerOfPrevTecton += HEX_FULL_WIDTH;
                 drawTecton(g2d, centerOfPrevTecton, y, t);
             }
-            if( t.isBroken() && !sign) {
+            if (t.isBroken() && !sign) {
                 centerOfPrevTecton += HEX_FULL_WIDTH;
                 sign = true;
                 drawTecton(g2d, centerOfPrevTecton, y, t);
                 continue;
             }
-            if( t.isBroken() &&  sign) {
+            if (t.isBroken() && sign) {
                 sign = false;
                 drawTecton(g2d, centerOfPrevTecton, y, t);
             }
         }
     }
-    
+
     private void createTectonPolygonPoints(Polygon tectonPolygon, int centerX, int centerY, Tecton tecton) {
         if (tecton.getId().contains("-S")) {
             for (int i = 0; i < 4; i++) {
@@ -305,7 +314,7 @@ public class MapPanel extends JPanel {
         FontMetrics fm = g2d.getFontMetrics();
 
         //Ures Tecton
-        if(tecton.getMyceliumJunctions().isEmpty()) {
+        if (tecton.getMyceliumJunctions().isEmpty()) {
             GradientPaint emptyHexGradient = new GradientPaint(
                     centerX - HEX_RADIUS, centerY - HEX_RADIUS, new Color(250, 250, 255),
                     centerX + HEX_RADIUS, centerY + HEX_RADIUS, new Color(230, 230, 235));
@@ -327,22 +336,22 @@ public class MapPanel extends JPanel {
                 g2d.setColor(Color.WHITE);
                 g2d.setFont(new Font("SansSerif", Font.BOLD, 13));
 
-                if(!tecton.isBroken()) {
+                if (!tecton.isBroken()) {
                     g2d.drawImage(fungusImg, centerX - (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2), null);
                     g2d.drawString(ownerShortName, centerX - (fm.stringWidth(ownerShortName) / 2), centerY - 2);
                 }
-                if( tecton.isBroken() && !tecton.getId().contains("-S")) {
+                if (tecton.isBroken() && !tecton.getId().contains("-S")) {
                     g2d.drawImage(fungusImg, centerX - (HEX_HALF_WIDTH / 2) - (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2), null);
                     g2d.drawString(ownerShortName, centerX - (HEX_HALF_WIDTH / 2) - (fm.stringWidth(ownerShortName) / 2), centerY - 2);
                 }
-                if( tecton.isBroken() &&  tecton.getId().contains("-S")) {
+                if (tecton.isBroken() && tecton.getId().contains("-S")) {
                     g2d.drawImage(fungusImg, centerX + (HEX_HALF_WIDTH / 2) + (fungusImg.getWidth() / 2), centerY - (fungusImg.getWidth() / 2), null);
                     g2d.drawString(ownerShortName, centerX + (HEX_HALF_WIDTH / 2) + (fm.stringWidth(ownerShortName) / 2), centerY - 2);
                 }
 
             }
             //Nincs Fungus
-            if(junctionOfFungus == null) {
+            if (junctionOfFungus == null) {
                 g2d.setColor(JUNCTION_COLOR);
                 g2d.fillPolygon(tectonPolygon);
             }
@@ -360,12 +369,12 @@ public class MapPanel extends JPanel {
             g2d.setFont(new Font("SansSerif", Font.BOLD, 11));
             g2d.setColor(SPORE_COLOR);
 
-            if(!tecton.isBroken() || (tecton.isBroken() && !tecton.getId().contains("-S"))) {
+            if (!tecton.isBroken() || (tecton.isBroken() && !tecton.getId().contains("-S"))) {
                 g2d.fillOval(centerX - 40, centerY + 10, 16, 16);
                 g2d.setColor(Color.WHITE);
                 g2d.drawString(String.valueOf(sporeCount), centerX - 32 - (fm.stringWidth(String.valueOf(sporeCount)) / 2), centerY + 18 + (fm.stringWidth(String.valueOf(sporeCount)) / 2));
             }
-            if(tecton.isBroken() && tecton.getId().contains("-S")) {
+            if (tecton.isBroken() && tecton.getId().contains("-S")) {
                 g2d.fillOval(centerX + 24, centerY + 10, 16, 16);
                 g2d.setColor(Color.WHITE);
                 g2d.drawString(String.valueOf(sporeCount), centerX + 32 - (fm.stringWidth(String.valueOf(sporeCount)) / 2), centerY + 18 + (fm.stringWidth(String.valueOf(sporeCount)) / 2));
@@ -378,13 +387,13 @@ public class MapPanel extends JPanel {
         g2d.setFont(new Font("SansSerif", Font.PLAIN, 10));
         String shortId = tecton.getId();
 
-        if(!tecton.isBroken()) {
+        if (!tecton.isBroken()) {
             g2d.drawString(shortId, centerX - (fm.stringWidth(shortId) / 2), centerY + 30);
         }
-        if( tecton.isBroken() && !tecton.getId().contains("-S")) {
+        if (tecton.isBroken() && !tecton.getId().contains("-S")) {
             g2d.drawString(shortId, centerX - (HEX_HALF_WIDTH / 2) - (fm.stringWidth(shortId) / 2), centerY + 30);
         }
-        if( tecton.isBroken() &&  tecton.getId().contains("-S")) {
+        if (tecton.isBroken() && tecton.getId().contains("-S")) {
             g2d.drawString(shortId, centerX + (HEX_HALF_WIDTH / 2) - (fm.stringWidth(shortId) / 2), centerY + 30);
         }
 
@@ -406,17 +415,17 @@ public class MapPanel extends JPanel {
                     Player owner = insect.getPlayer();
                     String ownerShortName = owner.toString().replaceAll("^([A-Za-zÁá]).*?(\\d+)$", "$1$2");
 
-                    if(!tecton.isBroken()) {
+                    if (!tecton.isBroken()) {
                         g2d.drawImage(insectImg, centerX + offsetX, centerY + offsetY, null);
-                        g2d.drawString(ownerShortName, centerX + offsetX + 10 - (fm.stringWidth(ownerShortName) / 2),centerY + offsetY + 15);
+                        g2d.drawString(ownerShortName, centerX + offsetX + 10 - (fm.stringWidth(ownerShortName) / 2), centerY + offsetY + 15);
                     }
-                    if( tecton.isBroken() && !tecton.getId().contains("-S")) {
+                    if (tecton.isBroken() && !tecton.getId().contains("-S")) {
                         g2d.drawImage(insectImg, centerX + offsetX, centerY + offsetY, null);
-                        g2d.drawString(ownerShortName, centerX + offsetX + 10 - (fm.stringWidth(ownerShortName) / 2),centerY + offsetY + 15);
+                        g2d.drawString(ownerShortName, centerX + offsetX + 10 - (fm.stringWidth(ownerShortName) / 2), centerY + offsetY + 15);
                     }
-                    if( tecton.isBroken() &&  tecton.getId().contains("-S")) {
+                    if (tecton.isBroken() && tecton.getId().contains("-S")) {
                         g2d.drawImage(insectImg, centerX + offsetX + HEX_HALF_WIDTH, centerY + offsetY, null);
-                        g2d.drawString(ownerShortName, centerX + offsetX + 10 + HEX_HALF_WIDTH - (fm.stringWidth(ownerShortName) / 2),centerY + offsetY + 15);
+                        g2d.drawString(ownerShortName, centerX + offsetX + 10 + HEX_HALF_WIDTH - (fm.stringWidth(ownerShortName) / 2), centerY + offsetY + 15);
                     }
 
                     displayedPlayers.add(insect.getPlayer());
@@ -436,9 +445,5 @@ public class MapPanel extends JPanel {
             g2d.setStroke(new BasicStroke(3f, BasicStroke.CAP_ROUND, BasicStroke.JOIN_ROUND));
             g2d.drawPolygon(tectonPolygon);
         }
-    }
-
-    public static void setGameModel(GameModel model) {
-        gameModel = model;
     }
 }

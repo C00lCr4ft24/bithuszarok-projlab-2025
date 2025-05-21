@@ -9,7 +9,9 @@ import fungorium.model.spore.SporeFactory;
 import fungorium.model.spore.SporeTypes;
 import fungorium.model.tecton.*;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,9 +25,9 @@ public class TestFramework {
     /**
      * Az aktuálisan futó teszt üzenetei
      */
-    private static List<String> logMessages = new ArrayList<>();
+    private static final List<String> logMessages = new ArrayList<>();
 
-    private static Scanner systemIn = new Scanner(System.in);
+    private static final Scanner systemIn = new Scanner(System.in);
 
     private static boolean interactiveMode = false;
 
@@ -77,7 +79,7 @@ public class TestFramework {
 
     /**
      * Eltárolja az üzenetet amit a hívó átadott paraméterként
-     * 
+     *
      * @param str az üzenet
      */
     public static void logOutput(String str) {
@@ -86,14 +88,14 @@ public class TestFramework {
 
     /**
      * Lefuttatja a megadott nevű tesztet
-     * 
+     *
      * @param testname a teszt neve (fájlkiterjesztés nélkül)
      * @param game     a játék modellje
      */
     public static void runTest(String testname, GameModel game) {
         currentTestName = testname;
         logMessages.clear();
-        game.resetGameModel(0, 0);
+        GameModel.resetGameModel(0, 0);
         System.out.println("\n--- TESZT INDUL: " + currentTestName + " ---");
         List<String> commands = readTestInput();
         for (String command : commands) {
@@ -106,7 +108,7 @@ public class TestFramework {
 
     /**
      * Megnyitja az adott nevű teszthez tartozó fájlt és beolvassa a parancsokat
-     * 
+     *
      * @return a fájlban lévő parancsok listája
      */
     private static List<String> readTestInput() {
@@ -167,11 +169,11 @@ public class TestFramework {
                 switch (cmd.get(1)) {
                     case "tecton" -> {
                         switch (cmd.get(3)) {
-                            case "standard" -> game.tectonArrayList.add(new Tecton(cmd.get(2)));
-                            case "anticrossing" -> game.tectonArrayList.add(new AntiCrossingTecton(cmd.get(2)));
-                            case "antifungus" -> game.tectonArrayList.add(new AntiFungusTecton(cmd.get(2)));
-                            case "antimycelium" -> game.tectonArrayList.add(new AntiMyceliumTecton(cmd.get(2)));
-                            case "preserver" -> game.tectonArrayList.add(new PreserverTecton(cmd.get(2)));
+                            case "standard" -> GameModel.tectonArrayList.add(new Tecton(cmd.get(2)));
+                            case "anticrossing" -> GameModel.tectonArrayList.add(new AntiCrossingTecton(cmd.get(2)));
+                            case "antifungus" -> GameModel.tectonArrayList.add(new AntiFungusTecton(cmd.get(2)));
+                            case "antimycelium" -> GameModel.tectonArrayList.add(new AntiMyceliumTecton(cmd.get(2)));
+                            case "preserver" -> GameModel.tectonArrayList.add(new PreserverTecton(cmd.get(2)));
                             default -> {
                                 break;
                             }
@@ -179,14 +181,14 @@ public class TestFramework {
                     }
                     case "fungus" -> {
                         var mj = game.findMyceliumJunction(cmd.get(3));
-                        game.fungusArrayList.add(new Fungus(cmd.get(2), mj));
+                        GameModel.fungusArrayList.add(new Fungus(cmd.get(2), mj));
                         mj.removeFungus();
                         mj.setFungus(game.findFungus(cmd.get(2)));
                     }
-                    case "insect" -> game.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
+                    case "insect" -> GameModel.insectArrayList.add(new Insect(cmd.get(2), game.findTecton(cmd.get(3))));
                     case "spore" -> {
                         game.findTecton(cmd.get(4)).putASpore(SporeFactory.createSpore(cmd.get(2), SporeTypes.valueOf(cmd.get(3))));
-                        game.updateSporeList();
+                        GameModel.updateSporeList();
                     }
                     case "neighbour" -> {
                         var t1 = game.findTecton(cmd.get(2));
@@ -194,43 +196,44 @@ public class TestFramework {
                         t1.setNeighbour(t2);
                         t2.setNeighbour(t1);
                     }
-                    case "myceliumjunction" -> game.junctionArrayList
+                    case "myceliumjunction" -> GameModel.junctionArrayList
                             .add(new MyceliumJunction(cmd.get(2), game.findTecton(cmd.get(3))));
 
-                    case "myceliumconnection" -> game.connectionArrayList.add(new MyceliumConnection(cmd.get(2),
+                    case "myceliumconnection" -> GameModel.connectionArrayList.add(new MyceliumConnection(cmd.get(2),
                             game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4))));
                     default -> {
                         break;
                     }
                 }
             }
-            case "move" -> game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
+            case "move" ->
+                    game.findInsect(cmd.get(1)).move(game.findTecton(cmd.get(2)));                             //KESZ
             case "grow" -> {
                 switch (cmd.get(1)) {
                     case "mycelium" -> {
                         MyceliumJunction myceliumJunction = new MyceliumJunction(cmd.get(4), game.findTecton(cmd.get(5)));
-                        game.junctionArrayList.add(myceliumJunction);
+                        GameModel.junctionArrayList.add(myceliumJunction);
                         MyceliumConnection myceliumConnection = new MyceliumConnection(cmd.get(2), game.findMyceliumJunction(cmd.get(3)), game.findMyceliumJunction(cmd.get(4)));
-                        game.connectionArrayList.add(myceliumConnection);
+                        GameModel.connectionArrayList.add(myceliumConnection);
                     }
                     case "fungus" -> {
                         switch (cmd.get(3)) {
                             case "spore" -> {
                                 Fungus f = game.findMyceliumJunction(cmd.get(2)).createFungus(cmd.get(4));
-                                if(f == null) break;
+                                if (f == null) break;
                                 else {
-                                    game.fungusArrayList.add(f);
-                                    game.updateSporeList();
+                                    GameModel.fungusArrayList.add(f);
+                                    GameModel.updateSporeList();
                                 }
                             }
                             case "insect" -> {
                                 var list = game.findMyceliumJunction(cmd.get(2)).getPosition().getInsects();
-                                if(list == null || list.isEmpty()) break;
+                                if (list == null || list.isEmpty()) break;
                                 else {
                                     //list.get(0).setStunned();
                                     Fungus f = game.findMyceliumJunction(cmd.get(2)).tryConsumeInsect(cmd.get(4));
-                                    game.fungusArrayList.add(f);
-                                    game.updateFungusList();
+                                    GameModel.fungusArrayList.add(f);
+                                    GameModel.updateFungusList();
                                 }
                             }
                         }
@@ -242,39 +245,39 @@ public class TestFramework {
             }
             case "spreadspore" -> {
                 game.findFungus(cmd.get(1)).spreadSpores(game.findTecton(cmd.get(2)), SporeTypes.valueOf(cmd.get(3)), cmd.get(4));
-                game.updateSporeList();
+                GameModel.updateSporeList();
             }                                                                               //KESZ
             case "eatspore" -> {
                 switch (cmd.get(1)) {
                     case "tecton" -> {
                         Insect i = game.findInsect(cmd.get(2));
                         Spore s = i.getPosition().getASpore();
-                        if(s == null) {
+                        if (s == null) {
                             String log = "No spores at " + i.getId() + " position (" + i.getPosition().getId() + ")! " + i.getId() + " can't eat.";
                             System.out.println(log);
                             TestFramework.logOutput(log);
                             break;
-                        }
-                        else {
+                        } else {
                             i.eatSpore(s);
-                            game.updateSporeList();
-                            game.updateInsectList();
+                            GameModel.updateSporeList();
+                            GameModel.updateInsectList();
                         }
                     }
                     case "given" -> {
                         Insect i = game.findInsect(cmd.get(2));
                         Spore s = game.findSpore(cmd.get(3));
-                        if(s == null) break;
+                        if (s == null) break;
                         else {
                             i.eatSpore(s);
-                            game.updateSporeList();
-                            game.updateInsectList();
+                            GameModel.updateSporeList();
+                            GameModel.updateInsectList();
                         }
                     }
                 }
             }
-            case "cut" -> game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
-            case "pass" -> game.executeAllgameStep();
+            case "cut" ->
+                    game.findInsect(cmd.get(1)).cutMyceliumConnection(game.findMyceliumConnection(cmd.get(2))); //KESZ
+            case "pass" -> GameModel.executeAllgameStep();
             case "leave" -> interactiveMode = false;
             default -> {
                 break;

@@ -24,12 +24,6 @@ public abstract class Spore implements FungoriumEntity {
 
 
     /**
-     * Visszaadja a spóra id nevét.
-     * @return spóra id neve
-     */
-    public String getId() { return id; }
-
-    /**
      * Létrehoz egy új spóra példányt a megadott id névvel, tápanyag- és hatásidő értékekkel.
      *
      * @param id         A spóra ID-je.
@@ -41,6 +35,7 @@ public abstract class Spore implements FungoriumEntity {
         this.nutrient = nutrient;
         this.effectTime = effectTime;
     }
+
     /**
      * Létrehoz egy új spóra példányt a megadott tápanyag- és hatásidő értékekkel.
      *
@@ -53,6 +48,15 @@ public abstract class Spore implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja a spóra id nevét.
+     *
+     * @return spóra id neve
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Visszaadja a spóra tápanyagtartalmát.
      *
      * @return A spóra tápanyagtartalma.
@@ -60,6 +64,7 @@ public abstract class Spore implements FungoriumEntity {
     public int getNutrientValue() {
         return this.nutrient;
     }
+
     /**
      * Absztrakt metódus, amely kifejti a spóra egyedi hatását a megadott rovarra.
      *

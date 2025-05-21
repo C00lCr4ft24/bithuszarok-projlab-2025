@@ -30,16 +30,10 @@ public class MyceliumJunction implements FungoriumEntity {
     private Player player;
 
     private String id;
-    /**
-     * Visszaadja a Junction azonosítóját.
-     *
-     * @return Az azonosító.
-     */
-    public String getId() {
-        return id;
-    }
+
     /**
      * 2 paraméteres konstruktor.
+     *
      * @param id       Az azonosító.
      * @param position A Tecton, amelyhez a csomópont tartozik.
      */
@@ -48,6 +42,7 @@ public class MyceliumJunction implements FungoriumEntity {
         this.position = position;
         position.addJunction(this);
     }
+
     /**
      * 3 paraméteres konstruktor.
      *
@@ -61,7 +56,7 @@ public class MyceliumJunction implements FungoriumEntity {
         this.player = player;
         position.addJunction(this);
     }
-    
+
     /**
      * Létrehoz egy új MyceliumJunction példányt és beállítja a kapott Tecton pozíciót.
      *
@@ -72,6 +67,15 @@ public class MyceliumJunction implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja a Junction azonosítóját.
+     *
+     * @return Az azonosító.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
      * Visszaadja a Junction-höz tartozó játékost.
      *
      * @return A játékos példánya.
@@ -79,6 +83,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public Player getPlayer() {
         return player;
     }
+
     /**
      * Gombafonalat növeszt egy szomszédes tectonra.
      */
@@ -101,6 +106,7 @@ public class MyceliumJunction implements FungoriumEntity {
     public void addConnection(MyceliumConnection c) {
         connections.add(c);
     }
+
     /**
      * Visszaadja a csomóponthoz tartozó MyceliumConnection példányokat.
      *
@@ -176,6 +182,10 @@ public class MyceliumJunction implements FungoriumEntity {
         currentFungus = null;
     }
 
+    public Fungus getFungus() {
+        return currentFungus;
+    }
+
     /**
      * Beállítja a kapott a Fungust magára, ha az null
      *
@@ -185,10 +195,6 @@ public class MyceliumJunction implements FungoriumEntity {
         if (currentFungus == null) {
             currentFungus = newFungus;
         }
-    }
-
-    public Fungus getFungus() {
-        return currentFungus;
     }
 
     /**
@@ -214,12 +220,12 @@ public class MyceliumJunction implements FungoriumEntity {
      */
     public Fungus tryConsumeInsect(String id) {
         if (!position.isFungusSpaceEmpty()) {
-                String log = "Can not consume insect because fungus " + getPosition().getId()
-                        + " is already on " + id + ".";
-                System.out.println(log);
-                TestFramework.logOutput(log);
-                throw new IllegalStateException("Már van ezen a tektonon gombatest!");
-            }
+            String log = "Can not consume insect because fungus " + getPosition().getId()
+                    + " is already on " + id + ".";
+            System.out.println(log);
+            TestFramework.logOutput(log);
+            throw new IllegalStateException("Már van ezen a tektonon gombatest!");
+        }
         for (Insect insect : this.getPosition().getInsects()) {
             if (!insect.isStunned()) {
                 continue;
@@ -248,7 +254,7 @@ public class MyceliumJunction implements FungoriumEntity {
         return position;
     }
 
-    
+
     @Override
     public String toString() {
         return id;

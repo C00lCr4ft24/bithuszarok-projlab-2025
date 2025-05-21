@@ -1,11 +1,8 @@
 package fungorium.view.toolbars;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
 import fungorium.view.frames.HelperFrame;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 
 /**
@@ -13,9 +10,9 @@ import java.awt.event.ActionEvent;
  */
 public class FungoriumMenuBar extends JMenuBar {
     private static final JMenu helpMenu = new JMenu("Segítség");
-    
+
     private static final JMenuItem helper = new JMenuItem("Súgó");
-    private static HelperFrame helperFrame = new HelperFrame();
+    private static final HelperFrame helperFrame = new HelperFrame();
 
     /**
      * A FungoriumMenuBar osztály konstruktora, amely beállítja a menüsor elemeit.

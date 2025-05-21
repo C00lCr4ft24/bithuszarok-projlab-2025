@@ -6,7 +6,10 @@ import fungorium.model.player.Player;
 import fungorium.model.spore.*;
 import fungorium.model.tecton.Tecton;
 
-import java.util.*;
+import java.util.ArrayDeque;
+import java.util.HashSet;
+import java.util.Queue;
+import java.util.Set;
 
 /**
  * Egy gomba entitást reprezentál, amely képes spórákat szórni és fejlődni az
@@ -38,18 +41,7 @@ public class Fungus implements FungoriumEntity {
     private Player player;
 
     private String id;
-    /**
-     * Visszaadja a gombatest azonosítóját.
-     */
-    public String getId() {
-        return id;
-    }
-    /**
-     * Visszadja gombatesthez tartozó játékost.
-     */
-    public Player getPlayer() {
-        return player;
-    }
+
     /**
      * 2 paraméteres konstruktor.
      */
@@ -63,6 +55,7 @@ public class Fungus implements FungoriumEntity {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * 3 paraméteres konstruktor.
      */
@@ -92,6 +85,20 @@ public class Fungus implements FungoriumEntity {
     }
 
     /**
+     * Visszaadja a gombatest azonosítóját.
+     */
+    public String getId() {
+        return id;
+    }
+
+    /**
+     * Visszadja gombatesthez tartozó játékost.
+     */
+    public Player getPlayer() {
+        return player;
+    }
+
+    /**
      * Spórát szór szét a megadott cél Tectonra, ha a hatótávolságán belül van.
      * Öregíti a következő fázisra a szintjét.
      *
@@ -114,9 +121,8 @@ public class Fungus implements FungoriumEntity {
         boolean targetInDistance = false;
         switch (fungusLevel) {
             case SMALL, MEDIUM ->
-                targetInDistance = junctionPosition.getPosition().isThisYourNeighbourInRange(target, 1);
-            case BIG, LARGE ->
-                targetInDistance = junctionPosition.getPosition().isThisYourNeighbourInRange(target, 2);
+                    targetInDistance = junctionPosition.getPosition().isThisYourNeighbourInRange(target, 1);
+            case BIG, LARGE -> targetInDistance = junctionPosition.getPosition().isThisYourNeighbourInRange(target, 2);
         }
         if (targetInDistance) {
             switch (fungusLevel) {
@@ -134,7 +140,7 @@ public class Fungus implements FungoriumEntity {
                 case STUN_SPORE -> newSpore = new StunSpore(id, 200, 3);
                 case RANDOM_SPORE -> newSpore = SporeFactory.createSpore(id, SporeTypes.RANDOM_SPORE);
             }
-            String log = "Fungus " + this.id + " spread " + sporeType.toString() + " " + id + " to " + target.getId()
+            String log = "Fungus " + this.id + " spread " + sporeType + " " + id + " to " + target.getId()
                     + ".";
             System.out.println(log);
             TestFramework.logOutput(log);
@@ -150,6 +156,7 @@ public class Fungus implements FungoriumEntity {
         }
         return fungusHasDied;
     }
+
     /**
      * Visszaadja hogy csatlakozva van-e a megadott fonal a fungushoz.
      *

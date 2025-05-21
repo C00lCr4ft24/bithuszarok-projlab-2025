@@ -31,6 +31,7 @@ public class SpeedUpSpore extends Spore {
         System.out.println(log);
         TestFramework.logOutput(log);
     }
+
     /**
      * Kifejti a spóra hatását a megadott rovarra.
      * Csökkenti eggyel az effectTime-át.

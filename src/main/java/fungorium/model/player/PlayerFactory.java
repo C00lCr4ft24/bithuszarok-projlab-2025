@@ -14,6 +14,13 @@ public class PlayerFactory {
     private static int InsectIdCnt = 1;
 
     /**
+     * Privát konstruktor, hogy megakadályozza a példányosítást.
+     */
+    private PlayerFactory() {
+        throw new IllegalStateException("Static class, cannot be instantiated");
+    }
+
+    /**
      * Létrehoz egy új játékost a megadott típus alapján.
      *
      * @param type a játékos típusa
@@ -22,8 +29,8 @@ public class PlayerFactory {
     public static Player createPlayer(PlayerTypes type) {
         String playerName;
         switch (type) {
-            case GOMBASZ  -> {
-                playerName = "Gombász "  + FungusIdCnt;
+            case GOMBASZ -> {
+                playerName = "Gombász " + FungusIdCnt;
                 FungusIdCnt++;
             }
             case ROVARASZ -> {
@@ -33,13 +40,6 @@ public class PlayerFactory {
             default -> playerName = "Not Valid Player";
         }
         return new Player(type, playerName);
-    }
-
-    /**
-     * Privát konstruktor, hogy megakadályozza a példányosítást.
-     */
-    private PlayerFactory() {
-        throw new IllegalStateException("Static class, cannot be instantiated");
     }
 
     /**
