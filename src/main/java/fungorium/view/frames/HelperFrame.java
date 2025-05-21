@@ -8,7 +8,20 @@ import javax.swing.JTextArea;
  * A HelperFrame osztály egy új ablakot reprezentál.
  */
 public class HelperFrame extends JFrame {
-    private static final String rulesDescription = "Szabályok";
+    private static final String rulesDescription = """            
+                  Gombászok
+               A gombászok képesek gombatestet növeszteni, gombafonalat növeszteni és spórákat szórni.
+               A gombákszok pontot szereznek, ha növesztenek egy új gombatestet.
+            
+                  Rovarászok
+               A rovarok képesek mozogni, gombafonalat vágni és spórát enni.
+               A rovarok pontokat szereznek, ha megeszik a gombák spóráit.
+             
+                  Játék menete:
+               A játék során a gombászok és rovarászok felváltva lépnek egymás után.
+               Mindenki egy valamilyen akciót hajthat végre a saját körében.
+               Lehet az akció végrehajtást kihagyni, a Lépés kihagyása gomb megnyomásával.""";
+
     
     public HelperFrame() {
         this.add(new JTextArea(rulesDescription));
