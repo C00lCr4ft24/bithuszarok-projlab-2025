@@ -138,7 +138,10 @@ public class MapPanel extends JPanel {
             g2d.setColor(JUNCTION_COLOR);
             g2d.fillOval(midX - 5, midY - 5, 10, 10);
             g2d.setColor(Color.WHITE);
-            g2d.drawString(String.valueOf(connection.getLifetime()), midX - 3, midY + 3);
+            int lifetime = connection.getLifetime();
+            if (lifetime > 0) {
+                g2d.drawString(String.valueOf(connection.getLifetime()), midX - 3, midY + 3);
+            }
         }
     }
 
