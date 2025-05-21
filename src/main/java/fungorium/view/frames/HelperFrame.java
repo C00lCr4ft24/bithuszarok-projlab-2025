@@ -24,7 +24,10 @@ public class HelperFrame extends JFrame {
 
     
     public HelperFrame() {
-        this.add(new JTextArea(rulesDescription));
+        var text = new JTextArea(rulesDescription);
+        text.setEditable(false);
+        text.setFocusable(false);
+        this.add(text);
 
         this.setTitle("Súgó");
         this.setSize(480,640);
