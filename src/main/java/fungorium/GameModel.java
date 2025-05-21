@@ -12,6 +12,9 @@ import fungorium.model.tecton.Tecton;
 import fungorium.model.tecton.TectonFactory;
 import fungorium.view.frames.AnnouncementFrame;
 import fungorium.view.frames.MainFrame;
+import fungorium.view.toolbars.FungusPlayerToolBar;
+import fungorium.view.toolbars.GameSettingsToolBar;
+import fungorium.view.toolbars.InsectPlayerToolBar;
 
 import java.util.*;
 
@@ -31,12 +34,6 @@ public class GameModel {
     public static Tecton selectedTecton;
     public static Tecton getSelectedTecton() { return selectedTecton; }
     public void setSelectedTecton(Tecton tecton) { selectedTecton = tecton; }
-
-    public static Spore selectedSpore;
-    public static Fungus selectedFungus;
-    public static MyceliumConnection selectedMyceliumConnection;
-    public static MyceliumJunction selectedMyceliumJunction;
-    public static Insect selectedInsect;
 
     public static int roundN = 0;
     public static int currentPlayerIndex = 0;
@@ -306,9 +303,10 @@ public class GameModel {
     }
 
     public static void executeAllgameStep() {
-        if(roundN > MAX_ROUNDS){
+        if(roundN >= MAX_ROUNDS){
             System.out.println("Game over");
             isGameOver = true;
+            GameSettingsToolBar.skipStepButton.setEnabled(false);
             decideWinners();
             return;
         }
