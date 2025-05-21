@@ -215,4 +215,9 @@ public class MyceliumConnection implements FungoriumEntity {
             terminateConnection();
         }
     }
+
+    @Override
+    public String toString() {
+        return id;
+    }
 }
