@@ -10,6 +10,7 @@ import fungorium.model.player.PlayerTypes;
 import fungorium.model.spore.Spore;
 import fungorium.model.tecton.Tecton;
 import fungorium.model.tecton.TectonFactory;
+import fungorium.view.frames.AnnouncementFrame;
 import fungorium.view.frames.MainFrame;
 
 import java.util.*;
@@ -308,7 +309,7 @@ public class GameModel {
         if(roundN > MAX_ROUNDS){
             System.out.println("Game over");
             isGameOver = true;
-
+            decideWinners();
             return;
         }
         roundN++;
@@ -342,5 +343,37 @@ public class GameModel {
         String log = "<--------------EACH OBJECT MOVED A GAME STEP-------------->";
         System.out.println(log);
         TestFramework.logOutput(log);
+    }
+
+    private static void decideWinners() {
+        Player fungusWinner = null;
+        Player insectWinner = null;
+        int fungusPlayerHighScore = 0;
+        int insectPlayerHighScore = 0;
+        for (Player player : playerArrayList) {
+            switch (player.getType()) {
+                case GOMBASZ:
+                    if(player.getScore() >= fungusPlayerHighScore) {
+                        fungusWinner = player;
+                        fungusPlayerHighScore = player.getScore();
+                    }
+                    break;
+                case ROVARASZ:
+                    if (player.getScore() >= insectPlayerHighScore) {
+                        insectWinner = player;
+                        insectPlayerHighScore = player.getScore();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+        String winnerAnnouncement = "Gombász nyertes: " + fungusWinner.toString() + ", Pontszám: " + fungusPlayerHighScore + "\n"
+                                    + "Rovarász nyertes: " + insectWinner.toString() + ", Pontszám: " + insectPlayerHighScore +"\n"
+                                    + "-----------------------------------------------";
+        for (Player player : playerArrayList) {
+            winnerAnnouncement.concat(player.toString() + ", Pontszám: " + player.getScore());
+        }
+        new AnnouncementFrame(winnerAnnouncement);
     }
 }
