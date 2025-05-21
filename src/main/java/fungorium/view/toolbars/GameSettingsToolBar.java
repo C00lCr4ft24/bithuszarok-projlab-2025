@@ -43,6 +43,7 @@ public class GameSettingsToolBar extends JToolBar {
         add(playerNameTextField);
 
         add(skipStepButton);
+        skipStepButton.setEnabled(false);
 
         JLabel insectText = new JLabel("Rovarászok Száma: ");
         insectText.setFocusable(false);
