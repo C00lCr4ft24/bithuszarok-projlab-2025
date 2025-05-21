@@ -370,9 +370,9 @@ public class GameModel {
         }
         String winnerAnnouncement = "Gombász nyertes: " + fungusWinner.toString() + ", Pontszám: " + fungusPlayerHighScore + "\n"
                                     + "Rovarász nyertes: " + insectWinner.toString() + ", Pontszám: " + insectPlayerHighScore +"\n"
-                                    + "-----------------------------------------------";
+                                    + "-----------------------------------------------\n";
         for (Player player : playerArrayList) {
-            winnerAnnouncement.concat(player.toString() + ", Pontszám: " + player.getScore());
+            winnerAnnouncement = winnerAnnouncement.concat(player.toString() + ", Pontszám: " + player.getScore() + "\n");
         }
         new AnnouncementFrame(winnerAnnouncement);
     }
