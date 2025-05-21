@@ -313,7 +313,7 @@ public class GameModel {
         }
         roundN++;
 
-        if(random.nextInt(10) < 0) { //Tesztelés miatt 100% eséllyel törik ketté tekton
+        if(random.nextInt(10) < 2) {
             Tecton toSplit = tectonArrayList.get(random.nextInt(tectonArrayList.size()));
             Tecton splitted = tectonArrayList.get(tectonArrayList.indexOf(toSplit)).split();
             if (splitted != null) {
