@@ -114,11 +114,17 @@ public class Controller {
         for (Insect insect : GameModel.insectArrayList) {
             if (insect.getPlayer().equals(GameModel.getCurrentPlayer())) {
                 CutMyceliumToolBar.availableInsectsComboBox.addItem(insect);
+                for (MyceliumJunction myceliumJunction : insect.getPosition().getMyceliumJunctions()) {
+                    for (MyceliumConnection myceliumConnection : myceliumJunction.getConnections()) {
+                        CutMyceliumToolBar.availableConnectionsComboBox.addItem(myceliumConnection);
+                    }
+                }
             }
         }
 
         // Spóra szóráshoz tartozó eszköztár megjelenítése
         MainFrame.cutMyceliumToolBar.setVisible(true);
+
     }
 
     public static void moveInsectButtonPressed() {
@@ -222,8 +228,15 @@ public class Controller {
     }
 
     public static void cutMyceliumConfirmPressed() {
-        // TODO
-        initForNextPlayer();
+        Insect selectedInsect = (Insect) CutMyceliumToolBar.availableInsectsComboBox.getSelectedItem();
+        MyceliumConnection selectedConnection = (MyceliumConnection) CutMyceliumToolBar.availableConnectionsComboBox
+                .getSelectedItem();
+        try {
+            selectedInsect.cutMyceliumConnection(selectedConnection);
+            initForNextPlayer();
+        } catch (IllegalStateException e) {
+            showErrorMessageDialog(e);
+        }
     }
 
     public static void eatSporeConfirmPressed() {

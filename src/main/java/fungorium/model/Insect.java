@@ -139,7 +139,10 @@ public class Insect implements FungoriumEntity {
      *
      * @param mc A {@link MyceliumConnection}, amelyet el kell vágni.
      */
-    public void cutMyceliumConnection(MyceliumConnection mc) {
+    public void cutMyceliumConnection(MyceliumConnection mc) throws IllegalStateException {
+        if (mc == null) {
+            throw new IllegalStateException("Nincs vágható fonal a tektonon!");
+        }
         if (canCutMycelium) {
             // printAction("cutMyceliumConnection");
             boolean isMCConnectedToCurrentPos = false;
@@ -162,6 +165,7 @@ public class Insect implements FungoriumEntity {
         String log = "Insect " + id + " tried cutting " + mc.getId() + " but failed.";
         System.out.println(log);
         TestFramework.logOutput(log);
+        throw new IllegalStateException("A kiválasztott rovar nem tudja a kiválasztott fonalat vágni!");
     }
 
     /**
