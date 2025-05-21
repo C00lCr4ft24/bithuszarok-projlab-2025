@@ -32,6 +32,7 @@ public class Controller {
         }
         MainFrame.mapPanel.repaint();
         enableCurrentPlayerTools();
+        GameSettingsToolBar.skipStepButton.setEnabled(true);
     }
 
     // MŰVELETI MENÜK
