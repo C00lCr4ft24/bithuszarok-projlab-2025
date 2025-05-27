@@ -1,0 +1,7 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add myceliumjunction M1 T1
+add fungus F1 M1
+pass
+spreadspore F1 T2 SPEED_UP_SPORE RS1

@@ -1,0 +1,19 @@
+Tecton T1 was created.
+AntiCrossingTecton T2 was created.
+AntiFungusTecton T3 was created.
+AntiMyceliumTecton T4 was created.
+MyceliumJunction M1 was added to T1.
+MyceliumJunction M2 was added to T2.
+MyceliumJunction M3 was added to T3.
+MyceliumJunction M4 was added to T4.
+MyceliumConnection C1 was added to M1 and M2.
+MyceliumConnection C2 was added to M2 and M3.
+MyceliumConnection C3 was added to M3 and M4.
+Insect I1 was added to T1.
+New SPEED_UP_SPORE S1 was created.
+A new spore has landed on T1.
+Insect I1 can not move to T4 because it is too far.
+Insect I1 ate spore S1.
+Insect I1 speed was increased to FAST.
+<--------------EACH OBJECT MOVED A GAME STEP-------------->
+Insect I1 has moved to T4.

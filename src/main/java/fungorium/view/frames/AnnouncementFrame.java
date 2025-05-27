@@ -1,0 +1,17 @@
+package fungorium.view.frames;
+
+import javax.swing.*;
+
+public class AnnouncementFrame extends JFrame {
+    public static final JTextArea textArea = new JTextArea();
+
+    public AnnouncementFrame(String message) {
+        textArea.setText(message);
+        textArea.setEditable(false);
+        textArea.setFocusable(false);
+        this.add(textArea);
+        this.setSize(480, 640);
+        this.setLocationRelativeTo(null);
+        this.setVisible(true);
+    }
+}

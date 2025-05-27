@@ -1,0 +1,6 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add insect I1 T1
+add spore S1 SPEED_UP_SPORE T2
+eatspore tecton I1

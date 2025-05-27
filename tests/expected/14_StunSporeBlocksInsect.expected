@@ -1,0 +1,11 @@
+Tecton T1 was created.
+Tecton T2 was created.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
+New STUN_SPORE S1 was created.
+A new spore has landed on T1.
+Insect I1 was added to T1.
+Insect I1 ate spore S1.
+Insect I1 is stunned and now can not move.
+<--------------EACH OBJECT MOVED A GAME STEP-------------->
+Insect I1 can not move to T1 as it is stunned.

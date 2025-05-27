@@ -1,0 +1,14 @@
+Tecton T1 was created.
+Tecton T2 was created.
+T1 is now neighbour of T2.
+T2 is now neighbour of T1.
+MyceliumJunction MJT1 was added to T1.
+New STUN_SPORE SS1 was created.
+A new spore has landed on T1.
+Insect I1 was added to T1.
+Insect I1 ate spore SS1.
+Insect I1 is stunned and now can not move.
+<--------------EACH OBJECT MOVED A GAME STEP-------------->
+Insect I1 is stunned and now can not move.
+Fungus I1 was added to MJT1.
+Insect I1 was eaten and Fungus I1 grew on MJT1.

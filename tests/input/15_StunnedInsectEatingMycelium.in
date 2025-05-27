@@ -1,0 +1,9 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add myceliumjunction MJT1 T1
+add spore SS1 STUN_SPORE T1
+add insect I1 T1
+eatspore given I1 SS1
+pass
+grow fungus MJT1 insect I1

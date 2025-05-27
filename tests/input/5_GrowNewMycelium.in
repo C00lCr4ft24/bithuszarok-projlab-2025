@@ -1,0 +1,5 @@
+add tecton T1 standard
+add tecton T2 standard
+add neighbour T1 T2
+add myceliumjunction M1 T1
+grow mycelium MC M1 M2 T2
